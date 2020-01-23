@@ -64,7 +64,11 @@ namespace jrascraping
                 var MatchesWaku = RegexWaku.Matches(raceResultHtml);
                 foreach (Match waku in MatchesWaku)
                 {
-                    //Debug.WriteLine(waku);
+                    Debug.WriteLine(waku);
+                    cmd.CommandText = "INSERT INTO RaceResults (place,racename) VALUES (@place,@racename)";
+                    cmd.Parameters.Add("place", System.Data.DbType.String);
+                    cmd.Parameters["place"].Value = waku;
+                    cmd.ExecuteNonQuery();
                 }
                 //”n”Ô
                 Regex RegexNum = new Regex("(?<=<td class=\"num\">).*?(?=</td>)",
@@ -158,7 +162,6 @@ namespace jrascraping
             }
             trans.Commit();
         }
-
         private static Dictionary<string, string> ParseRaceLinkTable(string html)
         {
             Dictionary<string, string> table = new Dictionary<string, string>();
