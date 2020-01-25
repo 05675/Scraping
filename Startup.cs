@@ -1,6 +1,7 @@
 using jrascraping.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -23,6 +24,8 @@ namespace jrascraping
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMvc();
+
             services.AddEntityFrameworkSqlite().AddDbContext<JraDbContext>();
 
             // In production, the React files will be served from this directory
@@ -51,6 +54,9 @@ namespace jrascraping
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

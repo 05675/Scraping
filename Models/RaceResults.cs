@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,9 +11,7 @@ namespace jrascraping.Models
     {
         [Key]
         public string Date { get; set; }
-        [Key]
         public string Datracename { get; set; }
-        [Key]
         public string Place { get; set; }
         public int Waku { get; set; }
         public int Num { get; set; }

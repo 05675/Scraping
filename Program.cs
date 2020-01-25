@@ -11,14 +11,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace jrascraping
 {
     public class Jra
     {
-        static void Main()
+        public static void Main(string[] args)
         {
+            CreateHostBuilder(args).Build().Run();
             //レース結果のトップページのhtmlを取得する
             string html = GetHtml("pw01sli00/AF");
             //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
@@ -162,6 +164,12 @@ namespace jrascraping
             }
             trans.Commit();
         }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
         private static Dictionary<string, string> ParseRaceLinkTable(string html)
         {
             Dictionary<string, string> table = new Dictionary<string, string>();
