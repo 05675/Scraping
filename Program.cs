@@ -20,26 +20,26 @@ namespace jrascraping
     {
         public static void Main(string[] args)
         {
-            //ƒrƒ…[‚ğ‹N“®‚·‚éˆ—B‚¢‚¸‚ê•K—v‚©‚àH
+            //ãƒ“ãƒ¥ãƒ¼ã‚’èµ·å‹•ã™ã‚‹å‡¦ç†ã€‚ã„ãšã‚Œå¿…è¦ã‹ã‚‚ï¼Ÿ
             //CreateWebHostBuilder(args).Build().Run();
 
-            //ƒŒ[ƒXŒ‹‰Ê‚Ìƒgƒbƒvƒy[ƒW‚Ìhtml‚ğæ“¾‚·‚é
+            //ãƒ¬ãƒ¼ã‚¹çµæœã®ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã®htmlã‚’å–å¾—ã™ã‚‹
             string html = GetHtml("pw01sli00/AF");
-            //æ“¾‚µ‚½ƒŒ[ƒXŒ‹‰Ê‚ÌTOPƒy[ƒW‚©‚çAƒŒ[ƒX–¼:cname‚Ì‘g‚İ‡‚í‚¹‚ğ³‹K•\Œ»‚Åæ“¾‚µƒe[ƒuƒ‹‚ÉŠi”[‚·‚é
+            //å–å¾—ã—ãŸãƒ¬ãƒ¼ã‚¹çµæœã®TOPãƒšãƒ¼ã‚¸ã‹ã‚‰ã€ãƒ¬ãƒ¼ã‚¹å:cnameã®çµ„ã¿åˆã‚ã›ã‚’æ­£è¦è¡¨ç¾ã§å–å¾—ã—ãƒ†ãƒ¼ãƒ–ãƒ«ã«æ ¼ç´ã™ã‚‹
             Dictionary<string, string> table = ParseRaceLinkTable(html);
 
-            //SQLite‚Ìƒtƒ@ƒCƒ‹‚ğ‘I‘ğ
+            //SQLiteã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ
             string db_file = "Jra.db";
             using SQLiteConnection conn = new SQLiteConnection("Data Source=" + db_file);
 
-            //SQLite‚ÉInsert
+            //SQLiteã«Insert
             conn.Open();
             using SQLiteTransaction trans = conn.BeginTransaction();
             SQLiteCommand cmd = conn.CreateCommand();
 
             foreach (var pair in table)
             {
-                // ³‹K•\Œ»‚Åæ“¾‚µ‚½cname‚ğg—p‚µ‚ÄAŒÂ•Ê‚ÌƒŒ[ƒXŒ‹‰Ê‚Ìhtml‚ğ“¾‚é
+                // æ­£è¦è¡¨ç¾ã§å–å¾—ã—ãŸcnameã‚’ä½¿ç”¨ã—ã¦ã€å€‹åˆ¥ã®ãƒ¬ãƒ¼ã‚¹çµæœã®htmlã‚’å¾—ã‚‹
                 var raceResultHtml = GetHtml(pair.Value);
 
                 //Insert to CnameTable
@@ -50,7 +50,7 @@ namespace jrascraping
                 cmd.Parameters["cname"].Value = pair.Value;
                 cmd.ExecuteNonQuery();
 
-                //’…‡
+                //ç€é †
                 Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesPlace = RegexPlace.Matches(raceResultHtml);
@@ -62,7 +62,7 @@ namespace jrascraping
                     cmd.Parameters["place"].Value = place;
                     cmd.ExecuteNonQuery();
                 }
-                //˜g
+                //æ 
                 Regex RegexWaku = new Regex("(?<=<td class=\"waku\"><img src=\"/JRADB/img/waku/).*?(?=.png\" alt=\")",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesWaku = RegexWaku.Matches(raceResultHtml);
@@ -74,7 +74,7 @@ namespace jrascraping
                     cmd.Parameters["place"].Value = waku;
                     cmd.ExecuteNonQuery();
                 }
-                //”n”Ô
+                //é¦¬ç•ª
                 Regex RegexNum = new Regex("(?<=<td class=\"num\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesNum = RegexNum.Matches(raceResultHtml);
@@ -83,7 +83,7 @@ namespace jrascraping
                     //Debug.WriteLine(num);
                 }
 
-                //”n–¼
+                //é¦¬å
                 Regex RegexHorse = new Regex("(?<=\\('/JRADB/accessU.html','pw.{20,20}'\\);\">).*?(?=</a>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesHorse = RegexHorse.Matches(raceResultHtml).Cast<Match>().ToList();
@@ -95,7 +95,7 @@ namespace jrascraping
                     cmd.ExecuteNonQuery();
                 }
                 cmd.ExecuteNonQuery();
-                //«—î
+                //æ€§é½¢
                 Regex RegexAge = new Regex("(?<=<td class=\"age\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesAge = RegexAge.Matches(raceResultHtml);
@@ -103,7 +103,7 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Age);
                 }
-                //•‰’Sd—Ê
+                //è² æ‹…é‡é‡
                 Regex RegexWeight = new Regex("(?<=<td class=\"weight\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesWeight = RegexWeight.Matches(raceResultHtml);
@@ -111,7 +111,7 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Weight);
                 }
-                //‹Rè
+                //é¨æ‰‹
                 Regex RegexJockey = new Regex("(?<=\\('/JRADB/accessK.html','pw.{14,14}'\\);\">).*?(?=</a>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesJockey = RegexJockey.Matches(raceResultHtml);
@@ -119,7 +119,7 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Jockey);
                 }
-                //ƒ^ƒCƒ€
+                //ã‚¿ã‚¤ãƒ 
                 Regex RegexTime = new Regex("(?<=<td class=\"time\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesTime = RegexTime.Matches(raceResultHtml);
@@ -127,7 +127,7 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Time);
                 }
-                //’…·¦
+                //ç€å·®â€»
                 Regex RegexMargin = new Regex("(?<=<td class=\"margin\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesMargin = RegexMargin.Matches(raceResultHtml);
@@ -135,9 +135,9 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Margin);
                 }
-                //ƒR[ƒi[A’Ê‰ß‡ˆÊ¦
+                //ã‚³ãƒ¼ãƒŠãƒ¼ã€é€šéé †ä½â€»
 
-                //„’èã‚è
+                //æ¨å®šä¸Šã‚Š
                 Regex RegexFtime = new Regex("(?<=<td class=\"f_time\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesFtime = RegexFtime.Matches(raceResultHtml);
@@ -145,9 +145,9 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Ftime);
                 }
-                //”n‘Ìd¦
+                //é¦¬ä½“é‡â€»
 
-                //’²‹³t
+                //èª¿æ•™å¸«
                 Regex RegexTrainer = new Regex("(?<=\\('/JRADB/accessC.html','pw.{14,14}'\\);\">).*?(?=</a>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesTrainer = RegexTrainer.Matches(raceResultHtml);
@@ -155,7 +155,7 @@ namespace jrascraping
                 {
                     //Debug.WriteLine(Trainer);
                 }
-                //’PŸl‹C
+                //å˜å‹äººæ°—
                 Regex RegexPop = new Regex("(?<=<td class=\"pop\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesPop = RegexPop.Matches(raceResultHtml);
@@ -175,12 +175,12 @@ namespace jrascraping
         private static Dictionary<string, string> ParseRaceLinkTable(string html)
         {
             Dictionary<string, string> table = new Dictionary<string, string>();
-            // ‚±‚±‚Åhtml‚ğƒp[ƒX‚µ‚Ä‰º‚İ‚½‚¢‚È‚à‚Ì‚ğ”²‚«o‚·ƒR[ƒh‚ğì‚é
-            // —v‘f‚Í Regex
+            // ã“ã“ã§htmlã‚’ãƒ‘ãƒ¼ã‚¹ã—ã¦ä¸‹ã¿ãŸã„ãªã‚‚ã®ã‚’æŠœãå‡ºã™ã‚³ãƒ¼ãƒ‰ã‚’ä½œã‚‹
+            // è¦ç´ ã¯ Regex
             //https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/regular-expressions
             //https://www.mnet.ne.jp/~nakama/
-            //https://ja.wikipedia.org/wiki/³‹K•\Œ»
-            // ƒƒCƒ“ƒŒ[ƒX
+            //https://ja.wikipedia.org/wiki/æ­£è¦è¡¨ç¾
+            // ãƒ¡ã‚¤ãƒ³ãƒ¬ãƒ¼ã‚¹
             Regex regex = new Regex(
                 "(?<cname>pw.{30,30})\\'\\);.*?\\</span\\>\\</span\\>(?<racename>.{0,40}?)\\<span class=\"grade_icon",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -189,7 +189,7 @@ namespace jrascraping
             {
                 table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
             }
-            // ‚»‚êˆÈŠO
+            // ãã‚Œä»¥å¤–
             regex = new Regex(
                 "(?<cname>pw.{30,30})\\'\\);\\\">(?<racename>.{0,40}?)\\</a\\>\\<span class=\"grade_icon",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -203,7 +203,7 @@ namespace jrascraping
 
         private static string GetHtml(string V)
         {
-            //http‚ğæ“¾‚·‚é
+            //httpã‚’å–å¾—ã™ã‚‹
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -214,7 +214,7 @@ namespace jrascraping
                             { "cname", V },
                         });
                     HttpResponseMessage response = client.PostAsync("http://www.jra.go.jp/JRADB/accessS.html", content).Result;
-                    response.EnsureSuccessStatusCode();     //ã‚ÌURL‚ğŒÄ‚Ño‚·ˆ—
+                    response.EnsureSuccessStatusCode();     //ä¸Šã®URLã‚’å‘¼ã³å‡ºã™å‡¦ç†
                     System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     string responseBody = new StreamReader(response.Content.ReadAsStreamAsync().Result, Encoding.GetEncoding("shift_jis")).ReadToEnd();
                     return responseBody;
