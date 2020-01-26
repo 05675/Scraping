@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-//WindowsOS UTF-8文字化けテスト
+//WindowsOS UTF-8文字化けテスト  visualstudioだとどうなる？？
 namespace jrascraping
 {
     public class Jra
