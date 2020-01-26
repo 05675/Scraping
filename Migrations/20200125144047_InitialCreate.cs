@@ -25,8 +25,8 @@ namespace jrascraping.Migrations
                 columns: table => new
                 {
                     Date = table.Column<string>(nullable: false),
-                    Datracename = table.Column<string>(nullable: true),
-                    Place = table.Column<string>(nullable: true),
+                    Racename = table.Column<string>(nullable: false),
+                    Place = table.Column<string>(nullable: false),
                     Waku = table.Column<int>(nullable: false),
                     Num = table.Column<int>(nullable: false),
                     Horse = table.Column<string>(nullable: true),
@@ -43,7 +43,7 @@ namespace jrascraping.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceResults", x => x.Date);
+                    table.PrimaryKey("PK_RaceResults", x => new { x.Date, x.Racename, x.Place, x.Waku });
                 });
         }
 

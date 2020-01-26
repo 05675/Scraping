@@ -37,14 +37,20 @@ namespace jrascraping.Migrations
                     b.Property<string>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Racename")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Place")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Waku")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Corner")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Datracename")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("F_time")
                         .HasColumnType("TEXT");
@@ -64,9 +70,6 @@ namespace jrascraping.Migrations
                     b.Property<int>("Num")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Place")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");
 
@@ -76,13 +79,10 @@ namespace jrascraping.Migrations
                     b.Property<string>("Trainer")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Waku")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Weight")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Date");
+                    b.HasKey("Date", "Racename", "Place", "Waku");
 
                     b.ToTable("RaceResults");
                 });

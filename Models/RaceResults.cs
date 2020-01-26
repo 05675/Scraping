@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace jrascraping.Models
 {
-    [Table("RaceResults")]
     public class RaceResults
     {
-        [Key]
         public string Date { get; set; }
-        public string Datracename { get; set; }
+        public string Racename { get; set; }
         public string Place { get; set; }
         public int Waku { get; set; }
         public int Num { get; set; }

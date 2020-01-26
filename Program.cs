@@ -20,14 +20,16 @@ namespace jrascraping
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //ビューを起動する処理。いずれ必要かも？
+            //CreateWebHostBuilder(args).Build().Run();
+
             //レース結果のトップページのhtmlを取得する
             string html = GetHtml("pw01sli00/AF");
             //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
             Dictionary<string, string> table = ParseRaceLinkTable(html);
 
             //SQLiteのファイルを選択
-            string db_file = "JRA.db";
+            string db_file = "Jra.db";
             using SQLiteConnection conn = new SQLiteConnection("Data Source=" + db_file);
 
             //SQLiteにInsert
@@ -164,7 +166,7 @@ namespace jrascraping
             }
             trans.Commit();
         }
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(webBuilder =>
         {

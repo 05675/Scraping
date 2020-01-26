@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +27,8 @@ namespace jrascraping
             services.AddControllersWithViews();
             services.AddMvc();
 
-            services.AddEntityFrameworkSqlite().AddDbContext<JraDbContext>();
+            services.AddDbContext<JraDbContext>
+                (options => options.UseSqlite("Data Source=Jra.db"));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

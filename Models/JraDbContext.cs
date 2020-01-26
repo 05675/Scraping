@@ -14,5 +14,11 @@ namespace jrascraping.Models
         public DbSet<CnameTable> CnameTable { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlite("Data Source=Jra.db");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RaceResults>()
+                .HasKey(c => new { c.Date, c.Racename, c.Place, c.Waku });
+        }
     }
 }
