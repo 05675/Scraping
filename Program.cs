@@ -24,11 +24,12 @@ namespace jrascraping
             options.UseSqlite("Data Source=Jra.db");
             var context = new JraDbContext(options.Options);
             
-            //ビューを起動する処理。いずれ必要かも？
+            //Viewを起動する処理。いずれ必要かも？
             //CreateWebHostBuilder(args).Build().Run();
 
             //レース結果のトップページのhtmlを取得する
-            string html = GetHtml("pw01sli00/AF");
+            string html = new Downloder().GetHtml("pw01sli00/AF");
+
             //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
             Dictionary<string, string> table = ParseRaceLinkTable(html);
 
@@ -36,14 +37,10 @@ namespace jrascraping
             string db_file = "Jra.db";
             using SQLiteConnection conn = new SQLiteConnection("Data Source=" + db_file);
 
-            //SQLiteにInsert
-            //conn.Open();
-            //using SQLiteTransaction trans = conn.BeginTransaction();
-            //SQLiteCommand cmd = conn.CreateCommand();
-
+            //CnameTable
             foreach(var cname in table)
             {
-                var cnametabel = new Models.CnameTable
+                var cnametabel = new Models.CnameTable()
                 {
                     Racename = cname.Key,
                     Cname = cname.Value
@@ -52,10 +49,11 @@ namespace jrascraping
             }
             context.SaveChanges();
 
+            //RaceResults
             foreach (var pair in table)
             {
                 // 正規表現で取得したcnameを使用して、個別のレース結果のhtmlを得る
-                var raceResultHtml = GetHtml(pair.Value);
+                var raceResultHtml = new Downloder().GetHtml(pair.Value);
 
                 //Insert to CnameTable
                 //cmd.CommandText = "INSERT INTO CnameTable (racename, cname) VALUES (@racename, @cname)";
@@ -65,18 +63,28 @@ namespace jrascraping
                 //cmd.Parameters["cname"].Value = pair.Value;
                 //cmd.ExecuteNonQuery();
 
+                //年月日
+                Regex RegexDate = new Regex("(?<=<span class=\"opt\">).*?(?=（.*</span>)",
+                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                var MatchesDate = RegexDate.Matches(raceResultHtml);
+
                 //着順
-                //    Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
-                //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                //    var MatchesPlace = RegexPlace.Matches(raceResultHtml);
-                //    foreach (Match place in MatchesPlace)
-                //    {
-                //        Debug.WriteLine(place);
-                //        cmd.CommandText = "INSERT INTO RaceResults (place,racename) VALUES (@place,@racename)";
-                //        cmd.Parameters.Add("place", System.Data.DbType.String);
-                //        cmd.Parameters["place"].Value = place;
-                //        cmd.ExecuteNonQuery();
-                //    }
+                Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
+                   RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                var MatchesPlace = RegexPlace.Matches(raceResultHtml);
+
+                foreach (Match place in MatchesPlace)
+                {
+                    Debug.WriteLine(place);
+                        foreach (Match Date in MatchesDate)
+                        {
+                            Debug.WriteLine(Date);
+                        }
+                    //cmd.CommandText = "INSERT INTO RaceResults (place,racename) VALUES (@place,@racename)";
+                    //cmd.Parameters.Add("place", System.Data.DbType.String);
+                    //cmd.Parameters["place"].Value = place;
+                    //cmd.ExecuteNonQuery();
+                }
                 //    //枠
                 //    Regex RegexWaku = new Regex("(?<=<td class=\"waku\"><img src=\"/JRADB/img/waku/).*?(?=.png\" alt=\")",
                 //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -214,33 +222,6 @@ namespace jrascraping
                 table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
             }
             return table;
-        }
-
-        private static string GetHtml(string V)
-        {
-            //httpを取得する
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    var content = new FormUrlEncodedContent(
-                        new Dictionary<string, string>
-                        {
-                            { "cname", V },
-                        });
-                    HttpResponseMessage response = client.PostAsync("http://www.jra.go.jp/JRADB/accessS.html", content).Result;
-                    response.EnsureSuccessStatusCode();     //上のURLを呼び出す処理
-                    System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    string responseBody = new StreamReader(response.Content.ReadAsStreamAsync().Result, Encoding.GetEncoding("shift_jis")).ReadToEnd();
-                    return responseBody;
-                }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
-                }
-            }
-            return string.Empty;
-        }
+        }        
     }
 }

@@ -8,7 +8,7 @@ using jrascraping.Models;
 namespace jrascraping.Migrations
 {
     [DbContext(typeof(JraDbContext))]
-    [Migration("20200125144047_InitialCreate")]
+    [Migration("20200128121723_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,8 +51,8 @@ namespace jrascraping.Migrations
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Corner")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Corner")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("F_time")
                         .HasColumnType("TEXT");

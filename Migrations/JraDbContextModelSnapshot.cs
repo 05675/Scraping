@@ -49,8 +49,8 @@ namespace jrascraping.Migrations
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Corner")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Corner")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("F_time")
                         .HasColumnType("TEXT");

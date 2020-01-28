@@ -19,7 +19,7 @@ namespace jrascraping.Models
         public string Jockey { get; set; }
         public string Margin { get; set; }
         public string Time { get; set; }
-        public int Corner { get; set; }
+        public string Corner { get; set; }
         public string F_time { get; set; }
         public string H_weight { get; set; }
         public string Trainer { get; set; }

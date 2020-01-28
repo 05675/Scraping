@@ -35,7 +35,7 @@ namespace jrascraping.Migrations
                     Jockey = table.Column<string>(nullable: true),
                     Margin = table.Column<string>(nullable: true),
                     Time = table.Column<string>(nullable: true),
-                    Corner = table.Column<int>(nullable: false),
+                    Corner = table.Column<string>(nullable: true),
                     F_time = table.Column<string>(nullable: true),
                     H_weight = table.Column<string>(nullable: true),
                     Trainer = table.Column<string>(nullable: true),
