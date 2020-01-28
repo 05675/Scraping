@@ -55,48 +55,45 @@ namespace jrascraping
                 // 正規表現で取得したcnameを使用して、個別のレース結果のhtmlを得る
                 var raceResultHtml = new Downloder().GetHtml(pair.Value);
 
-                //Insert to CnameTable
-                //cmd.CommandText = "INSERT INTO CnameTable (racename, cname) VALUES (@racename, @cname)";
-                //cmd.Parameters.Add("racename", System.Data.DbType.String);
-                //cmd.Parameters.Add("cname", System.Data.DbType.String);
-                //cmd.Parameters["racename"].Value = pair.Key;
-                //cmd.Parameters["cname"].Value = pair.Value;
-                //cmd.ExecuteNonQuery();
-
                 //年月日
                 Regex RegexDate = new Regex("(?<=<span class=\"opt\">).*?(?=（.*</span>)",
                     RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesDate = RegexDate.Matches(raceResultHtml);
+
+                //レース名
+
 
                 //着順
                 Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesPlace = RegexPlace.Matches(raceResultHtml);
 
+                //枠
+                Regex RegexWaku = new Regex("(?<=<td class=\"waku\"><img src=\"/JRADB/img/waku/).*?(?=.png\" alt=\")",
+                   RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                var MatchesWaku = RegexWaku.Matches(raceResultHtml);
+
                 foreach (Match place in MatchesPlace)
                 {
-                    Debug.WriteLine(place);
-                        foreach (Match Date in MatchesDate)
+                    foreach (Match Date in MatchesDate)
+                    {
+                        foreach (Match Waku in MatchesWaku)
                         {
                             Debug.WriteLine(Date);
+                            Debug.WriteLine(place);
+                            Debug.WriteLine(Waku);
                         }
+                    }
+                }
+
+                foreach (Match waku in MatchesWaku)
+                {
+                    Debug.WriteLine(waku);
                     //cmd.CommandText = "INSERT INTO RaceResults (place,racename) VALUES (@place,@racename)";
                     //cmd.Parameters.Add("place", System.Data.DbType.String);
-                    //cmd.Parameters["place"].Value = place;
+                    //cmd.Parameters["place"].Value = waku;
                     //cmd.ExecuteNonQuery();
                 }
-                //    //枠
-                //    Regex RegexWaku = new Regex("(?<=<td class=\"waku\"><img src=\"/JRADB/img/waku/).*?(?=.png\" alt=\")",
-                //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                //    var MatchesWaku = RegexWaku.Matches(raceResultHtml);
-                //    foreach (Match waku in MatchesWaku)
-                //    {
-                //        Debug.WriteLine(waku);
-                //        cmd.CommandText = "INSERT INTO RaceResults (place,racename) VALUES (@place,@racename)";
-                //        cmd.Parameters.Add("place", System.Data.DbType.String);
-                //        cmd.Parameters["place"].Value = waku;
-                //        cmd.ExecuteNonQuery();
-                //    }
                 //    //馬番
                 //    Regex RegexNum = new Regex("(?<=<td class=\"num\">).*?(?=</td>)",
                 //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
