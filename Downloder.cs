@@ -29,6 +29,7 @@ namespace jrascraping
                         {
                             { "cname", V },
                         });
+                    //レース結果URL
                     HttpResponseMessage response = client.PostAsync("http://www.jra.go.jp/JRADB/accessS.html", content).Result;
                     response.EnsureSuccessStatusCode();     //上のURLを呼び出す処理
                     System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

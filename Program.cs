@@ -31,10 +31,10 @@ namespace jrascraping
             string html = new Downloder().GetHtml("pw01sli00/AF");
 
             //取得したレース結果のTOPページから、レース日:cnameの組み合わせを正規表現で取得しテーブルに格納する
-            Dictionary<string, string> raceDays = ParseRacedayLinkTable(html);
-            foreach (var RaceDayPair in raceDays)
-            {
-                string raceDayPage = new Downloder().GetHtml(RaceDayPair.Value);
+            //Dictionary<string, string> raceDays = ParseRacedayLinkTable(html);
+            //foreach (var RaceDayPair in raceDays)
+            //{
+                //string raceDayPage = new Downloder().GetHtml(RaceDayPair.Value);
                 //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
                 Dictionary<string, string> table = ParseRaceLinkTable(html);
 
@@ -50,7 +50,7 @@ namespace jrascraping
                         Racename = cname.Key,
                         Cname = cname.Value
                     };
-                    context.CnameTable.Add(cnametabel);
+                    //context.CnameTable.Add(cnametabel);
                 }
                 context.SaveChanges();
 
@@ -189,7 +189,7 @@ namespace jrascraping
                     //        //Debug.WriteLine(Pop);
                     //    }
                 }
-            }
+            //}
             //trans.Commit();
         }
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
