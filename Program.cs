@@ -23,7 +23,7 @@ namespace jrascraping
             var options = new DbContextOptionsBuilder<JraDbContext>();
             options.UseSqlite("Data Source=Jra.db");
             var context = new JraDbContext(options.Options);
-            
+
             //Viewを起動する処理。いずれ必要かも？
             //CreateWebHostBuilder(args).Build().Run();
 
@@ -37,7 +37,6 @@ namespace jrascraping
                 string raceDayPage = new Downloder().GetHtml(RaceDayPair.Value);
                 //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
                 Dictionary<string, string> table = ParseRaceLinkTable(html);
-
 
                 //SQLiteのファイルを選択
                 string db_file = "Jra.db";
@@ -68,8 +67,8 @@ namespace jrascraping
 
                     //レース名
                     var RaceName = pair.Key;
-    
-                //着順
+
+                    //着順
                     Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                     var MatchesPlace = RegexPlace.Matches(raceResultHtml);
@@ -191,7 +190,7 @@ namespace jrascraping
                     //    }
                 }
             }
-                //trans.Commit();
+            //trans.Commit();
         }
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
@@ -226,6 +225,6 @@ namespace jrascraping
                 table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
             }
             return table;
-        }        
+        }
     }
 }
