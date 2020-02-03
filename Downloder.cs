@@ -17,7 +17,18 @@ namespace jrascraping
 {
     public class Downloder
     {
-        public string GetHtml(string V)
+        public string GetRaceResults(string cname)
+        {
+            string accessPageName = "accessS.html";
+            return GetHtmlInternal(cname, accessPageName);
+        }
+        public string GetHorse(string cname)
+        {
+            string accessPageName = "accessU.html";
+            return GetHtmlInternal(cname, accessPageName);
+        }
+
+        private string GetHtmlInternal(string cname, string accessPageName)
         {
             //httpを取得する
             using (HttpClient client = new HttpClient())
@@ -27,10 +38,10 @@ namespace jrascraping
                     var content = new FormUrlEncodedContent(
                         new Dictionary<string, string>
                         {
-                            { "cname", V },
+                            { "cname", cname },
                         });
                     //レース結果URL
-                    HttpResponseMessage response = client.PostAsync("http://www.jra.go.jp/JRADB/accessS.html", content).Result;
+                    HttpResponseMessage response = client.PostAsync($"http://www.jra.go.jp/JRADB/{accessPageName}", content).Result;
                     response.EnsureSuccessStatusCode();     //上のURLを呼び出す処理
                     System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     string responseBody = new StreamReader(response.Content.ReadAsStreamAsync().Result, Encoding.GetEncoding("shift_jis")).ReadToEnd();
