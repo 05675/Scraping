@@ -31,31 +31,26 @@ namespace jrascraping
             string html = new Downloder().GetRaceResults("pw01sli00/AF");
 
             //取得したレース結果のTOPページから、レース日:cnameの組み合わせを正規表現で取得しテーブルに格納する
-            //Dictionary<string, string> raceDays = ParseRacedayLinkTable(html);
-            //foreach (var RaceDayPair in raceDays)
-            //{
-            //string raceDayPage = new Downloder().GetHtml(RaceDayPair.Value);
-            //取得したレース結果のTOPページから、レース名:cnameの組み合わせを正規表現で取得しテーブルに格納する
-            Dictionary<string, string> table = ParseRaceLinkTable(html);
-
-            //SQLiteのファイルを選択
-            string db_file = "Jra.db";
-            using SQLiteConnection conn = new SQLiteConnection("Data Source=" + db_file);
+            Dictionary<string, string> raceDays = ParseRaceLinkTable(html);
+            foreach (var RaceDayPair in raceDays)
+            {
+                string raceDayPage = new Downloder().GetRaceResults(RaceDayPair.Value);
+            }
 
             //CnameTable
-            foreach (var cname in table)
+            foreach (var cname in raceDays)
             {
                 var cnametabel = new Models.CnameTable()
                 {
                     Racename = cname.Key,
                     Cname = cname.Value
                 };
-                //context.CnameTable.Add(cnametabel);
+                    context.CnameTable.Add(cnametabel);
             }
-            context.SaveChanges();
+                context.SaveChanges();
 
             //RaceResults
-            foreach (var pair in table)
+            foreach (var pair in raceDays)
             {
                 // 正規表現で取得したcnameを使用して、個別のレース結果のhtmlを得る
                 var raceResultHtml = new Downloder().GetRaceResults(pair.Value);
@@ -78,15 +73,22 @@ namespace jrascraping
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesWaku = RegexWaku.Matches(raceResultHtml);
 
-                foreach (Match place in MatchesPlace)
+                foreach (Match Place in MatchesPlace)
                 {
+                    //var Place = place.Value;
                     foreach (Match Date in MatchesDate)
                     {
+                        //Match match = (Match) Date;
                         foreach (Match Waku in MatchesWaku)
                         {
-                            Debug.WriteLine(Date);
-                            Debug.WriteLine(place);
-                            Debug.WriteLine(Waku);
+                            //context.RaceResults.Add(Place);
+                            //context.RaceResults.Add(Date);
+                            //context.RaceResults.Add(Waku);
+                            //CS1503
+
+                            //Debug.WriteLine(Date);
+                            //Debug.WriteLine(place);
+                            //Debug.WriteLine(Waku);
                         }
                     }
                 }
@@ -108,7 +110,7 @@ namespace jrascraping
                 //        //Debug.WriteLine(num);
                 //    }
 
-                //    //馬名
+                //    //馬
                 //    Regex RegexHorse = new Regex("(?<=\\('/JRADB/accessU.html','pw.{20,20}'\\);\">).*?(?=</a>)",
                 //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 //    var MatchesHorse = RegexHorse.Matches(raceResultHtml).Cast<Match>().ToList();
@@ -120,14 +122,7 @@ namespace jrascraping
                 //        cmd.ExecuteNonQuery();
                 //    }
                 //    cmd.ExecuteNonQuery();
-                //    //性齢
-                //    Regex RegexAge = new Regex("(?<=<td class=\"age\">).*?(?=</td>)",
-                //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                //    var MatchesAge = RegexAge.Matches(raceResultHtml);
-                //    foreach (Match Age in MatchesAge)
-                //    {
-                //        //Debug.WriteLine(Age);
-                //    }
+                
                 //    //負担重量
                 //    Regex RegexWeight = new Regex("(?<=<td class=\"weight\">).*?(?=</td>)",
                 //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -203,9 +198,7 @@ namespace jrascraping
             Dictionary<string, string> table = new Dictionary<string, string>();
             // ここでhtmlをパースして下みたいなものを抜き出すコードを作る
             // 要素は Regex
-            //https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/regular-expressions
-            //https://www.mnet.ne.jp/~nakama/
-            //https://ja.wikipedia.org/wiki/正規表現
+
             // メインレース
             Regex regex = new Regex(
                 "(?<cname>pw.{30,30})\\'\\);.*?\\</span\\>\\</span\\>(?<racename>.{0,40}?)\\<span class=\"grade_icon",
