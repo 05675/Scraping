@@ -61,7 +61,7 @@ namespace jrascraping
                 var MatchesDate = RegexDate.Matches(raceResultHtml);
 
                 //レース名
-                var RaceName = pair.Key;
+                var racename = pair.Key;
 
                 //着順
                 Regex RegexPlace = new Regex("(?<=<td class=\"place\">).*?(?=</td>)",
@@ -73,25 +73,25 @@ namespace jrascraping
                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesWaku = RegexWaku.Matches(raceResultHtml);
 
-                foreach (Match Place in MatchesPlace)
-                {
-                    //var Place = place.Value;
-                    foreach (Match Date in MatchesDate)
+                foreach (Match place in MatchesPlace)
+                {                    
+                    foreach (Match date in MatchesDate)
                     {
                         //Match match = (Match) Date;
-                        foreach (Match Waku in MatchesWaku)
+                        foreach (Match waku in MatchesWaku)
                         {
-                            //context.RaceResults.Add(Place);
-                            //context.RaceResults.Add(Date);
-                            //context.RaceResults.Add(Waku);
-                            //CS1503
-
-                            //Debug.WriteLine(Date);
-                            //Debug.WriteLine(place);
-                            //Debug.WriteLine(Waku);
+                            var raceresults = new Models.RaceResults()
+                            {
+                                Place = place.Value,
+                                Date = date.Value,
+                                Waku = waku.Index,
+                                Racename = racename
+                            };
+                            context.RaceResults.Add(raceresults);
                         }
                     }
                 }
+                context.SaveChanges();
 
                 foreach (Match waku in MatchesWaku)
                 {

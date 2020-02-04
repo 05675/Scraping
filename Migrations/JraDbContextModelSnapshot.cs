@@ -365,9 +365,6 @@ namespace jrascraping.Migrations
                     b.Property<int>("Waku")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Age")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ArrivalDifference")
                         .HasColumnType("TEXT");
 

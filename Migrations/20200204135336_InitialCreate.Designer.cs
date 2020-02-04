@@ -9,7 +9,7 @@ using jrascraping.Models;
 namespace jrascraping.Migrations
 {
     [DbContext(typeof(JraDbContext))]
-    [Migration("20200202141711_InitialCreate")]
+    [Migration("20200204135336_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -366,9 +366,6 @@ namespace jrascraping.Migrations
 
                     b.Property<int>("Waku")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Age")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("ArrivalDifference")
                         .HasColumnType("TEXT");
