@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 using jrascraping.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace jrascraping
 {
@@ -27,17 +20,11 @@ namespace jrascraping
             //Viewを起動する処理。いずれ必要かも？
             //CreateWebHostBuilder(args).Build().Run();
 
-            //レース結果のトップページのhtmlを取得する
-            string html = new Downloder().GetRaceResults("pw01sli00/AF");
+            //レース結果の検索ページ
+            string html = new Downloder().GetRaceResults("pw01skl00999999/B3");
 
-            //取得したレース結果のTOPページから、レース日:cnameの組み合わせを正規表現で取得しテーブルに格納する
+            //メインレース
             Dictionary<string, string> raceDays = ParseRaceLinkTable(html);
-            foreach (var RaceDayPair in raceDays)
-            {
-                string raceDayPage = new Downloder().GetRaceResults(RaceDayPair.Value);
-            }
-
-            //CnameTable
             foreach (var cname in raceDays)
             {
                 var cnametabel = new Models.CnameTable()
@@ -45,19 +32,41 @@ namespace jrascraping
                     Racename = cname.Key,
                     Cname = cname.Value
                 };
-                context.CnameTable.Add(cnametabel);
+                //context.CnameTable.Add(cnametabel);
             }
-            context.SaveChanges();
+            //context.SaveChanges();
 
-            //RaceResults
+            //メインレース以外のCname
+            List<string> otherRaceDays = RaceDaysCNames(html);
+            foreach (var cname in otherRaceDays)
+            {
+                string otherRaceHtml = new Downloder().GetRaceResults(cname);
+                string otherRace = new Downloder().GetRaceResults(otherRaceHtml);
+                //Dictionary<string, string> keyValuePairs = ParseRaceLinkTable(otherRaceHtml);
+            }
+
+
             foreach (var pair in raceDays)
             {
                 // 正規表現で取得したcnameを使用して、個別のレース結果のhtmlを得る
                 var raceResultHtml = new Downloder().GetRaceResults(pair.Value);
 
+                // umaのcnameを抜いてくる
+                List<string> horseCname = ParseHorseTable(html);
+                foreach (var cname in horseCname)
+                {
+
+                }
+                // for 馬のcname
+                // var umahtml = new Downloder().GetHorse(pair.Value);
+                // umaHtmlから正規表現で馬のデータを抜く
+                // 馬のデータを登録する
+                // }
+
+
                 //年月日
                 Regex RegexDate = new Regex("(?<=<span class=\"opt\">).*?(?=（.*</span>)",
-                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
                 var MatchesDate = RegexDate.Matches(raceResultHtml);
 
                 //レース名
@@ -87,11 +96,11 @@ namespace jrascraping
                                 Waku = waku.Index,
                                 Racename = racename
                             };
-                            context.RaceResults.Add(raceresults);
+                            //context.RaceResults.Add(raceresults);
                         }
                     }
                 }
-                context.SaveChanges();
+                //context.SaveChanges();
 
                 foreach (Match waku in MatchesWaku)
                 {
@@ -167,14 +176,12 @@ namespace jrascraping
                 //    }
                 //    //馬体重※
 
-                //    //調教師
-                //    Regex RegexTrainer = new Regex("(?<=\\('/JRADB/accessC.html','pw.{14,14}'\\);\">).*?(?=</a>)",
-                //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                //    var MatchesTrainer = RegexTrainer.Matches(raceResultHtml);
-                //    foreach (Match Trainer in MatchesTrainer)
-                //    {
-                //        //Debug.WriteLine(Trainer);
-                //    }
+                //調教師
+                //Regex.Replace("".Replace("\n", "").Replace("\r", string.Empty), "\\<.*?\\>", string.Empty)
+
+                //{
+                //    Debug.WriteLine(Trainer);
+                //}
                 //    //単勝人気
                 //    Regex RegexPop = new Regex("(?<=<td class=\"pop\">).*?(?=</td>)",
                 //       RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -193,11 +200,10 @@ namespace jrascraping
         {
             webBuilder.UseStartup<Startup>();
         });
+
         private static Dictionary<string, string> ParseRaceLinkTable(string html)
         {
             Dictionary<string, string> table = new Dictionary<string, string>();
-            // ここでhtmlをパースして下みたいなものを抜き出すコードを作る
-            // 要素は Regex
 
             // メインレース
             Regex regex = new Regex(
@@ -208,14 +214,34 @@ namespace jrascraping
             {
                 table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
             }
-            // それ以外
-            regex = new Regex(
-                "(?<cname>pw.{30,30})\\'\\);\\\">(?<racename>.{0,40}?)\\</a\\>\\<span class=\"grade_icon",
+            return table;
+        }
+        private static List<string> RaceDaysCNames(string html)
+        {
+            var table = new List<string>();
+            // 1回東京1日目のようなCnameを取得
+            Regex regex = new Regex(
+                "(?<cname>pw.{28,28})\\'\\);\\\">",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            matches = regex.Matches(html);
+            var matches = regex.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
+                table.Add(match.Groups["cname"].Value);
+            }
+            return table;
+        }
+
+        // 馬のCname取得
+        private static List<string> ParseHorseTable(string html)
+        {
+            var table = new List<string>();
+            Regex regex = new Regex(
+                "(?<horsecname>pw01dud.{15,15})\\'\\);\\\">",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            var matches = regex.Matches(html);
+            foreach (Match match in matches)
+            {
+                table.Add(match.Groups["horsecname"].Value);
             }
             return table;
         }
