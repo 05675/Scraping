@@ -1,4 +1,5 @@
 using jrascraping.Models;
+using jrascraping.Regexs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -42,7 +43,7 @@ namespace jrascraping
                         // 馬のページを取得
                         var horseHtml = new Downloder().GetHorse(horseInfo);
                         var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                        horses.Add(horse);
+                        //horses.Add(horse);
                     }
                     // 払い戻しテーブルを作る
                     //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
@@ -61,29 +62,11 @@ namespace jrascraping
             webBuilder.UseStartup<Startup>();
         });
 
-        private static Dictionary<string, string> ParseRaceLinkTable(string html)
-        {
-            Dictionary<string, string> table = new Dictionary<string, string>();
-
-            // メインレース
-            Regex regex = new Regex(
-                "(?<cname>pw.{30,30})\\'\\);.*?\\</span\\>\\</span\\>(?<racename>.{0,40}?)\\<span class=\"grade_icon",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var matches = regex.Matches(html);
-            foreach (Match match in matches)
-            {
-                table.Add(match.Groups["racename"].Value, match.Groups["cname"].Value);
-            }
-            return table;
-        }
         private static List<string> RaceDaysCNames(string html)
         {
             var table = new List<string>();
-            // 1回東京1日目のようなCnameを取得
-            Regex regex = new Regex(
-                "(?<CountOfDayCname>pw.{28,28})\\'\\);\\\">",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var matches = regex.Matches(html);
+            var regex = new Cname();
+            var matches = regex.countofdaycname.Matches(html);
             foreach (Match match in matches)
             {
                 table.Add(match.Groups["CountOfDayCname"].Value);
@@ -94,10 +77,8 @@ namespace jrascraping
         private static List<string> ParseRaceResultCNames(string html)
         {
             var table = new List<string>();
-            Regex regex = new Regex(
-                "(?<RaceNameCname>pw01sde.{25,25})\\'\\);\\\">",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var matches = regex.Matches(html);
+            var regex = new Cname();
+            var matches = regex.racenamecname.Matches(html);
             foreach (Match match in matches)
             {
                 table.Add(match.Groups["RaceNameCname"].Value);
@@ -108,10 +89,8 @@ namespace jrascraping
         private static List<string> ParseHorseCNames(string html)
         {
             var table = new List<string>();
-            Regex regex = new Regex(
-                 "(?<horsecname>pw01dud.{15,15})\\'\\);\\\">",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var matches = regex.Matches(html);
+            var regex = new Cname();
+            var matches = regex.horsename.Matches(html);
             foreach (Match match in matches)
             {
                 table.Add(match.Groups["horsecname"].Value);
@@ -119,31 +98,37 @@ namespace jrascraping
             return table;
         }
 
-        private static List<string> CreateHorse(string html)
+        public static List<string> CreateHorse(string html)
         {
             var table = new List<string>();
-            Regex horsenames = new Regex(
-                "(?<=<span style=\\\"padding-left: 1px;\\\">).*?(?=</span>)",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var MatchHorseName = horsenames.Matches(html);
+            var regex = new HorseInfos();
+            var MatchHorseName = regex.horsenames.Matches(html);
+            Debug.WriteLine(MatchHorseName);
 
-            Regex regex = new Regex(
-                "(?<=bgcolor=\\\"#EEEED9\\\">父</td>\n<td bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>)",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var MatchFather = regex.Matches(html);
-
-            foreach (Match horsename in MatchHorseName)
-            {
-                foreach (Match father in MatchFather)
-                {
-                    var horseinfo = new Models.HorseInfo()
-                    {
-                        HorseName = horsename.Value,
-                        Father = father.Value
-                    };
-                }
-            }
+            //foreach (Match match in MatchHorseName)
+            //{
+            //    table.Add(match.Groups["horsenames"].Value);
+            //Debug.WriteLine(match.Groups["horsenames"].Value);
+            //}
             return table;
+
+            //Regex regex = new Regex(
+            //    "(?<=bgcolor=\\\"#EEEED9\\\">父</td>\n<td bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>)",
+            //    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            //var MatchFather = regex.Matches(html);
+
+            //foreach (Match horsename in MatchHorseName)
+            //{
+            //    foreach (Match father in MatchFather)
+            //    {
+            //        var horseinfo = new Models.HorseInfo()
+            //        {
+            //            HorseName = horsename.Value,
+            //            Father = father.Value
+            //        };
+            //        return CreateHorse(html, horseinfo);
+            //    }
+            //}
         }
 
     }
