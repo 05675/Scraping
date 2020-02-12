@@ -3,20 +3,22 @@ using jrascraping.Regexs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace jrascraping
 {
     public class Jra
     {
+        private static JraDbContext context;
         public static void Main(string[] args)
         {
-            //コンテキスト
             var options = new DbContextOptionsBuilder<JraDbContext>();
             options.UseSqlite("Data Source=Jra.db");
-            var context = new JraDbContext(options.Options);
+            context = new JraDbContext(options.Options);
 
             //Viewを起動する処理。いずれ必要かも？
             //CreateWebHostBuilder(args).Build().Run();
@@ -25,25 +27,26 @@ namespace jrascraping
             string html = new Downloder().GetRaceResults("pw01skl00999999/B3");
             List<string> RaceDays = RaceDaysCNames(html);
 
+            //Cname：1回東京1日目
             foreach (var cname in RaceDays)
             {
-                string otherRaceHtml = new Downloder().GetRaceResults(cname); // ≒ var raceDaysHtml = FetchAccessSPage(cname).Result;
-                // otherRaceHtmlから1R～12Rまでのcnameをとってくる。
+                string otherRaceHtml = new Downloder().GetRaceResults(cname);
                 var raceResultCNames = ParseRaceResultCNames(otherRaceHtml);
-                // 1R～12Rまでのcnameでforeachを書く
 
+                //Cname：1R～12R
                 foreach (var resultCName in raceResultCNames)
                 {
-                    string otherRace = new Downloder().GetRaceResults(resultCName); // ≒ var raceResultHtml = FetchAccessSPage(resultCName).Result;
+                    string otherRace = new Downloder().GetRaceResults(resultCName);
                     var horseCNames = ParseHorseCNames(otherRace);
+                    //馬の情報が取れるので、一旦入れる？
                     var horses = new List<HorseInfo>();
 
+                    // 馬の情報を取得
                     foreach (var horseInfo in horseCNames)
                     {
-                        // 馬のページを取得
                         var horseHtml = new Downloder().GetHorse(horseInfo);
                         var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                        //horses.Add(horse);
+                        horses.Add(horse);
                     }
                     // 払い戻しテーブルを作る
                     //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
@@ -98,38 +101,42 @@ namespace jrascraping
             return table;
         }
 
-        public static List<string> CreateHorse(string html)
+        public static HorseInfo CreateHorse(string html)
         {
-            var table = new List<string>();
+            //正規表現
             var regex = new HorseInfos();
-            var MatchHorseName = regex.horsenames.Matches(html);
-            Debug.WriteLine(MatchHorseName);
+            var MatchHorseName = regex.horsenames.Match(html);
+            var MatchFather = regex.horsenames.Match(html);
+            var MatchMother = regex.horsenames.Match(html);
+            var MatchMotherFather = regex.horsenames.Match(html);
+            var MatchMotherMother = regex.horsenames.Match(html);
+            var MatchSex = regex.horsenames.Match(html);
+            var MatchBirthday = regex.horsenames.Match(html);
+            var MatchCoatColor = regex.horsenames.Match(html);
+            var MatchHorseNameMeaning = regex.horsenames.Match(html);
+            var MatchHorseOwner = regex.horsenames.Match(html);
+            var MatchTrainer = regex.horsenames.Match(html);
+            var MatchProductionRanch = regex.horsenames.Match(html);
+            var MatchOrigin = regex.horsenames.Match(html);
 
-            //foreach (Match match in MatchHorseName)
-            //{
-            //    table.Add(match.Groups["horsenames"].Value);
-            //Debug.WriteLine(match.Groups["horsenames"].Value);
-            //}
-            return table;
-
-            //Regex regex = new Regex(
-            //    "(?<=bgcolor=\\\"#EEEED9\\\">父</td>\n<td bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>)",
-            //    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            //var MatchFather = regex.Matches(html);
-
-            //foreach (Match horsename in MatchHorseName)
-            //{
-            //    foreach (Match father in MatchFather)
-            //    {
-            //        var horseinfo = new Models.HorseInfo()
-            //        {
-            //            HorseName = horsename.Value,
-            //            Father = father.Value
-            //        };
-            //        return CreateHorse(html, horseinfo);
-            //    }
-            //}
+            var horseinfo = new Models.HorseInfo()
+            {
+                HorseName = MatchHorseName.Value,
+                Father = MatchFather.Value,
+                Mother = MatchMother.Value,
+                MotherFather = MatchMotherFather.Value,
+                MotherMother = MatchMotherMother.Value,
+                Sex = MatchSex.Value,
+                Birthday = DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                CoatColor = MatchCoatColor.Value,
+                HorseNameMeaning = MatchHorseNameMeaning.Value,
+                HorseOwner = MatchHorseOwner.Value,
+                Trainer = MatchTrainer.Value,
+                ProductionRanch = MatchProductionRanch.Value,
+                Origin = MatchOrigin.Value
+            };
+            context.HorseInfo.Add(horseinfo);
+            return horseinfo;
         }
-
     }
 }

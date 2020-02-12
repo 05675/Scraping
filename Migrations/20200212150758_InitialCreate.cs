@@ -248,7 +248,6 @@ namespace jrascraping.Migrations
                     Num = table.Column<int>(nullable: false),
                     HorseName = table.Column<string>(nullable: true),
                     HorseBirthday = table.Column<DateTime>(nullable: true),
-                    Age = table.Column<string>(nullable: true),
                     Weight = table.Column<string>(nullable: true),
                     Jockey = table.Column<string>(nullable: true),
                     Margin = table.Column<string>(nullable: true),

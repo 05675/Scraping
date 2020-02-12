@@ -15,7 +15,6 @@ namespace jrascraping.Models
         public int Waku { get; set; }
         public int Num { get; set; }
         public HorseInfo Horse { get; set; }
-        public string Age { get; set; }
         public string Weight { get; set; }
         public string Jockey { get; set; }
         public string Margin { get; set; }

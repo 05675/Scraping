@@ -12,6 +12,8 @@ namespace jrascraping.Models
        : base(options) { }
         public DbSet<RaceResults> RaceResults { get; set; }
         public DbSet<CnameTable> CnameTable { get; set; }
+        public DbSet<HorseInfo> HorseInfo { get; set; }
+        public DbSet<PayBack> PayBack { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlite("Data Source=Jra.db");
