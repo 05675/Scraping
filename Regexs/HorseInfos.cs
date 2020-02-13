@@ -30,15 +30,15 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex sex = new Regex(
-            "(?<sex>(?<=性別</td>\n<td nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
+            "(?<sex>(?<=性別</td>\n<td nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex birthday = new Regex(
-            "(?<birthday>(?<=生年月日</td>\n<td nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">\n\n).*?(?=\n\n</td>))",
+            "(?<birthday>(?<=生年月日</td>\n<td nowrap bgcolor=\\\"#F5F5EA\\\">\n\n).*?(?=\n\n</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex coatcolor = new Regex(
-            "(?<coatcolor>(?<=毛色</td>\n<td nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
+            "(?<coatcolor>(?<=毛色</td>\n<td nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex horsenamemeaning = new Regex(
@@ -46,19 +46,19 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex horseowner = new Regex(
-            "(?<horseowner>(?<=馬主</td>\n<td width=\\\"250\\\" nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
+            "(?<horseowner>(?<=馬主</td>\n<td width=\\\"250\\\" nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex trainer = new Regex(
-            "(?<trainer>(?<=<td width=\\\"250\\\" nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">\n<a href=\\\"#\\\" onclick=\\\"return doAction\\\\(\\'/JRADB/accessC.html\\\',\\\'pw..............\\'\\\\);\\\">).*?(?=</td>))",
+            "(?<trainer>(?<=<td width=\\\"250\\\" nowrap bgcolor=\\\"#F5F5EA\\\">\n<a href=\\\"#\\\" onclick=\\\"return doAction\\\\(\\'/JRADB/accessC.html\\\',\\\'pw..............\\'\\\\);\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex productionranch = new Regex(
-            "(?<productionranch>(?<=生産牧場</td>\n<td width=\\\"250\\\" nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
+            "(?<productionranch>(?<=生産牧場</td>\n<td width=\\\"250\\\" nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex origin = new Regex(
-            "(?<origin>(?<=>産地</td>\n<td width=\\\"250\\\" nowrap=\\\"\\\" bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
+            "(?<origin>(?<=>産地</td>\n<td width=\\\"250\\\" nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
     }
 }

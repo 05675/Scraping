@@ -48,6 +48,7 @@ namespace jrascraping
                         var horse = CreateHorse(horseHtml); // なかでinsertしてます。
                         horses.Add(horse);
                     }
+
                     // 払い戻しテーブルを作る
                     //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
                     // otherRaceからRaceInfoを作る
@@ -106,18 +107,22 @@ namespace jrascraping
             //正規表現
             var regex = new HorseInfos();
             var MatchHorseName = regex.horsenames.Match(html);
-            var MatchFather = regex.horsenames.Match(html);
-            var MatchMother = regex.horsenames.Match(html);
-            var MatchMotherFather = regex.horsenames.Match(html);
-            var MatchMotherMother = regex.horsenames.Match(html);
-            var MatchSex = regex.horsenames.Match(html);
-            var MatchBirthday = regex.horsenames.Match(html);
-            var MatchCoatColor = regex.horsenames.Match(html);
-            var MatchHorseNameMeaning = regex.horsenames.Match(html);
-            var MatchHorseOwner = regex.horsenames.Match(html);
-            var MatchTrainer = regex.horsenames.Match(html);
-            var MatchProductionRanch = regex.horsenames.Match(html);
-            var MatchOrigin = regex.horsenames.Match(html);
+            var MatchFather = regex.father.Match(html);
+            var MatchMother = regex.mother.Match(html);
+            var MatchMotherFather = regex.motherfather.Match(html);
+            var MatchMotherMother = regex.mothermother.Match(html);
+            var MatchSex = regex.sex.Match(html);
+            var MatchBirthday = regex.birthday.Match(html);
+            var MatchCoatColor = regex.coatcolor.Match(html);
+            var MatchHorseNameMeaning = regex.horsenamemeaning.Match(html);
+            var MatchHorseOwner = regex.horseowner.Match(html);
+            var MatchTrainer = regex.trainer.Match(html);
+            var MatchProductionRanch = regex.productionranch.Match(html);
+            var MatchOrigin = regex.origin.Match(html);
+            //var i = "2020/1/1";
+            //Debug.WriteLine(i);
+            //Debug.WriteLine(DateTime.ParseExact(i, "yyyy年M月d日", CultureInfo.InvariantCulture));
+            //Debug.WriteLine(DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture));
 
             var horseinfo = new Models.HorseInfo()
             {
