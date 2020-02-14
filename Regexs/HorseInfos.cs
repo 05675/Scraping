@@ -50,7 +50,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex trainer = new Regex(
-            "(?<trainer>(?<=<td width=\\\"250\\\" nowrap bgcolor=\\\"#F5F5EA\\\">\n<a href=\\\"#\\\" onclick=\\\"return doAction\\\\(\\'/JRADB/accessC.html\\\',\\\'pw..............\\'\\\\);\\\">).*?(?=</td>))",
+            "(?<trainer>(?<=JRADB/accessC.html\\',\\'pw..............\\'\\);\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex productionranch = new Regex(

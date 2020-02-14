@@ -38,7 +38,7 @@ namespace jrascraping
                 {
                     string otherRace = new Downloder().GetRaceResults(resultCName);
                     var horseCNames = ParseHorseCNames(otherRace);
-                    //馬の情報が取れるので、一旦入れる？
+                    //レース結果の馬情報を保持
                     var horses = new List<HorseInfo>();
 
                     // 馬の情報を取得
@@ -46,8 +46,9 @@ namespace jrascraping
                     {
                         var horseHtml = new Downloder().GetHorse(horseInfo);
                         var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                        horses.Add(horse);
+                        horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。それをしないと大変面倒になるため
                     }
+                    context.SaveChanges();
 
                     // 払い戻しテーブルを作る
                     //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
@@ -116,13 +117,10 @@ namespace jrascraping
             var MatchCoatColor = regex.coatcolor.Match(html);
             var MatchHorseNameMeaning = regex.horsenamemeaning.Match(html);
             var MatchHorseOwner = regex.horseowner.Match(html);
-            var MatchTrainer = regex.trainer.Match(html);
+            var TrainerName = regex.trainer.Match(html);
+            var MatchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
             var MatchProductionRanch = regex.productionranch.Match(html);
             var MatchOrigin = regex.origin.Match(html);
-            //var i = "2020/1/1";
-            //Debug.WriteLine(i);
-            //Debug.WriteLine(DateTime.ParseExact(i, "yyyy年M月d日", CultureInfo.InvariantCulture));
-            //Debug.WriteLine(DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture));
 
             var horseinfo = new Models.HorseInfo()
             {
@@ -136,7 +134,7 @@ namespace jrascraping
                 CoatColor = MatchCoatColor.Value,
                 HorseNameMeaning = MatchHorseNameMeaning.Value,
                 HorseOwner = MatchHorseOwner.Value,
-                Trainer = MatchTrainer.Value,
+                Trainer = MatchTrainer,
                 ProductionRanch = MatchProductionRanch.Value,
                 Origin = MatchOrigin.Value
             };
