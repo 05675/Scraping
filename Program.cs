@@ -11,6 +11,22 @@ using System.Text.RegularExpressions;
 
 namespace jrascraping
 {
+    public class JraDummy
+    {
+        public static void Main2()
+        {
+            初期化する();
+            競馬の情報をとってきてDBにいれる();
+        }
+        private static void 初期化する()
+        {
+            //。。。。
+        }
+        private static void 競馬の情報をとってきてDBにいれる()
+        {
+            // 。。。。。
+        }
+    }
     public class Jra
     {
         private static JraDbContext context;
@@ -25,47 +41,59 @@ namespace jrascraping
 
             //レース結果の検索ページ
             string html = new Downloder().GetRaceResults("pw01skl00999999/B3");
-            List<string> RaceDays = RaceDaysCNames(html);
 
-            //Cname：1回東京1日目
-            foreach (var cname in RaceDays)
+            DateTime target = new DateTime(2019, 2, 1);
+            while (target >= new DateTime(2000, 1, 1))
             {
-                string otherRaceHtml = new Downloder().GetRaceResults(cname);
-                var raceResultCNames = ParseRaceResultCNames(otherRaceHtml);
+                var html = FetchRaceResultPage(target);
+                List<string> RaceDays = RaceDaysCNames(html);
 
-                //Cname：1R～12R
-                foreach (var resultCName in raceResultCNames)
+                //Cname：1回東京1日目
+                foreach (var cname in RaceDays)
                 {
-                    string otherRace = new Downloder().GetRaceResults(resultCName);
-                    var horseCNames = ParseHorseCNames(otherRace);
-                    //レース結果の馬情報を保持
-                    var horses = new List<HorseInfo>();
+                    string otherRaceHtml = new Downloder().GetRaceResults(cname);
+                    var raceResultCNames = ParseRaceResultCNames(otherRaceHtml);
 
-                    // 馬の情報を取得
-                    foreach (var horseInfo in horseCNames)
+                    //Cname：1R～12R
+                    foreach (var resultCName in raceResultCNames)
                     {
-                        var horseHtml = new Downloder().GetHorse(horseInfo);
-                        var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                        horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。それをしないと大変面倒になるため
-                    }
-                    context.SaveChanges();
+                        string otherRace = new Downloder().GetRaceResults(resultCName);
+                        うまのじょうほうをとってきてDBにいれる(otherRace);
 
-                    // 払い戻しテーブルを作る
-                    //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
-                    // otherRaceからRaceInfoを作る
-                    //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
-                    // otherRaceからRaceResultを作る(複数)
-                    //CreateResults(race, horses, otherRace); // なかでinsertしてます。
+                        // 払い戻しテーブルを作る
+                        //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
+                        // otherRaceからRaceInfoを作る
+                        //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
+                        // otherRaceからRaceResultを作る(複数)
+                        //CreateResults(race, horses, otherRace); // なかでinsertしてます。
+                    }
                 }
+                target = target.AddMonths(-1);
             }
+        }
+        private static void うまのじょうほうをとってきてDBにいれる(string otherRace)
+        {
+            var horseCNames = ParseHorseCNames(otherRace);
+            //レース結果の馬情報を保持
+            var horses = new List<HorseInfo>();
+
+            // 馬の情報を取得
+            foreach (var horseInfo in horseCNames)
+            {
+                var horseHtml = new Downloder().GetHorse(horseInfo);
+                var horse = CreateHorse(horseHtml); // なかでinsertしてます。
+                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。それをしないと大変面倒になるため
+            }
+            context.SaveChanges();
+
         }
 
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Startup>();
-        });
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 
         private static List<string> RaceDaysCNames(string html)
         {
@@ -140,6 +168,33 @@ namespace jrascraping
             };
             context.HorseInfo.Add(horseinfo);
             return horseinfo;
+        }
+        static string FetchRaceResultPage(DateTime month)
+        {
+            var cname = new AccessSCodeMonthlyConvertor().ConvertTo(month);
+            return new Downloder().GetRaceResults(cname);
+        }
+    }
+
+    class AccessSCodeMonthlyConvertor
+    {
+        internal string ConvertTo(DateTime month)
+        {
+            var idx1 = month.Year;
+            var idx2 = month.Month;
+            var arg = (idx1 * 100) + idx2;
+            var param = "";
+
+            if (arg >= 202002)
+            {
+                param = "pw01skl00" + arg.ToString() + "/";
+            }
+            else
+            {
+                param = "pw01skl10" + arg.ToString() + "/";
+            }
+            var cname = param + ObjParam.ObjParamCname(arg.ToString().Substring(2, 4));
+            return cname;
         }
     }
 }
