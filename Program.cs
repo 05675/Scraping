@@ -32,7 +32,7 @@ namespace jrascraping
                     foreach (var resultCName in raceResultCNames)
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
-                        HorseInfoInsert(otherRace);
+                        InsertHorseInfo(otherRace);
 
                         // 払い戻しテーブルを作る
                         //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
@@ -53,7 +53,7 @@ namespace jrascraping
             options.UseSqlite("Data Source=Jra.db");
             context = new JraDbContext(options.Options);
         }
-        private static void HorseInfoInsert(string otherRace)
+        private static void InsertHorseInfo(string otherRace)
         {
             var horseCNames = ParseHorseCNames(otherRace);
             //レース結果の馬情報を保持
