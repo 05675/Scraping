@@ -11,43 +11,17 @@ using System.Text.RegularExpressions;
 
 namespace jrascraping
 {
-    public class JraDummy
-    {
-        public static void Main2()
-        {
-            初期化する();
-            競馬の情報をとってきてDBにいれる();
-        }
-        private static void 初期化する()
-        {
-            //。。。。
-        }
-        private static void 競馬の情報をとってきてDBにいれる()
-        {
-            // 。。。。。
-        }
-    }
     public class Jra
     {
         private static JraDbContext context;
         public static void Main(string[] args)
         {
-            var options = new DbContextOptionsBuilder<JraDbContext>();
-            options.UseSqlite("Data Source=Jra.db");
-            context = new JraDbContext(options.Options);
-
-            //Viewを起動する処理。いずれ必要かも？
-            //CreateWebHostBuilder(args).Build().Run();
-
-            //レース結果の検索ページ
-            string html = new Downloder().GetRaceResults("pw01skl00999999/B3");
-
+            DbContext();
             DateTime target = new DateTime(2019, 2, 1);
             while (target >= new DateTime(2000, 1, 1))
             {
                 var html = FetchRaceResultPage(target);
                 List<string> RaceDays = RaceDaysCNames(html);
-
                 //Cname：1回東京1日目
                 foreach (var cname in RaceDays)
                 {
@@ -58,7 +32,7 @@ namespace jrascraping
                     foreach (var resultCName in raceResultCNames)
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
-                        うまのじょうほうをとってきてDBにいれる(otherRace);
+                        InsertHorseInfo(otherRace);
 
                         // 払い戻しテーブルを作る
                         //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
@@ -71,7 +45,15 @@ namespace jrascraping
                 target = target.AddMonths(-1);
             }
         }
-        private static void うまのじょうほうをとってきてDBにいれる(string otherRace)
+
+        private static void DbContext()
+        {
+            //初期化
+            var options = new DbContextOptionsBuilder<JraDbContext>();
+            options.UseSqlite("Data Source=Jra.db");
+            context = new JraDbContext(options.Options);
+        }
+        private static void InsertHorseInfo(string otherRace)
         {
             var horseCNames = ParseHorseCNames(otherRace);
             //レース結果の馬情報を保持
@@ -82,10 +64,9 @@ namespace jrascraping
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。それをしないと大変面倒になるため
+                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
             context.SaveChanges();
-
         }
 
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -169,6 +150,7 @@ namespace jrascraping
             context.HorseInfo.Add(horseinfo);
             return horseinfo;
         }
+
         static string FetchRaceResultPage(DateTime month)
         {
             var cname = new AccessSCodeMonthlyConvertor().ConvertTo(month);
@@ -183,8 +165,7 @@ namespace jrascraping
             var idx1 = month.Year;
             var idx2 = month.Month;
             var arg = (idx1 * 100) + idx2;
-            var param = "";
-
+            string param;
             if (arg >= 202002)
             {
                 param = "pw01skl00" + arg.ToString() + "/";
