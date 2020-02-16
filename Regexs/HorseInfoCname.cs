@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace jrascraping.Regexs
 {
-    public class HorseInfos
+    public class HorseInfoCname
     {
         public Regex horsenames = new Regex(
             "(?<horsenames>(?<=<span style=\\\"padding-left: 1px;\\\">).*?(?=</span>))",

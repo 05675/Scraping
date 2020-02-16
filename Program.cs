@@ -69,6 +69,16 @@ namespace jrascraping
             context.SaveChanges();
         }
 
+        private static void InsertRaceResults(string test)
+        {
+            var raceCname = ParseRaceResultCNames(test);
+            //var horses = new List<HorseInfo>();　これをどうにかしてInsertする
+            foreach (var raceResults in raceCname)
+            {
+
+            }
+        }
+
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
