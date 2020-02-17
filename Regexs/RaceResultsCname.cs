@@ -9,17 +9,15 @@ namespace jrascraping.Regexs
     public class RaceResultsCname
     {
         public Regex date = new Regex(
-            "(?<date>((?<=<span class=\\\"opt\\\">)).*?(?=（.*</span>))",
+            "(?<date>((?<= <span class=\\\"opt\\\">).*?(?=[1-9]回)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        //まだ
         public Regex numberoftime = new Regex(
-            "(?<numberoftime>((?<=<span class=\\\"opt\\\">)).*?(?=（.*</span>))",
+            "(?<numberoftime>((?<=曜）).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        //まだ
         public Regex place = new Regex(
-            "(?<place>((?<=<span class=\\\"opt\\\">)).*?(?=（.*</span>))",
+            "(?<place>((?<=<td class=\\\"place\\\">)).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex waku = new Regex(
@@ -57,9 +55,9 @@ namespace jrascraping.Regexs
         public Regex halongtime = new Regex(
             "(?<halongtime>((?<=<td class=\\\"f_time\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        //まだ
+        //HorseInfoCnameの調教師の取り方を参考に
         public Regex horseweight = new Regex(
-            "(?<horseweight>((?<=\\('/JRADB/accessU.html','pw.{20,20}'\\);\\\">).*?(?=</a>)))",
+            "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n\\\\s+).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex trainer = new Regex(

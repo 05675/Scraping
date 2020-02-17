@@ -69,13 +69,14 @@ namespace jrascraping
             context.SaveChanges();
         }
 
-        private static void InsertRaceResults(string test)
+        private static void InsertRaceResults(string otherRace)
         {
-            var raceCname = ParseRaceResultCNames(test);
+            var raceCname = ParseRaceResultCNames(otherRace);
             //var horses = new List<HorseInfo>();　これをどうにかしてInsertする
             foreach (var raceResults in raceCname)
             {
-
+                var rachResultHtml = new Downloder().GetRaceResults(raceResults);
+                var race = 
             }
         }
 
@@ -89,7 +90,7 @@ namespace jrascraping
         private static List<string> RaceDaysCNames(string html)
         {
             var table = new List<string>();
-            var regex = new Cname();
+            var regex = new MainCname();
             var matches = regex.countofdaycname.Matches(html);
             foreach (Match match in matches)
             {
@@ -101,7 +102,7 @@ namespace jrascraping
         private static List<string> ParseRaceResultCNames(string html)
         {
             var table = new List<string>();
-            var regex = new Cname();
+            var regex = new MainCname();
             var matches = regex.racenamecname.Matches(html);
             foreach (Match match in matches)
             {
@@ -113,7 +114,7 @@ namespace jrascraping
         private static List<string> ParseHorseCNames(string html)
         {
             var table = new List<string>();
-            var regex = new Cname();
+            var regex = new MainCname();
             var matches = regex.horsename.Matches(html);
             foreach (Match match in matches)
             {
@@ -125,7 +126,7 @@ namespace jrascraping
         public static HorseInfo CreateHorse(string html)
         {
             //正規表現
-            var regex = new HorseInfos();
+            var regex = new HorseInfoCname();
             var MatchHorseName = regex.horsenames.Match(html);
             var MatchFather = regex.father.Match(html);
             var MatchMother = regex.mother.Match(html);
