@@ -9,7 +9,7 @@ namespace jrascraping.Regexs
     public class RaceResultsCname
     {
         public Regex date = new Regex(
-            "(?<date>((?<= <span class=\\\"opt\\\">).*?(?=[1-9]回)))",
+            "(?<date>((?<=<span class=\\\"opt\\\">).*?曜）))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex numberoftime = new Regex(
@@ -49,8 +49,8 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         //まだ
         public Regex corner = new Regex(
-            "(?<corner>((?<=\\('/JRADB/accessU.html','pw.{20,20}'\\);\\\">).*?(?=</a>)))",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            "corner_list\\>(?<corner>.*?)\\</div\\>",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
         public Regex halongtime = new Regex(
             "(?<halongtime>((?<=<td class=\\\"f_time\\\">).*?(?=</td>)))",

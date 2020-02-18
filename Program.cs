@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace jrascraping
@@ -76,7 +77,7 @@ namespace jrascraping
             foreach (var raceResults in raceCname)
             {
                 var rachResultHtml = new Downloder().GetRaceResults(raceResults);
-                var race = 
+                //var race =
             }
         }
 
@@ -160,6 +161,28 @@ namespace jrascraping
             };
             context.HorseInfo.Add(horseinfo);
             return horseinfo;
+        }
+
+        public static RaceResults CreateRaceResults(string html)
+        {
+            var regex = new RaceResultsCname();
+            var MatchDate = regex.date.Match(html);
+            var matches = new RaceResultsCname().corner.Matches(html);
+            foreach (Match match in matches)
+            {
+                var ulul = match.Groups["corner"].Value;
+                var corner = string.Join(",",
+                Regex.Matches(ulul, "順位\\\">(?<number>.*?)\\</li\\>", RegexOptions.Singleline)
+                    .Cast<Match>()
+                    .Select(match => match.Groups["number"].Value));
+            }
+            var raceresults = new Models.RaceResults()
+            {
+                Date = MatchDate.Value
+
+            };
+            context.RaceResults.Add(raceresults);
+            return raceresults;
         }
 
         static string FetchRaceResultPage(DateTime month)
