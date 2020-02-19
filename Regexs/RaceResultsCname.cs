@@ -49,7 +49,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         //まだ
         public Regex corner = new Regex(
-            "corner_list\\>(?<corner>.*?)\\</div\\>",
+            "corner_list\\\"\\>(?<corner>.*?)\\</div\\>",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
         public Regex halongtime = new Regex(

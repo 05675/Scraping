@@ -33,6 +33,7 @@ namespace jrascraping
                     foreach (var resultCName in raceResultCNames)
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
+                        var RaceResults = CreateRaceResults(otherRace);
                         InsertHorseInfo(otherRace);
 
                         // 払い戻しテーブルを作る
@@ -67,7 +68,7 @@ namespace jrascraping
                 var horse = CreateHorse(horseHtml); // なかでinsertしてます。
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
-            context.SaveChanges();
+            //context.SaveChanges();
         }
 
         private static void InsertRaceResults(string otherRace)
@@ -76,8 +77,7 @@ namespace jrascraping
             //var horses = new List<HorseInfo>();　これをどうにかしてInsertする
             foreach (var raceResults in raceCname)
             {
-                var rachResultHtml = new Downloder().GetRaceResults(raceResults);
-                //var race =
+                var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
             }
         }
 
@@ -159,7 +159,7 @@ namespace jrascraping
                 ProductionRanch = MatchProductionRanch.Value,
                 Origin = MatchOrigin.Value
             };
-            context.HorseInfo.Add(horseinfo);
+            //context.HorseInfo.Add(horseinfo);
             return horseinfo;
         }
 
@@ -181,7 +181,7 @@ namespace jrascraping
                 Date = MatchDate.Value
 
             };
-            context.RaceResults.Add(raceresults);
+            //context.RaceResults.Add(raceresults);
             return raceresults;
         }
 
