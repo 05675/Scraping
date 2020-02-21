@@ -61,6 +61,19 @@ namespace jrascraping
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
+
+            //var uma = horses.Any(u => u.HorseName.Contains("uma"));
+            //string[] horseinfo = new string[] { "mozu", "tmope", "satono" };
+            //string[] horses = new string[] { "mozu", "kitasanblack", "road" };
+            
+            //string[] uma = horseinfo.Intersect(horses).ToArray();
+
+            //for (int i = 0; i < uma.Length; i++)
+            //{
+            //    Debug.WriteLine(i + "::" + uma[i]);
+            //}
+
+
             // 馬の情報を取得
             foreach (var horseInfo in horseCNames)
             {
@@ -68,6 +81,8 @@ namespace jrascraping
                 var horse = CreateHorse(horseHtml); // なかでinsertしてます。
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
+            
+
             //context.SaveChanges();
         }
 
@@ -126,41 +141,55 @@ namespace jrascraping
 
         public static HorseInfo CreateHorse(string html)
         {
-            //正規表現
-            var regex = new HorseInfoCname();
-            var MatchHorseName = regex.horsenames.Match(html);
-            var MatchFather = regex.father.Match(html);
-            var MatchMother = regex.mother.Match(html);
-            var MatchMotherFather = regex.motherfather.Match(html);
-            var MatchMotherMother = regex.mothermother.Match(html);
-            var MatchSex = regex.sex.Match(html);
-            var MatchBirthday = regex.birthday.Match(html);
-            var MatchCoatColor = regex.coatcolor.Match(html);
-            var MatchHorseNameMeaning = regex.horsenamemeaning.Match(html);
-            var MatchHorseOwner = regex.horseowner.Match(html);
-            var TrainerName = regex.trainer.Match(html);
-            var MatchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
-            var MatchProductionRanch = regex.productionranch.Match(html);
-            var MatchOrigin = regex.origin.Match(html);
-
-            var horseinfo = new Models.HorseInfo()
+            try
             {
-                HorseName = MatchHorseName.Value,
-                Father = MatchFather.Value,
-                Mother = MatchMother.Value,
-                MotherFather = MatchMotherFather.Value,
-                MotherMother = MatchMotherMother.Value,
-                Sex = MatchSex.Value,
-                Birthday = DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
-                CoatColor = MatchCoatColor.Value,
-                HorseNameMeaning = MatchHorseNameMeaning.Value,
-                HorseOwner = MatchHorseOwner.Value,
-                Trainer = MatchTrainer,
-                ProductionRanch = MatchProductionRanch.Value,
-                Origin = MatchOrigin.Value
-            };
-            //context.HorseInfo.Add(horseinfo);
-            return horseinfo;
+                //正規表現
+                var regex = new HorseInfoCname();
+                var MatchHorseName = regex.horsenames.Match(html);
+                var MatchFather = regex.father.Match(html);
+                var MatchMother = regex.mother.Match(html);
+                var MatchMotherFather = regex.motherfather.Match(html);
+                var MatchMotherMother = regex.mothermother.Match(html);
+                var MatchSex = regex.sex.Match(html);
+                var MatchBirthday = regex.birthday.Match(html);
+                var MatchCoatColor = regex.coatcolor.Match(html);
+                var MatchHorseNameMeaning = regex.horsenamemeaning.Match(html);
+                var MatchHorseOwner = regex.horseowner.Match(html);
+                var TrainerName = regex.trainer.Match(html);
+                var MatchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
+                var MatchProductionRanch = regex.productionranch.Match(html);
+                var MatchOrigin = regex.origin.Match(html);
+
+                var horseinfo = new Models.HorseInfo()
+                {
+                    HorseName = MatchHorseName.Value,
+                    Father = MatchFather.Value,
+                    Mother = MatchMother.Value,
+                    MotherFather = MatchMotherFather.Value,
+                    MotherMother = MatchMotherMother.Value,
+                    Sex = MatchSex.Value,
+                    Birthday = DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                    CoatColor = MatchCoatColor.Value,
+                    HorseNameMeaning = MatchHorseNameMeaning.Value,
+                    HorseOwner = MatchHorseOwner.Value,
+                    Trainer = MatchTrainer,
+                    ProductionRanch = MatchProductionRanch.Value,
+                    Origin = MatchOrigin.Value
+                };
+                //context.HorseInfo.Add(horseinfo);
+                Debug.WriteLine(MatchHorseName);
+                Debug.WriteLine(MatchBirthday);
+                return horseinfo;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                var horseinfo = new Models.HorseInfo()
+                {
+                    
+                };
+                return horseinfo;
+            }
         }
 
         public static RaceResults CreateRaceResults(string html)
@@ -179,8 +208,9 @@ namespace jrascraping
             var raceresults = new Models.RaceResults()
             {
                 Date = MatchDate.Value
-
             };
+            var uma = new Models.HorseInfo().HorseName.Where(b)
+
             //context.RaceResults.Add(raceresults);
             return raceresults;
         }
