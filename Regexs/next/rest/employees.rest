@@ -1,0 +1,38 @@
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+###
+
+GET http://{{host}}/api/employees HTTP/1.1
+
+###
+POST http://{{host}}/api/employees HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "empId": "1234",
+    "empName": "Sunggon Park",
+    "empPassword": "1234",
+    "groupId": 1
+}
+
+###
+@empid = 1234
+
+###
+GET http://{{host}}/api/employees/{{empid}} HTTP/1.1
+
+###
+PUT http://{{host}}/api/employees/{{empid}} HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "empName": "test",
+    "empPassword": "1234",
+    "groupId": 1
+}
+
+###
+DELETE http://{{host}}/api/employees/{{empid}} HTTP/1.1

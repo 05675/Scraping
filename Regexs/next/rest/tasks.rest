@@ -1,0 +1,59 @@
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+###
+GET http://{{host}}/api/tasks HTTP/1.1
+
+//-> bulk request
+###
+POST http://{{host}}/api/tasks HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "task": {
+        "title": "bulk title3",
+        "summary": "bulk summary3",
+        "explanation": "bulk explanation3",
+        "dueDate": "2020-12-31",
+        "status": 0
+    },
+    "empIdList": ["1234", "0000", "4567"]
+} 
+// <- bulk request
+
+
+###
+@empId = 1234
+@taskId = 2d8bc040-4e20-11ea-b77f-2e728ce88125
+
+###
+GET http://{{host}}/api/employees/{{empId}}/tasks HTTP/1.1
+
+###
+POST http://{{host}}/api/employees/{{empId}}/tasks HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "title": "example2",
+    "summary": "summary2",
+    "explanation": "explanation",
+    "dueDate": "2020-12-31 00:00:00",
+    "status": 0
+}
+
+###
+GET http://{{host}}/api/employees/{{empId}}/tasks/{{taskId}} HTTP/1.1
+
+
+###
+PUT http://{{host}}/api/employees/{{empId}}/tasks/{{taskId}} HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "status": 0
+}
+
+###
+DELETE http://{{host}}/api/employees/{{empId}}/tasks/{{taskId}} HTTP/1.1

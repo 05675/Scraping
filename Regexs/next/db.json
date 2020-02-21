@@ -1,0 +1,64 @@
+{
+  "getMyTasks": [
+    {
+      "id": "uuid1",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "1234",
+      "status": "0",
+      "created_at": "2020-02-06"
+    },
+    {
+      "id": "uuid2",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "1234",
+      "status": "0",
+      "created_at": "2020-02-06"
+    },
+    {
+      "id": "uuid3",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "1234",
+      "status": "0",
+      "created_at": "2020-02-06"
+    },
+    {
+      "id": "uuid4",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "1111",
+      "status": "0",
+      "created_at": "2020-02-06"
+    },
+    {
+      "id": "uuid5",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "0000",
+      "status": "0",
+      "created_at": "2020-02-06"
+    },
+    {
+      "id": "uuid6",
+      "title": "1234",
+      "summary": "1234",
+      "explanation": "1234",
+      "due_date": "2020-02-05",
+      "emp_id": "0000",
+      "status": "0",
+      "created_at": "2020-02-06"
+    }
+  ]
+}

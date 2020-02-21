@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InsuaranceList InsuaranceList_snapshot 1`] = `
+<div
+  className="sc-AxjAm eqKZAZ"
+>
+  <div
+    className="sc-AxirZ hLpRhP"
+  >
+    <div>
+      保険種別
+    </div>
+    <div
+      className="sc-AxiKw jESKZa"
+    >
+      保険会社名
+    </div>
+  </div>
+  <div
+    className="sc-AxirZ sc-AxhCb tTVXF"
+  >
+    →
+  </div>
+</div>
+`;

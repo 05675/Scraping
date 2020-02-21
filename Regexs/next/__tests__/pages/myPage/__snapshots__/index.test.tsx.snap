@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`マイページ snapshot_タスク無し 1`] = `
+<div>
+  <header>
+    <section
+      className="payroll"
+    >
+      <div
+        className="payroll-body"
+      >
+        <div
+          className="container"
+        >
+          <button
+            className="float-right"
+            onClick={[Function]}
+          >
+            Logout
+          </button>
+          <button
+            className="float-right"
+            onClick={[Function]}
+          >
+            タスク登録
+          </button>
+          <button
+            className="float-right"
+            onClick={[Function]}
+          >
+            マイページ
+          </button>
+          <h5
+            className="username"
+          >
+            headerを削除予定
+            さん
+          </h5>
+          <h1
+            className="title"
+          >
+            従業員マイページ
+          </h1>
+           
+        </div>
+      </div>
+    </section>
+    <style
+      jsx={true}
+    >
+      
+          .payroll-body {
+            padding: 1rem 6rem;
+          }
+          h1,
+          h5 {
+            color: white;
+          }
+          .payroll {
+            background: #343a40;
+          }
+          .float-right {
+            float: right;
+          }
+        
+    </style>
+  </header>
+  <section
+    className="section"
+  >
+    <div
+      className="container"
+    >
+      <div
+        style={
+          Object {
+            "display": "grid",
+            "gridTemplateColumns": "200px 1fr",
+            "gridTemplateRows": "50px 1fr",
+          }
+        }
+      >
+        <div
+          id="mainItem1"
+          style={
+            Object {
+              "background": "cornsilk",
+              "gridColumn": "1/3",
+              "gridRow": "1/2",
+            }
+          }
+        >
+          <div>
+            <legend
+              style={Object {}}
+            >
+              作業タスク一覧
+            </legend>
+          </div>
+        </div>
+        <div
+          id="mainItem2"
+          style={
+            Object {
+              "background": "lightcyan",
+              "display": "grid",
+              "gridColumn": "1/3",
+              "gridRow": "2/3",
+              "gridRowGap": "20px",
+              "gridTemplateRows": "repeat(auto-fill)",
+            }
+          }
+        >
+          <p>
+            タスクがありません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;
