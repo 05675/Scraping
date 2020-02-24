@@ -9,8 +9,8 @@ using jrascraping.Models;
 namespace jrascraping.Migrations
 {
     [DbContext(typeof(JraDbContext))]
-    [Migration("20200212150758_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200224014453_InitialCreate2nd")]
+    partial class InitialCreate2nd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -393,6 +393,9 @@ namespace jrascraping.Migrations
 
                     b.Property<int>("Num")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("NumberOfTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");

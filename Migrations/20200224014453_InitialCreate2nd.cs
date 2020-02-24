@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace jrascraping.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate2nd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -245,6 +245,7 @@ namespace jrascraping.Migrations
                     Racename = table.Column<string>(nullable: false),
                     Place = table.Column<string>(nullable: false),
                     Waku = table.Column<int>(nullable: false),
+                    NumberOfTime = table.Column<string>(nullable: true),
                     Num = table.Column<int>(nullable: false),
                     HorseName = table.Column<string>(nullable: true),
                     HorseBirthday = table.Column<DateTime>(nullable: true),

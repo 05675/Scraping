@@ -15,6 +15,7 @@ namespace jrascraping
     public class Jra
     {
         private static JraDbContext context;
+
         public static void Main(string[] args)
         {
             DbContext();
@@ -61,29 +62,25 @@ namespace jrascraping
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
-
-            //var uma = horses.Any(u => u.HorseName.Contains("uma"));
-            //string[] horseinfo = new string[] { "mozu", "tmope", "satono" };
-            //string[] horses = new string[] { "mozu", "kitasanblack", "road" };
-            
-            //string[] uma = horseinfo.Intersect(horses).ToArray();
-
-            //for (int i = 0; i < uma.Length; i++)
-            //{
-            //    Debug.WriteLine(i + "::" + uma[i]);
-            //}
-
-
             // 馬の情報を取得
             foreach (var horseInfo in horseCNames)
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorse(horseHtml); // なかでinsertしてます。
+                var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
+
+                if (horsenames == null)
+                {
+                    Debug.WriteLine("Insert実行");
+                    context.HorseInfo.Add(horse);
+                }
+                else
+                {
+                    Debug.WriteLine("Insertしない");
+                }
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
-            
-
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         private static void InsertRaceResults(string otherRace)
@@ -176,19 +173,12 @@ namespace jrascraping
                     ProductionRanch = MatchProductionRanch.Value,
                     Origin = MatchOrigin.Value
                 };
-                //context.HorseInfo.Add(horseinfo);
-                Debug.WriteLine(MatchHorseName);
-                Debug.WriteLine(MatchBirthday);
                 return horseinfo;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                var horseinfo = new Models.HorseInfo()
-                {
-                    
-                };
-                return horseinfo;
+                throw;
             }
         }
 
@@ -209,7 +199,6 @@ namespace jrascraping
             {
                 Date = MatchDate.Value
             };
-            var uma = new Models.HorseInfo().HorseName.Where(b)
 
             //context.RaceResults.Add(raceresults);
             return raceresults;
