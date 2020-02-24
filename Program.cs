@@ -62,55 +62,25 @@ namespace jrascraping
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
-
-
-            //var uma = horses.Any(u => u.HorseName.Contains("uma"));
-            //string[] horseinfo = new string[] { "mozu", "tmope", "satono" };
-            //string[] horses = new string[] { "mozu", "kitasanblack", "road" };
-
-            //string[] uma = horseinfo.Intersect(horses).ToArray();
-
-            //for (int i = 0; i < uma.Length; i++)
-            //{
-            //    Debug.WriteLine(i + "::" + uma[i]);
-            //}
-            
-
             // 馬の情報を取得
             foreach (var horseInfo in horseCNames)
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorse(horseHtml); // なかでinsertしてます。
+                var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
 
-                var n = horse.HorseName; //JRAサイトから取得した馬名
-                var b = horse.Birthday; //JRAサイトから取得した馬名
-
-                Debug.WriteLine("馬の名：" + n);
-                Debug.WriteLine("誕生日：" + b);
-
-                var horsenames = context.HorseInfo.Where(c => c.HorseName == n).Where(c => c.Birthday == b).Any();
-                //var horsenames = context.HorseInfo.Where(c => c.Birthday == b).Any();
-               // var birtheday = context.HorseInfo.Where(u => u.Birthday != b).SingleOrDefault();
-               ///Debug.WriteLine(string.IsNullOrEmpty(horsenames.HorseName));
-               //Debug.WriteLine(DateTime.Parse(horsenames.Birthday));
-                Debug.WriteLine("Linq：" + horsenames);
-
-                //if (string.IsNullOrEmpty(horsenames.HorseName) == false)
-                //{
-                //    Debug.WriteLine("馬のLinq：");
-                //} else
-                //{
-                //    Debug.WriteLine("登録なし");
-                //}
-                //Debug.WriteLine("馬のLinq：" + horsenames);
-                //Debug.WriteLine(string.IsNullOrEmpty("誕生日のLinq：" + birtheday.Birthday) ? "テーブルにあり！" : birtheday.Birthday);
-
+                if (horsenames == null)
+                {
+                    Debug.WriteLine("Insert実行");
+                    context.HorseInfo.Add(horse);
+                }
+                else
+                {
+                    Debug.WriteLine("Insertしない");
+                }
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
-
-            
-
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         private static void InsertRaceResults(string otherRace)
@@ -168,7 +138,6 @@ namespace jrascraping
 
         public static HorseInfo CreateHorse(string html)
         {
-            HorseInfo returnValue = null;
             try
             {
                 //正規表現
@@ -204,13 +173,12 @@ namespace jrascraping
                     ProductionRanch = MatchProductionRanch.Value,
                     Origin = MatchOrigin.Value
                 };
-                //context.HorseInfo.Add(horseinfo);
                 return horseinfo;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                return returnValue;
+                throw;
             }
         }
 
