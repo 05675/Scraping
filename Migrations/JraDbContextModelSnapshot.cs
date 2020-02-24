@@ -392,6 +392,9 @@ namespace jrascraping.Migrations
                     b.Property<int>("Num")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("NumberOfTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");
 

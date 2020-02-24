@@ -87,10 +87,23 @@ namespace jrascraping
 
                 Debug.WriteLine("馬の名：" + n);
                 Debug.WriteLine("誕生日：" + b);
-                var horsenames = context.HorseInfo.Where(u => u.HorseName != n).SingleOrDefault();
-                var birtheday = context.HorseInfo.Where(u => u.Birthday != b).SingleOrDefault();
-                Debug.WriteLine(string.IsNullOrEmpty("馬のLinq：" + horsenames.HorseName) ? "テーブルにあり！" : horsenames.HorseName);
-                Debug.WriteLine(string.IsNullOrEmpty("誕生日のLinq：" + birtheday.Birthday) ? "テーブルにあり！" : birtheday.Birthday);
+
+                var horsenames = context.HorseInfo.Where(c => c.HorseName == n).Where(c => c.Birthday == b).Any();
+                //var horsenames = context.HorseInfo.Where(c => c.Birthday == b).Any();
+               // var birtheday = context.HorseInfo.Where(u => u.Birthday != b).SingleOrDefault();
+               ///Debug.WriteLine(string.IsNullOrEmpty(horsenames.HorseName));
+               //Debug.WriteLine(DateTime.Parse(horsenames.Birthday));
+                Debug.WriteLine("Linq：" + horsenames);
+
+                //if (string.IsNullOrEmpty(horsenames.HorseName) == false)
+                //{
+                //    Debug.WriteLine("馬のLinq：");
+                //} else
+                //{
+                //    Debug.WriteLine("登録なし");
+                //}
+                //Debug.WriteLine("馬のLinq：" + horsenames);
+                //Debug.WriteLine(string.IsNullOrEmpty("誕生日のLinq：" + birtheday.Birthday) ? "テーブルにあり！" : birtheday.Birthday);
 
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
@@ -155,6 +168,7 @@ namespace jrascraping
 
         public static HorseInfo CreateHorse(string html)
         {
+            HorseInfo returnValue = null;
             try
             {
                 //正規表現
@@ -191,18 +205,12 @@ namespace jrascraping
                     Origin = MatchOrigin.Value
                 };
                 //context.HorseInfo.Add(horseinfo);
-                Debug.WriteLine(MatchHorseName);
-                Debug.WriteLine(MatchBirthday);
                 return horseinfo;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                var horseinfo = new Models.HorseInfo()
-                {
-
-                };
-                return horseinfo;
+                return returnValue;
             }
         }
 
