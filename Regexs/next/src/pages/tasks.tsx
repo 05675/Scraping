@@ -6,6 +6,7 @@ import nextCookie from 'next-cookies';
 import dayjs from 'dayjs';
 import Layout from '@src/components/layout';
 import { withAuthSync } from '@src/util/auth';
+import { apiUrl } from '@src/util/apiUrl';
 import { TaskList } from '@src/components/taskList';
 
 /**
@@ -74,9 +75,7 @@ tasks.getInitialProps = async (ctx: NextPageContext) => {
   const { token } = nextCookie(ctx);
   // FIXME: 最終的にはerrorは共通で処理したい。全pageではthrowして共通のerror pageで処理する。
   try {
-    const taskList = await fetchTaskList(`http://localhost:3000/api/employees/${token}/tasks`);
-
-    return { taskList };
+    return { taskList: await fetchTaskList(apiUrl(ctx, `/api/employees/${token}/tasks`)) };
   } catch (error) {
     const { response } = error;
 

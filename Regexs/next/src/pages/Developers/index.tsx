@@ -10,6 +10,7 @@ const linkList: string[] = [
   '/nencho/insuranceTypes',
   '/nencho/lifeInsuranceInputs',
   '/Developers/createTask',
+  '/Developers/demoTask',
 ];
 
 const devIndex: NextPage = () => {

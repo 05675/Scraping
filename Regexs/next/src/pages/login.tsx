@@ -15,6 +15,8 @@ interface Credential {
 const Login: NextPage = () => {
   const [credential, setCredential] = React.useState<Credential>({ empId: '', empPassword: '' });
 
+  // TODO: Lintのルール見直しが必要
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleSubmit = withPreventDefault(async () => {
     try {
       const token = (await axios.post('/api/token', credential)).data;

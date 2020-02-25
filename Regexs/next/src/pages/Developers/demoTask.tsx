@@ -3,10 +3,7 @@ import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import Layout from '@src/components/layout';
-import MultiSelectComponent from '@src/components/multiSelection';
 import { withAuthSync } from '@src/util/auth';
-import SingleSelectComponent from '@src/components/singleSelection';
-import { read, readAll, create } from '../../model/employees';
 
 type OptionType = {
   label: string;
@@ -14,48 +11,31 @@ type OptionType = {
   groupId?: string;
 };
 
-interface CreateTaskProps {
+interface DemoTaskProps {
   optionGroup: OptionType[];
   optionUser: OptionType[];
   status: number;
   message: string;
 }
 
-//console.info('empid：' + create);
-
-const CreateTask: NextPage<CreateTaskProps> = props => {
+const DemoTask: NextPage<DemoTaskProps> = props => {
   const [title, setTitle] = useState('');
-  const [employeeList, setEmployeeList] = useState<OptionType[]>([]);
   const [dueDate, setDueDate] = useState();
-  const [optionUser, setOptionUser] = useState(props.optionUser);
+  const [message, setMessage] = useState('処理を実行して宜しいですか？');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
       task: { title, dueDate },
-      empIdList: optionUser,
-      //empIdList: employeeList<Number>(),
-      //empIdList: employeeList,
     };
+
     try {
-      const res = await axios.post('/api/tasks', data);
+      const res = await axios.post('/api/demo', data);
       // eslint-disable-next-line no-console
       console.log(`registation success.(${res.status})`);
-      console.log('確認：：' + data.empIdList);
+      alert(`登録完了しました`);
     } catch (error) {
       console.error(`registation failed.(${error.response.data.message})`);
-      console.log('確認：' + data.empIdList);
-    }
-    // console.log('確認：：：' + data.empIdList);
-  };
-
-  const handleChange = (value: React.SetStateAction<string>) => {
-    setEmployeeList([]);
-    if (value === undefined || value === null) {
-      setOptionUser(props.optionUser);
-    } else {
-      const groupedOptionUser = props.optionUser.filter(d => d.groupId === Object.values(value)[0]);
-      setOptionUser(groupedOptionUser);
     }
   };
 
@@ -77,15 +57,6 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
                 onChange={e => setTitle(e.target.value)}
               />
             </div>
-
-            <div className='field'>
-              <label className='label'>担当者</label>
-              <MultiSelectComponent
-                options={optionUser}
-                value={employeeList}
-                onChange={(value: React.SetStateAction<OptionType[]>) => setEmployeeList(value)}
-              />
-            </div>
             <div className='field'>
               <label className='label'>期日</label>
               <DatePicker
@@ -95,10 +66,9 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
                 placeholderText='Select a date'
               />
             </div>
-
             <div className='field'>
               <p className=''>
-                <button type='submit' className='button is-medium is-info'>
+                <button type='submit' className='button is-medium is-info' onClick={message}>
                   一括登録
                 </button>
               </p>
@@ -148,8 +118,8 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-CreateTask.getInitialProps = async _ctx => {
-  const response: CreateTaskProps = {
+DemoTask.getInitialProps = async _ctx => {
+  const response: DemoTaskProps = {
     optionGroup: [],
     optionUser: [],
     status: 200,
@@ -184,4 +154,4 @@ CreateTask.getInitialProps = async _ctx => {
   }
 };
 
-export default withAuthSync(CreateTask);
+export default withAuthSync(DemoTask);

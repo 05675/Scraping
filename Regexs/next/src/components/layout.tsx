@@ -1,7 +1,10 @@
-import * as React from 'react';
+import React, { useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { StyledLogoSvg } from '../styles/svg';
+import MenuComponent from '@src/components/menu';
+import BurgerComponent from '@src/components/burger';
+import useOnClickOutside from '@src/util/hooks';
+import { StyledLogoSvg } from '@src/styles/svg';
 
 type Props = {
   title?: string;
@@ -12,10 +15,18 @@ type Props = {
 /**
  * 共通ヘッダーコンポーネント
  *
- * @param {string} title 表示用タイトル文字列
  * @returns {*} Reactコンポーネント
  */
-function getHeader(title: string) {
+function getHeader() {
+  // TODO:後で調査する
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [open, setOpen] = useState(false);
+  // TODO:後で調査する
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const node = useRef<HTMLDivElement>(null);
+  // TODO:後で調査する
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useOnClickOutside(node, () => setOpen(false));
   return (
     <header>
       <section className='payroll'>
@@ -24,36 +35,24 @@ function getHeader(title: string) {
             <div className='flex-container'>
               <div className='flex-item-left'>
                 <Link href='/'>
-                  <span className='arrow-left'>タスク一覧</span>
+                  <a href='/' className='arrow-left'>
+                    タスク一覧
+                  </a>
                 </Link>
               </div>
               <div className='flex-item-center'>
                 <StyledLogoSvg width='150' height='30' />
               </div>
-              <div className='flex-item-right'>
-                {title === '生命保険' ? <button>保存</button> : null}
+              <div ref={node} className='flex-item-right'>
+                <BurgerComponent open={open} setOpen={setOpen} />
+                <MenuComponent open={open} setOpen={setOpen} />
               </div>
-            </div>
-            <div className='container-title'>
-              <p className='title'>{title}</p>{' '}
             </div>
           </div>
         </div>
       </section>
       <style jsx>
         {`
-          .container-title {
-            text-align: center;
-          }
-          .title {
-            font-family: Noto Sans JP;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 150%;
-            text-align: center;
-            color: #333333;
-          }
           .arrow-left {
             position: relative;
             padding-left: 18px;
@@ -89,9 +88,15 @@ function getHeader(title: string) {
             left: 1px;
           }
           .flex-container {
+            height: 52px;
+            width: 100%
+            position: fixed;
             display: flex;
+            // top: 0;
             width: 100%;
-            margin-top: 10px;
+            padding: 10px 0 5px 0;
+            background: #fafafa;
+            align-items: center;
           }
           .flex-item-left {
             width: 30%;
@@ -154,7 +159,7 @@ const Layout: React.FunctionComponent<Props> = ({
       <script defer src='https://use.fontawesome.com/releases/v5.3.1/js/all.js' />
       <link rel='icon' type='image/x-icon' href='/static/favicon.ico' />
     </Head>
-    {isHeader && getHeader(title)}
+    {isHeader && getHeader()}
     <section className='section'>
       <div className='container'>{children}</div>
     </section>

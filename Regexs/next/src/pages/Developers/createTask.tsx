@@ -6,6 +6,7 @@ import Layout from '@src/components/layout';
 import MultiSelectComponent from '@src/components/multiSelection';
 import { withAuthSync } from '@src/util/auth';
 import SingleSelectComponent from '@src/components/singleSelection';
+import { apiUrl } from '@src/util/apiUrl';
 
 type OptionType = {
   label: string;
@@ -168,7 +169,7 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-CreateTask.getInitialProps = async _ctx => {
+CreateTask.getInitialProps = async ctx => {
   const response: CreateTaskProps = {
     optionGroup: [],
     optionUser: [],
@@ -176,9 +177,8 @@ CreateTask.getInitialProps = async _ctx => {
     message: '',
   };
   try {
-    const HOST = 'http://localhost:3000';
-    const resGroups = await axios.get(`${HOST}/api/groups`);
-    const resUsers = await axios.get(`${HOST}/api/employees`);
+    const resGroups = await axios.get(apiUrl(ctx, '/api/groups'));
+    const resUsers = await axios.get(apiUrl(ctx, '/api/employees'));
 
     const { groupList } = resGroups.data;
     const { employeeList } = resUsers.data;
