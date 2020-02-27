@@ -19,7 +19,7 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
-            DateTime target = new DateTime(2019, 2, 1);
+            DateTime target = new DateTime(2019, 1, 31);
             while (target >= new DateTime(2000, 1, 1))
             {
                 var html = FetchRaceResultPage(target);
