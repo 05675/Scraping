@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`タスク登録画面 snapshot 1`] = `
+<div>
+  <header>
+    <section
+      className="payroll"
+    >
+      <div
+        className="payroll-body"
+      >
+        <div
+          className="container"
+        >
+          <div
+            className="flex-container"
+          >
+            <div
+              className="flex-item-left"
+            />
+            <div
+              className="flex-item-center"
+            >
+              <
+                className="sc-AxiKw kmdKNB"
+                height="30"
+                width="150"
+              />
+            </div>
+            <div
+              className="flex-item-right"
+            >
+              <button
+                className="sc-AxirZ jMCtdw"
+                onClick={[Function]}
+                open={false}
+              >
+                <div />
+                <div />
+                <div />
+              </button>
+              <nav
+                className="sc-AxjAm dsKhR"
+                open={false}
+              >
+                <a
+                  href="/"
+                  onClick={[Function]}
+                >
+                  ログアウト
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style
+      jsx={true}
+    >
+      
+          header {
+            position: fixed;
+            top:0;
+            width:100%;
+            z-index:1;
+            height: 48px;
+          }
+          .arrow-left {
+            position: relative;
+            padding-left: 18px;
+            font-family: Noto Sans JP;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 150%;
+            letter-spacing: 0.06em;
+            color: #333333;
+            text-decoration: none;
+          }
+          .arrow-left ::before {
+            position: absolute;
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-top: solid 2px #797979;
+            border-left: solid 2px #797979;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            top: 50%;
+            left: 0;
+            margin-top: -3px;
+          }
+          .arrow-left ::after {
+            position: absolute;
+            content: '';
+            width: 10px;
+            height: 2px;
+            background-color: #797979;
+            top: 50%;
+            left: 1px;
+          }
+          .flex-container {
+            width: 100%
+            position: fixed;
+            display: flex;
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            align-items: center;
+          }
+          .flex-item-left {
+            width: 30%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 2px;
+          }
+          .flex-item-center {
+            width: 40%;
+            text-align: center;
+          }
+          .flex-item-right {
+            width: 30%;
+            text-align: right;
+          }
+        
+    </style>
+  </header>
+  <div
+    style={
+      Object {
+        "height": "48px",
+        "width": "100%",
+      }
+    }
+  />
+  <section
+    className="section"
+  >
+    <div
+      className="container"
+    >
+      <form
+        action=""
+        onSubmit={[Function]}
+      >
+        <div
+          className="task-area"
+        >
+          <div>
+            <h3
+              className=""
+            >
+              タスク情報入力
+            </h3>
+          </div>
+          <article
+            className="box is-rounded"
+          >
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                件名
+              </label>
+              <input
+                className="input"
+                name="title"
+                onChange={[Function]}
+                placeholder="件名を入力してください"
+                value=""
+              />
+            </div>
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                概要
+              </label>
+              <textarea
+                className="form-control"
+                id="taskSummary"
+                name="taskSummary"
+                onChange={[Function]}
+                value=""
+              />
+            </div>
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                組織
+              </label>
+              <div
+                className=" css-2b097c-container"
+                onKeyDown={[Function]}
+              >
+                <div
+                  className=" css-cxi24g-control"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div
+                    className=" css-1hwfws3"
+                  >
+                    <div
+                      className=" css-1wa3eu0-placeholder"
+                    >
+                      Select...
+                    </div>
+                    <div
+                      className="css-b8ldur-Input"
+                    >
+                      <div
+                        className=""
+                        style={
+                          Object {
+                            "display": "inline-block",
+                          }
+                        }
+                      >
+                        <input
+                          aria-autocomplete="list"
+                          autoCapitalize="none"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          disabled={false}
+                          id="react-select-2-input"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          spellCheck="false"
+                          style={
+                            Object {
+                              "background": 0,
+                              "border": 0,
+                              "boxSizing": "content-box",
+                              "color": "inherit",
+                              "fontSize": "inherit",
+                              "label": "input",
+                              "opacity": 1,
+                              "outline": 0,
+                              "padding": 0,
+                              "width": "1px",
+                            }
+                          }
+                          tabIndex="0"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          style={
+                            Object {
+                              "height": 0,
+                              "left": 0,
+                              "overflow": "scroll",
+                              "position": "absolute",
+                              "top": 0,
+                              "visibility": "hidden",
+                              "whiteSpace": "pre",
+                            }
+                          }
+                        >
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <div />
+                    <div
+                      aria-hidden="true"
+                      className=" css-tlfecz-indicatorContainer"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                    >
+                      <div
+                        style={
+                          Object {
+                            "borderLeft": "5px solid transparent",
+                            "borderRight": "5px solid transparent",
+                            "borderTop": "5px solid #525252",
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                担当者
+              </label>
+              <div
+                className=" css-2b097c-container"
+                onKeyDown={[Function]}
+              >
+                <div
+                  className=" css-yk16xz-control"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div
+                    className=" css-1hwfws3"
+                  >
+                    <div
+                      className=" css-1wa3eu0-placeholder"
+                    >
+                      Select...
+                    </div>
+                    <div
+                      className="css-b8ldur-Input"
+                    >
+                      <div
+                        className=""
+                        style={
+                          Object {
+                            "display": "inline-block",
+                          }
+                        }
+                      >
+                        <input
+                          aria-autocomplete="list"
+                          autoCapitalize="none"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          disabled={false}
+                          id="react-select-3-input"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          spellCheck="false"
+                          style={
+                            Object {
+                              "background": 0,
+                              "border": 0,
+                              "boxSizing": "content-box",
+                              "color": "inherit",
+                              "fontSize": "inherit",
+                              "label": "input",
+                              "opacity": 1,
+                              "outline": 0,
+                              "padding": 0,
+                              "width": "1px",
+                            }
+                          }
+                          tabIndex="0"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          style={
+                            Object {
+                              "height": 0,
+                              "left": 0,
+                              "overflow": "scroll",
+                              "position": "absolute",
+                              "top": 0,
+                              "visibility": "hidden",
+                              "whiteSpace": "pre",
+                            }
+                          }
+                        >
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      className=" css-1okebmr-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className=" css-tlfecz-indicatorContainer"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="css-6q0nyr-Svg"
+                        focusable="false"
+                        height={20}
+                        viewBox="0 0 20 20"
+                        width={20}
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                期日
+              </label>
+              <div
+                className="react-datepicker-wrapper"
+              >
+                <div
+                  className="react-datepicker__input-container"
+                >
+                  <input
+                    className="input"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    placeholder="Select a date"
+                    readOnly={false}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="field"
+            >
+              <label
+                className="label"
+              >
+                詳細
+              </label>
+              <textarea
+                className="input"
+                id="taskDetail"
+                name="taskDetail"
+                onChange={[Function]}
+                value=""
+              />
+            </div>
+            <div
+              className="field"
+            >
+              <p
+                className=""
+              >
+                <button
+                  className="button is-medium is-info"
+                  type="submit"
+                >
+                  登録
+                </button>
+              </p>
+            </div>
+          </article>
+        </div>
+      </form>
+      <style
+        jsx={true}
+      >
+        
+          .field {
+            margin-bottom: 20px;
+          }
+          .input,
+          textarea {
+            box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+            max-width: 100%;
+            width: 100%;
+          }
+          .input,
+          select,
+          textarea {
+            background-color: #fff;
+            border-radius: 4px;
+            color: #363636;
+            border: 1px solid #dbdbdb;
+            font-size: 1rem;
+            height: 2em;
+            justify-content: flex-start;
+            line-height: 1.5;
+            padding-bottom: calc(0.375em - 1px);
+            padding-left: calc(0.625em - 1px);
+            padding-right: calc(0.625em - 1px);
+            padding-top: calc(0.375em - 1px);
+          }
+          .is-rounded {
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+            color: #4a4a4a;
+            display: block;
+            padding: 1.25rem;
+          }
+        
+      </style>
+    </div>
+  </section>
+</div>
+`;

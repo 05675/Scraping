@@ -1,8 +1,6 @@
 ﻿import { ObjectType, EntitySchema, Repository } from 'typeorm';
 import getConnection from '../../model/getConnection';
 
-// 拡張予定であるため default を使用しません。
-// eslint-disable-next-line import/prefer-default-export
 export const doAsyncWithLogging = async <T, TResult>(
   entity: ObjectType<T> | EntitySchema<T> | string,
   action: (repository: Repository<T>) => Promise<TResult>

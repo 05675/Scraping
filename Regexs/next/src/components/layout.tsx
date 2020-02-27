@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import MenuComponent from '@src/components/menu';
-import BurgerComponent from '@src/components/burger';
-import useOnClickOutside from '@src/util/hooks';
+import { MenuComponent } from '@src/components/menu';
+import { BurgerComponent } from '@src/components/burger';
+import { useOnClickOutside } from '@src/util/hooks';
 import { StyledLogoSvg } from '@src/styles/svg';
+import PagesData from '@src/util/pageTransitionData';
+import Router from 'next/router';
+import { PageTransactionInterface } from '@src/interfaces/PageTransaction';
 
 type Props = {
   title?: string;
@@ -17,42 +20,51 @@ type Props = {
  *
  * @returns {*} Reactコンポーネント
  */
-function getHeader() {
-  // TODO:後で調査する
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
-  // TODO:後で調査する
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const node = useRef<HTMLDivElement>(null);
-  // TODO:後で調査する
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useOnClickOutside(node, () => setOpen(false));
+
+  const filPgData = PagesData.filter(
+    (data: PageTransactionInterface) => data.pathname === Router.router?.pathname
+  );
+
   return (
-    <header>
-      <section className='payroll'>
-        <div className='payroll-body'>
-          <div className='container'>
-            <div className='flex-container'>
-              <div className='flex-item-left'>
-                <Link href='/'>
-                  <a href='/' className='arrow-left'>
-                    タスク一覧
-                  </a>
-                </Link>
-              </div>
-              <div className='flex-item-center'>
-                <StyledLogoSvg width='150' height='30' />
-              </div>
-              <div ref={node} className='flex-item-right'>
-                <BurgerComponent open={open} setOpen={setOpen} />
-                <MenuComponent open={open} setOpen={setOpen} />
+    <>
+      <header>
+        <section className='payroll'>
+          <div className='payroll-body'>
+            <div className='container'>
+              <div className='flex-container'>
+                <div className='flex-item-left'>
+                  {filPgData?.length && filPgData[0].backUrl !== '' ? (
+                    <Link href={filPgData[0].backUrl}>
+                      <a href='/' className='arrow-left'>
+                        {filPgData[0].backUrlName}
+                      </a>
+                    </Link>
+                  ) : null}
+                </div>
+                <div className='flex-item-center'>
+                  <StyledLogoSvg width='150' height='30' />
+                </div>
+                <div ref={node} className='flex-item-right'>
+                  <BurgerComponent open={open} setOpen={setOpen} />
+                  <MenuComponent open={open} setOpen={setOpen} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <style jsx>
-        {`
+        </section>
+        <style jsx>
+          {`
+          header {
+            position: fixed;
+            top:0;
+            width:100%;
+            z-index:1;
+            height: 48px;
+          }
           .arrow-left {
             position: relative;
             padding-left: 18px;
@@ -88,13 +100,11 @@ function getHeader() {
             left: 1px;
           }
           .flex-container {
-            height: 52px;
             width: 100%
             position: fixed;
             display: flex;
-            // top: 0;
             width: 100%;
-            padding: 10px 0 5px 0;
+            height: 48px;
             background: #fafafa;
             align-items: center;
           }
@@ -114,17 +124,19 @@ function getHeader() {
             text-align: right;
           }
         `}
-      </style>
-    </header>
+        </style>
+      </header>
+      <div style={{ width: '100%', height: '48px' }} />
+    </>
   );
-}
+};
 
 /**
  * 共通フッターコンポーネント
  *
  * @returns {*} Reactコンポーネント
  */
-function getFooter() {
+const Footer: React.FC = () => {
   return (
     <footer className='footer'>
       <div className='content has-text-centered'>
@@ -132,7 +144,7 @@ function getFooter() {
       </div>
     </footer>
   );
-}
+};
 
 /**
  * 共通レイアウトコンポーネント
@@ -145,26 +157,26 @@ function getFooter() {
  * }
  * @returns {*} Reactコンポーネント
  */
-const Layout: React.FunctionComponent<Props> = ({
+export const Layout: React.FC<Props> = ({
   children,
   title = 'Next Gen Beta',
   isHeader = true,
   isFooter = true,
-}) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet='utf-8' />
-      <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      <script defer src='https://use.fontawesome.com/releases/v5.3.1/js/all.js' />
-      <link rel='icon' type='image/x-icon' href='/static/favicon.ico' />
-    </Head>
-    {isHeader && getHeader()}
-    <section className='section'>
-      <div className='container'>{children}</div>
-    </section>
-    {isFooter && getFooter()}
-  </div>
-);
-
-export default Layout;
+}) => {
+  return (
+    <div>
+      <Head>
+        <title>{title}</title>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <script defer src='https://use.fontawesome.com/releases/v5.3.1/js/all.js' />
+        <link rel='icon' type='image/x-icon' href='/static/favicon.ico' />
+      </Head>
+      {isHeader && <Header />}
+      <section className='section'>
+        <div className='container'>{children}</div>
+      </section>
+      {isFooter && <Footer />}
+    </div>
+  );
+};

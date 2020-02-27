@@ -1,5 +1,4 @@
 import React from 'react';
-import { NextPage } from 'next';
 import { logout } from '@src/util/auth';
 import { StyledMenu } from '@src/styles/menu';
 
@@ -23,7 +22,7 @@ interface SideMenuProps {
  * }
  * @returns {*} Reactコンポーネント
  */
-const MenuComponent: NextPage<SideMenuProps> = props => {
+export const MenuComponent: React.FC<SideMenuProps> = props => {
   return (
     <StyledMenu open={props.open}>
       <a href='/' onClick={logout}>
@@ -32,4 +31,3 @@ const MenuComponent: NextPage<SideMenuProps> = props => {
     </StyledMenu>
   );
 };
-export default MenuComponent;

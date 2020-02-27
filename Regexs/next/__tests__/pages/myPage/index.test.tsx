@@ -1,6 +1,6 @@
-import MyPage from '../../../src/pages/myPage/index';
 import renderer from 'react-test-renderer';
 import * as React from 'react';
+import MyPage from '@src/pages/tasks';
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 

@@ -4,5 +4,3 @@ export const withPreventDefault = <T extends React.SyntheticEvent>(
   event.preventDefault();
   eventHandler(event);
 };
-
-export default withPreventDefault;

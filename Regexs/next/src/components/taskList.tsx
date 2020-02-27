@@ -14,7 +14,7 @@ interface StyledTaskListProps {
 
 export const TaskList: React.FC<StyledTaskListProps> = props => {
   return (
-    <div>
+    <>
       <listCommon.StyledList>
         <li className='tasklist-item'>
           {props.title}
@@ -83,8 +83,6 @@ export const TaskList: React.FC<StyledTaskListProps> = props => {
           }
         `}
       </style>
-    </div>
+    </>
   );
 };
-
-export default TaskList;

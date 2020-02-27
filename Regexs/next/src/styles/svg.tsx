@@ -18,5 +18,3 @@ const BaseLogoSvg = (logo: any) => styled(logo)<LogoProps>`
 `;
 
 export const StyledLogoSvg = BaseLogoSvg(LogoSVG);
-
-export default StyledLogoSvg;

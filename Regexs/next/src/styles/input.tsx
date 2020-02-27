@@ -10,7 +10,7 @@ export const StyledInput = styled.input`
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  font-family: Noto Sans JP;
+  font-family: Noto Sans JP, sans-serif;
   line-height: 180%;
   background: #fafafa;
   letter-spacing: 0.06em;
@@ -27,5 +27,3 @@ export const StyledInput = styled.input`
     color: #b3b3b3;
   }
 `;
-
-export default StyledInput;

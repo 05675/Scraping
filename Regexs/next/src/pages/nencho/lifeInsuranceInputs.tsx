@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
-import Layout from '@src/components/layout';
+import { Layout } from '@src/components/layout';
 import { StyledLabel, StyledText } from '@src/styles/label';
-import SingleSelectComponent from '@src/components/singleSelection';
+import { SingleSelectComponent } from '@src/components/singleSelection';
 import { StyledInput } from '@src/styles';
 import { withAuthSync } from '@src/util/auth';
+import { PageHeader } from '@src/components/pageHeader';
 
 type OptionType = {
   label: string;
@@ -17,21 +18,21 @@ interface ListItem {
   item: OptionType[];
 }
 
-const Form = ({ label }: { label: string }) => {
+const Form: React.FC<{ label: string }> = ({ label }) => {
   return (
-    <div>
+    <>
       <StyledLabel>{label}</StyledLabel>
       <StyledInput style={{ margin: '6px auto 16px auto' }} />
-    </div>
+    </>
   );
 };
 
-const ListBox = ({ label, items }: { label: string; items: ListItem }) => {
+const ListBox: React.FC<{ label: string; items: ListItem }> = ({ label, items }) => {
   return (
-    <div>
+    <>
       <StyledLabel> {label} </StyledLabel>
       <SingleSelectComponent options={items.item} onChange={useState} />
-    </div>
+    </>
   );
 };
 
@@ -41,12 +42,19 @@ const ListBox = ({ label, items }: { label: string; items: ListItem }) => {
  * @returns {*} Reactコンポーネント
  */
 const LifeInsuranceInputs: NextPage = () => {
+  const saveLifeInsuranceInfo = () => {
+    // FIXME: 2020-02-26 K.TANAKA DBへの登録処理をここに実装する
+    // eslint-disable-next-line no-alert
+    alert('入力内容をDBに登録');
+  };
+
   const insList: ListItem = {
     item: [],
   };
   // const [insuranceType, setInsuranceTypeList] = useState();
   return (
     <Layout title='生命保険' isHeader isFooter={false}>
+      <PageHeader title='生命保険' buttonName='保存' buttonFunc={() => saveLifeInsuranceInfo()} />
       <ListBox label='生命保険の種類' items={insList} />
       <Form label='保険会社当の名称' />
       <Form label='保険等の種類' />
@@ -58,7 +66,7 @@ const LifeInsuranceInputs: NextPage = () => {
           <Form label='氏名' />
         </div>
         <div style={{ width: '50%', marginLeft: '16px' }}>
-          <ListBox label='あなたとの続柄' items={insList} />
+          <Form label='あなたとの続柄' />
         </div>
       </div>
       <ListBox label='新・旧の区分' items={insList} />

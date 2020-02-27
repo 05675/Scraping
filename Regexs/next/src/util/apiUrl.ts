@@ -19,5 +19,3 @@ export function apiUrl(ctx: NextPageContext, path: string): string {
   }
   return `https://${host}${path}`;
 }
-
-export default apiUrl;

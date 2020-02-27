@@ -4,15 +4,15 @@ interface StyledButtonProps {
   important?: boolean;
   primary?: boolean;
   warning?: boolean;
+  fontSize?: string;
+  width?: string;
+  height?: string;
 }
 
 export const StyledButton = styled.button`
-  font-size: 16px;
   font-weight: bold;
   font-style: normal;
-  font-family: Noto Sans JP;
-  width: 283px;
-  height: 48px;
+  font-family: Noto Sans JP, sans-serif;
   color: #000000;
   line-height: 16px;
   text-align: center;
@@ -22,6 +22,12 @@ export const StyledButton = styled.button`
   border-radius: 24px;
   letter-spacing: 0.06em;
 
+  ${(props: StyledButtonProps) =>
+    css`
+      fontsize: ${props.fontSize ?? '16px'};
+      width: ${props.width ?? '283px'};
+      height: ${props.height ?? '48px'};
+    `}
   ${(props: StyledButtonProps) =>
     props.important &&
     css`
@@ -58,5 +64,3 @@ export const StyledButton = styled.button`
       background: none;
     `}
 `;
-
-export default StyledButton;

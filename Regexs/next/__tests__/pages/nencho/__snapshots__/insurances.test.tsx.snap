@@ -2,77 +2,187 @@
 
 exports[`保険料控除_入力前（従業員） snapshot 1`] = `
 <div>
+  <header>
+    <section
+      className="payroll"
+    >
+      <div
+        className="payroll-body"
+      >
+        <div
+          className="container"
+        >
+          <div
+            className="flex-container"
+          >
+            <div
+              className="flex-item-left"
+            />
+            <div
+              className="flex-item-center"
+            >
+              <
+                className="sc-AxiKw kmdKNB"
+                height="30"
+                width="150"
+              />
+            </div>
+            <div
+              className="flex-item-right"
+            >
+              <button
+                className="sc-AxirZ jMCtdw"
+                onClick={[Function]}
+                open={false}
+              >
+                <div />
+                <div />
+                <div />
+              </button>
+              <nav
+                className="sc-AxjAm dsKhR"
+                open={false}
+              >
+                <a
+                  href="/"
+                  onClick={[Function]}
+                >
+                  ログアウト
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style
+      jsx={true}
+    >
+      
+          header {
+            position: fixed;
+            top:0;
+            width:100%;
+            z-index:1;
+            height: 48px;
+          }
+          .arrow-left {
+            position: relative;
+            padding-left: 18px;
+            font-family: Noto Sans JP;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 150%;
+            letter-spacing: 0.06em;
+            color: #333333;
+            text-decoration: none;
+          }
+          .arrow-left ::before {
+            position: absolute;
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-top: solid 2px #797979;
+            border-left: solid 2px #797979;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            top: 50%;
+            left: 0;
+            margin-top: -3px;
+          }
+          .arrow-left ::after {
+            position: absolute;
+            content: '';
+            width: 10px;
+            height: 2px;
+            background-color: #797979;
+            top: 50%;
+            left: 1px;
+          }
+          .flex-container {
+            width: 100%
+            position: fixed;
+            display: flex;
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            align-items: center;
+          }
+          .flex-item-left {
+            width: 30%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 2px;
+          }
+          .flex-item-center {
+            width: 40%;
+            text-align: center;
+          }
+          .flex-item-right {
+            width: 30%;
+            text-align: right;
+          }
+        
+    </style>
+  </header>
+  <div
+    style={
+      Object {
+        "height": "48px",
+        "width": "100%",
+      }
+    }
+  />
   <section
     className="section"
   >
     <div
       className="container"
     >
-      <header
-        className="sc-Axmtr iJkvvF"
-      >
-        <div
-          className="productNameHeader"
-        >
-          <div
-            className="arrow"
-          >
-            ←
-          </div>
-          <div
-            className="backLink"
-          >
-            2020年分年末…
-          </div>
-          <div
-            className="productTitle"
-          >
-            弥生給与
-          </div>
-          <div
-            className="rightSideLink"
-          />
-        </div>
-        <div
-          className="menuNameHeader"
-        >
-          保険料控除
-        </div>
-      </header>
       <div
-        className="sc-AxhCb hNncAC"
+        className="sc-AxhUy jgsBYr"
       >
         <div
-          className="sc-AxhUy crScAy"
+          className="sc-AxgMl eAPhhM"
         >
           <div>
             生命保険（一般）
           </div>
           <div
-            className="sc-AxgMl hbAoqV"
+            className="sc-AxheI bjLNdb"
           >
             弥生生命
           </div>
         </div>
         <div
-          className="sc-AxhUy sc-AxheI bTOMuE"
+          className="sc-AxgMl sc-Axmtr icHZDT"
         >
           →
         </div>
       </div>
-      <form
-        onSubmit={[Function]}
-      >
-        <div
-          className="sc-AxmLO BTnWA"
+      <div>
+        <button
+          className="sc-AxhCb bwDvZW"
         >
-          <button
-            className="sc-AxjAm kdprGj"
-          >
-            +　新しい保険を追加する
-          </button>
-        </div>
-      </form>
+          +
+          　
+          新しい保険を追加する
+        </button>
+      </div>
+      <style
+        jsx={true}
+      >
+        
+          div {
+            bottom: 20px;
+            width: 99%;
+            position: fixed;
+            text-align: center;
+          }
+        
+      </style>
     </div>
   </section>
 </div>

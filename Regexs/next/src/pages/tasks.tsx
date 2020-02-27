@@ -4,10 +4,11 @@ import axios from 'axios';
 import useSWR from 'swr';
 import nextCookie from 'next-cookies';
 import dayjs from 'dayjs';
-import Layout from '@src/components/layout';
+import { Layout } from '@src/components/layout';
 import { withAuthSync } from '@src/util/auth';
 import { apiUrl } from '@src/util/apiUrl';
 import { TaskList } from '@src/components/taskList';
+import { PageHeader } from '@src/components/pageHeader';
 
 /**
  * タスク一覧画面用インターフェース
@@ -32,17 +33,7 @@ const fetchTaskList = async (url: string) => {
   return taskList;
 };
 
-const tasks: NextPage<TasksProps> = props => {
-  // FIXME: error処理 sample
-  if (props.error)
-    return (
-      <p>
-        {props.error.status}: {props.error.message}
-      </p>
-    );
-
-  // FIXME: react-hooks/rules-of-hooksを有効化する方法がないか調査が必要
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Tasks: NextPage<TasksProps> = props => {
   const { data: taskList }: { data?: Tasks[] } = useSWR(
     `/api/employees/${props.token}/tasks`,
     fetchTaskList,
@@ -51,6 +42,7 @@ const tasks: NextPage<TasksProps> = props => {
 
   return (
     <Layout title='タスク一覧' isFooter={false}>
+      <PageHeader title='タスク一覧' />
       <div>
         {taskList?.length ? (
           taskList.map(task => {
@@ -71,7 +63,7 @@ const tasks: NextPage<TasksProps> = props => {
   );
 };
 
-tasks.getInitialProps = async (ctx: NextPageContext) => {
+Tasks.getInitialProps = async (ctx: NextPageContext) => {
   const { token } = nextCookie(ctx);
   // FIXME: 最終的にはerrorは共通で処理したい。全pageではthrowして共通のerror pageで処理する。
   try {
@@ -88,4 +80,4 @@ tasks.getInitialProps = async (ctx: NextPageContext) => {
   }
 };
 
-export default withAuthSync(tasks);
+export default withAuthSync(Tasks);

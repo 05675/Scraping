@@ -5,11 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '@src/styles/styles.css';
 
 const App: NextPage<AppPropsType> = ({ Component, pageProps }) => {
-  return (
-    <div>
-      <Component {...pageProps} />
-    </div>
-  );
+  return <Component {...pageProps} />;
 };
 
 export default App;

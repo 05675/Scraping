@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 import React from 'react';
-import Layout from '../../components/layout';
-import { StyledButton } from '../../styles/button';
-import InsuaranceList, { InsuarancesListProps } from '../../styles/insuaranceList';
+import { Layout } from '@src/components/layout';
+import { StyledButton } from '@src/styles/button';
+import { InsuaranceList, InsuarancesListProps } from '@src/styles/insuaranceList';
+import { PageHeader } from '@src/components/pageHeader';
 
 /**
  * 保険料控除_入力前（従業員）の画面
@@ -13,6 +14,7 @@ import InsuaranceList, { InsuarancesListProps } from '../../styles/insuaranceLis
 const Insuarances: NextPage<InsuarancesListProps> = (props: InsuarancesListProps) => {
   return (
     <Layout title='保険料控除' isHeader isFooter={false}>
+      <PageHeader title='保険料控除' />
       <InsuaranceList {...props} />
       <div>
         <StyledButton important>+{'　'}新しい保険を追加する</StyledButton>

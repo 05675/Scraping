@@ -4,10 +4,9 @@ interface StyledBurgerProps {
   open?: boolean;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const StyledBurger = styled.button`
   position: absolute;
-  top: 20px;
+  top: 12px;
   right: 1rem;
   display: flex;
   flex-direction: column;

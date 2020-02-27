@@ -5,7 +5,7 @@ import { login } from '@src/util/auth';
 import { StyledButton, StyledLabel, StyledInput } from '@src/styles';
 import { withPreventDefault } from '@src/util/withPreventDefault';
 import { LogoSVG } from '@assets/images';
-import PasswordInput from '@src/components/passwordInput';
+import { PasswordInput } from '@src/components/passwordInput';
 
 interface Credential {
   empId: string;

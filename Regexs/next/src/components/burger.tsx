@@ -1,5 +1,4 @@
 import React from 'react';
-import { NextPage } from 'next';
 import { StyledBurger } from '@src/styles/burger';
 
 /**
@@ -22,7 +21,7 @@ interface BurgerProps {
  * }
  * @returns {*} Reactコンポーネント
  */
-const BurgerComponent: NextPage<BurgerProps> = props => {
+export const BurgerComponent: React.FC<BurgerProps> = props => {
   return (
     <StyledBurger open={props.open} onClick={() => props.setOpen(!props.open)}>
       <div />
@@ -31,5 +30,3 @@ const BurgerComponent: NextPage<BurgerProps> = props => {
     </StyledBurger>
   );
 };
-
-export default BurgerComponent;

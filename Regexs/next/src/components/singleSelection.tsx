@@ -1,6 +1,5 @@
 import React from 'react';
 import Select, { components, Styles } from 'react-select';
-import { NextPage } from 'next';
 
 type OptionType = {
   label: string;
@@ -35,17 +34,19 @@ const customStyles: Styles = {
  * @returns {*} ドロップダウンコンポーネント
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DropdownIndicator = (props: any) => {
+const DropdownIndicator: React.FC<any> = props => {
   return (
-    <components.DropdownIndicator {...props}>
-      <div
-        style={{
-          borderTop: '5px solid #525252',
-          borderRight: '5px solid transparent',
-          borderLeft: '5px solid transparent',
-        }}
-      />
-    </components.DropdownIndicator>
+    <>
+      <components.DropdownIndicator {...props}>
+        <div
+          style={{
+            borderTop: '5px solid #525252',
+            borderRight: '5px solid transparent',
+            borderLeft: '5px solid transparent',
+          }}
+        />
+      </components.DropdownIndicator>
+    </>
   );
 };
 
@@ -79,7 +80,7 @@ interface SingleSelectionProps {
  * }
  * @returns {*} Reactコンポーネント
  */
-const SingleSelectComponent: NextPage<SingleSelectionProps> = props => {
+export const SingleSelectComponent: React.FC<SingleSelectionProps> = props => {
   return (
     <Select
       styles={customStyles}
@@ -90,5 +91,3 @@ const SingleSelectComponent: NextPage<SingleSelectionProps> = props => {
     />
   );
 };
-
-export default SingleSelectComponent;

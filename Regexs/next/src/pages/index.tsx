@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import Dev from './Developers';
 
 const page: NextPage = () => {
   return <Dev />;
 };
 
-page.getInitialProps = (ctx: NextPageContext) => {
+page.getInitialProps = ctx => {
   if (process.env.NODE_ENV !== 'development') {
     if (ctx.res) {
       ctx.res.writeHead(302, { Location: '/tasks' });

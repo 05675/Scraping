@@ -5,12 +5,11 @@ import { withAuthSync } from '@src/util/auth';
 const linkList: string[] = [
   '/login',
   '/tasks',
-  '/nencho/index',
+  '/nencho',
   '/nencho/insurances',
   '/nencho/insuranceTypes',
   '/nencho/lifeInsuranceInputs',
   '/Developers/createTask',
-  '/Developers/demoTask',
 ];
 
 const devIndex: NextPage = () => {

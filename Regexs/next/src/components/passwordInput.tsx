@@ -2,7 +2,7 @@ import React from 'react';
 import { StyledInput } from '@src/styles';
 import { EyeSVG, EyeSlashSVG } from '@assets/images';
 
-const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = props => {
+export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = props => {
   const [isMasked, setIsMasked] = React.useState(true);
 
   const inputType = isMasked ? 'password' : 'text';
@@ -10,7 +10,7 @@ const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = pro
   const handleClick = () => setIsMasked(!isMasked);
 
   return (
-    <div>
+    <>
       <div style={{ position: 'relative' }}>
         <StyledInput {...props} type={inputType} />
         <span
@@ -35,8 +35,6 @@ const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = pro
           outline: none;
         }
       `}</style>
-    </div>
+    </>
   );
 };
-
-export default PasswordInput;

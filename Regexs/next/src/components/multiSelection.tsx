@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-import { NextPage } from 'next';
 
 type OptionType = {
   label: string;
@@ -29,7 +28,7 @@ interface MultiSelectionProps {
  * }
  * @returns {*} Reactコンポーネント
  */
-const MultiSelectComponent: NextPage<MultiSelectionProps> = props => {
+export const MultiSelectComponent: React.FC<MultiSelectionProps> = props => {
   const [inpuVal, setInpuVal] = useState('');
 
   const onInputChange = (inputValue: string): void => {
@@ -47,5 +46,3 @@ const MultiSelectComponent: NextPage<MultiSelectionProps> = props => {
     />
   );
 };
-
-export default MultiSelectComponent;

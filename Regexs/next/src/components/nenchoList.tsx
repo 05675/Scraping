@@ -58,16 +58,14 @@ export const StyledArrow = styled.h5`
 // FIXME:共通のCSSなどで対応？
 export const NenchoList: React.FC<StyledPrimaryListProps> = props => {
   return (
-    <div>
-      <StyledList>
-        <StyledListItem>
-          <StyledTitle>{props.title}</StyledTitle>
-          <StyledStatus>{props.status}</StyledStatus>
-          <StyledArrow>
-            <VectorSVG />
-          </StyledArrow>
-        </StyledListItem>
-      </StyledList>
-    </div>
+    <StyledList>
+      <StyledListItem>
+        <StyledTitle>{props.title}</StyledTitle>
+        <StyledStatus>{props.status}</StyledStatus>
+        <StyledArrow>
+          <VectorSVG />
+        </StyledArrow>
+      </StyledListItem>
+    </StyledList>
   );
 };

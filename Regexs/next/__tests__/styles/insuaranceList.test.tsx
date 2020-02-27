@@ -1,4 +1,4 @@
-import InsuaranceList from '../../../payroll/src/styles/insuaranceList';
+import { InsuaranceList } from '@src/styles/insuaranceList';
 import React from 'react';
 import renderer from 'react-test-renderer';
 

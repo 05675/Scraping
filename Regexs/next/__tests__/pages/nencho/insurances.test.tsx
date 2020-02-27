@@ -1,4 +1,4 @@
-import Insuarances from '../../../src/pages/nencho/insurances';
+import Insuarances from '@src/pages/nencho/insurances';
 import { NextPageContext } from 'next';
 import React from 'react';
 import renderer from 'react-test-renderer';

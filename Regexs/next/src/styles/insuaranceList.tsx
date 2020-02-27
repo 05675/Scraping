@@ -27,7 +27,7 @@ export interface InsuarancesListProps {
  * @param {InsuarancesListProps} props リストアイテムの配列
  * @returns {ReactElement} 表示する保険のリスト
  */
-const InsuaranceList: React.FC<InsuarancesListProps> = props => {
+export const InsuaranceList: React.FC<InsuarancesListProps> = props => {
   return (
     <>
       {props.listItems.map(insuarance => {
@@ -100,5 +100,3 @@ const StyledArrowWrapper = styled(StyledNameFirmWrapper)`
   justify-content: center;
   align-items: center;
 `;
-
-export default InsuaranceList;

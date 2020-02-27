@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
-import Layout from '@src/components/layout';
-import MultiSelectComponent from '@src/components/multiSelection';
+import { Layout } from '@src/components/layout';
+import { MultiSelectComponent } from '@src/components/multiSelection';
 import { withAuthSync } from '@src/util/auth';
-import SingleSelectComponent from '@src/components/singleSelection';
+import { SingleSelectComponent } from '@src/components/singleSelection';
 import { apiUrl } from '@src/util/apiUrl';
 
 type OptionType = {
@@ -168,7 +168,6 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 CreateTask.getInitialProps = async ctx => {
   const response: CreateTaskProps = {
     optionGroup: [],
