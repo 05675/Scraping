@@ -33,3 +33,8 @@ export const StyledText = styled.text`
   line-height: 150%;
   letter-spacing: 0.06em;
 `;
+
+export const StyledView = styled.div`
+  position: absolute;
+  background-color: #0bb3a7;
+`;

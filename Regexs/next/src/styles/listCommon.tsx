@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 全体のライン。中のライン
 export const StyledList = styled.ul`
   width: 100%;
   height: 100%;
@@ -10,7 +11,7 @@ export const StyledList = styled.ul`
   border: solid 1px #ebebeb;
   box-sizing: border-box;
 `;
-
+//件名
 export const StyledListItemTitle = styled.span`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
@@ -23,6 +24,7 @@ export const StyledListItemTitle = styled.span`
   padding: 0;
 `;
 
+//newのロゴ
 export const StyledListItemNewly = styled.span`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
@@ -35,6 +37,7 @@ export const StyledListItemNewly = styled.span`
   padding: 0;
 `;
 
+//未提出の部分
 export const StyledListItemStatus = styled.h5`
   width: 54px;
   height: 20px;
@@ -49,6 +52,7 @@ export const StyledListItemStatus = styled.h5`
   padding: 0;
 `;
 
+//提出年月日
 export const StyledListItemDueDate = styled.h5`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
@@ -61,6 +65,7 @@ export const StyledListItemDueDate = styled.h5`
   padding: 0;
 `;
 
+//画像ファイル
 export const StyledListItemArrow = styled.svg`
   width: 13.41px;
   height: 13.41px;

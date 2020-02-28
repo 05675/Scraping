@@ -3,8 +3,8 @@ import React from 'react';
 import { VectorSVG } from '../../assets/images';
 
 interface StyledPrimaryListProps {
-  readonly title?: string;
-  readonly status?: string;
+  readonly name?: string;
+  readonly created_at?: string;
 }
 
 export const StyledList = styled.ul`
@@ -58,14 +58,16 @@ export const StyledArrow = styled.h5`
 // FIXME:共通のCSSなどで対応？
 export const NenchoList: React.FC<StyledPrimaryListProps> = props => {
   return (
-    <StyledList>
-      <StyledListItem>
-        <StyledTitle>{props.title}</StyledTitle>
-        <StyledStatus>{props.status}</StyledStatus>
-        <StyledArrow>
-          <VectorSVG />
-        </StyledArrow>
-      </StyledListItem>
-    </StyledList>
+    <>
+      <StyledList>
+        <StyledListItem>
+          <StyledTitle>{props.name}</StyledTitle>
+          <StyledStatus>{props.created_at}</StyledStatus>
+          <StyledArrow>
+            <VectorSVG />
+          </StyledArrow>
+        </StyledListItem>
+      </StyledList>
+    </>
   );
 };
