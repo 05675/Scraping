@@ -8,8 +8,12 @@ namespace jrascraping.Regexs
 {
     public class PayBackCname
     {
+        public Regex horsename = new Regex(
+            "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=</span>\n)",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+     
         public Regex win = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">).*?(?=</span>\n)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=</span>\r\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex widebefore = new Regex(

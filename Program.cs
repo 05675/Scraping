@@ -19,8 +19,8 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
-            DateTime target = new DateTime(2019, 1, 31);
-            while (target >= new DateTime(2000, 1, 1))
+            DateTime target = new DateTime(2020, 2, 29);
+            while (target >= new DateTime(2018, 9, 1))
             {
                 var html = FetchRaceResultPage(target);
                 List<string> RaceDays = RaceDaysCNames(html);
@@ -35,10 +35,14 @@ namespace jrascraping
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
                         var RaceResults = CreateRaceResults(otherRace);
+                        var PayBacks = payBack(otherRace);
+                        //Debug.WriteLine("払い戻し：" + PayBacks);
+
                         InsertHorseInfo(otherRace);
 
                         // 払い戻しテーブルを作る
                         //PayBack 払い戻しテーブル = Create払い戻しテーブル(otherRace); // なかでinsertしてます？
+
                         // otherRaceからRaceInfoを作る
                         //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
                         // otherRaceからRaceResultを作る(複数)
@@ -180,6 +184,25 @@ namespace jrascraping
                 Debug.WriteLine(ex);
                 throw;
             }
+        }
+
+        public static PayBack payBack(string html)
+        {
+            var regex = new PayBackCname();
+            var MatchData = regex.win.Matches(html);
+
+            var payback = new Models.PayBack()
+            {
+                TanshoRe = int.Parse(MatchData[0].Value),
+                Fuku1Re = int.Parse(MatchData[1].Value),
+                Fuku2Re = int.Parse(MatchData[2].Value),
+                Fuku3Re = int.Parse(MatchData[3].Value)
+
+            };
+
+                Debug.WriteLine("払い戻し：" + MatchData);
+
+            return null;
         }
 
         public static RaceResults CreateRaceResults(string html)
