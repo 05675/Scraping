@@ -17,27 +17,27 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex widebefore = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">).*?(?=-\\\\d{1,2}</span>)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex wideafter = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">\\\\d{1,2}-).*?(?=</span>)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-)\\d{1,2}(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex triplebefor = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">).*?(?=-\\\\d{1,2}-\\\\d{1,2}</span>)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">).*?(?=-\\d{1,2}-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex triplecenter = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">\\\\d{1,2}-).*?(?=-\\\\d{1,2}</span>)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-).*?(?=-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex tripleafter = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"num\\\">\\\\d{1,2}-\\\\d{1,2}-).*?(?=</span>)",
+            "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-\\d{1,2}-).*?(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline); 
 
         public Regex refund = new Regex(
-            "(?<=\\^\\[ \t\\]*<span class=\\\"yen\\\">).*?(?=<span class=\\\"unit\\\">円)",
+            "(?<=^[ \t]*<span class=\\\"yen\\\">).*?(?=<span class=\\\"unit\\\">円)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
     }
 }

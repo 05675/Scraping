@@ -19,7 +19,7 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
-            DateTime target = new DateTime(2020, 2, 29);
+            DateTime target = new DateTime(2020, 3, 2);
             while (target >= new DateTime(2018, 9, 1))
             {
                 var html = FetchRaceResultPage(target);
@@ -69,20 +69,20 @@ namespace jrascraping
             // 馬の情報を取得
             foreach (var horseInfo in horseCNames)
             {
-                var horseHtml = new Downloder().GetHorse(horseInfo);
-                var horse = CreateHorse(horseHtml); // なかでinsertしてます。
-                var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
+                //var horseHtml = new Downloder().GetHorse(horseInfo);
+                //var horse = CreateHorse(horseHtml); // なかでinsertしてます。
+                //var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
 
-                if (horsenames == null)
-                {
-                    Debug.WriteLine("Insert実行");
-                    context.HorseInfo.Add(horse);
-                }
-                else
-                {
-                    Debug.WriteLine("Insertしない");
-                }
-                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
+                //if (horsenames == null)
+                //{
+                //    Debug.WriteLine("Insert実行");
+                //    context.HorseInfo.Add(horse);
+                //}
+                //else
+                //{
+                //    Debug.WriteLine("Insertしない");
+                //}
+                //horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
             }
             context.SaveChanges();
         }
@@ -189,18 +189,56 @@ namespace jrascraping
         public static PayBack payBack(string html)
         {
             var regex = new PayBackCname();
-            var MatchData = regex.win.Matches(html);
+            var win = regex.win.Matches(html);
+            var widebefore = regex.widebefore.Matches(html);
+            var wideafter = regex.wideafter.Matches(html);
+            var triplebefor = regex.triplebefor.Matches(html);
+            var triplecenter = regex.triplecenter.Matches(html);
+            var tripleafter = regex.tripleafter.Matches(html);
+            var refund = regex.refund.Matches(html);
+
 
             var payback = new Models.PayBack()
             {
-                TanshoRe = int.Parse(MatchData[0].Value),
-                Fuku1Re = int.Parse(MatchData[1].Value),
-                Fuku2Re = int.Parse(MatchData[2].Value),
-                Fuku3Re = int.Parse(MatchData[3].Value)
+                TanshoNum = int.Parse(win[0].Value),
+                Fuku1Num = int.Parse(win[1].Value),
+                Fuku2Num = int.Parse(win[2].Value),
+                Fuku3Num = int.Parse(win[3].Value),
+                Wakuren1Waku = int.Parse(widebefore[0].Value),
+                Wakuren2Waku = int.Parse(wideafter[0].Value),
+                Wide1_1Num = int.Parse(widebefore[1].Value),
+                Wide1_2Num = int.Parse(wideafter[1].Value),
+                Wide2_1Num = int.Parse(widebefore[2].Value),
+                Wide2_2Num = int.Parse(wideafter[2].Value),
+                Wide3_1Num = int.Parse(widebefore[3].Value),
+                Wide3_2Num = int.Parse(wideafter[3].Value),
+                Umaren1Num = int.Parse(widebefore[4].Value),
+                Umaren2Num = int.Parse(wideafter[4].Value),
+                Umatan1Num = int.Parse(widebefore[5].Value),
+                Umatan2Num = int.Parse(wideafter[5].Value),
+                Sanfuku1Num = int.Parse(triplebefor[0].Value),
+                Sanfuku2Num = int.Parse(triplecenter[0].Value),
+                Sanfuku3Num = int.Parse(tripleafter[0].Value),
+                Santan1Num = int.Parse(triplebefor[1].Value),
+                Santan2Num = int.Parse(triplecenter[1].Value),
+                Santan3Num = int.Parse(tripleafter[1].Value),
 
+                //金額に「,」が入ってるためエラー。
+                //TanshoRe = int.Parse(refund[0].Value),
+                //Fuku1Re = int.Parse(refund[1].Value),
+                //Fuku2Re = int.Parse(refund[2].Value),
+                //Fuku3Re = int.Parse(refund[3].Value),
+                //WakurenRe = int.Parse(refund[4].Value),
+                //Wide1Re = int.Parse(refund[5].Value),
+                //Wide2Re = int.Parse(refund[6].Value),
+                //Wide3Re = int.Parse(refund[7].Value),
+                //UmarenRe = int.Parse(refund[8].Value),
+                //UmatanRe = int.Parse(refund[9].Value),
+                //SanfukuRe = int.Parse(refund[10].Value),
+                //SantanRe = int.Parse(refund[11].Value)
             };
 
-                Debug.WriteLine("払い戻し：" + MatchData);
+
 
             return null;
         }
