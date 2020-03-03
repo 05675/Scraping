@@ -1,29 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { read as readEmployees } from '../../../../../model/employees';
-import { create, readTasksByEmpId } from '../../../../../model/tasks';
-import { Handler } from '../../../../../util/api/interface';
-import responder from '../../../../../util/api/responder';
+import { create, readTasksByEmpId } from '@src/model/tasks';
+import { Handler } from '@src/util/api/interface';
+import contractableResponder from '@src/util/api/contractableResponder';
+import { hasEmplpyees } from '..';
 
 const handler: Handler = {
   get: async (req: NextApiRequest, res: NextApiResponse) => {
     const empId = req.query.empId as string;
-    const isExist = await readEmployees(empId);
-    if (!isExist) return res.status(404).json({ message: `employee of ${empId} does not exist` });
-
     const taskList = await readTasksByEmpId(empId);
-
     return res.status(200).json({ taskList });
   },
 
   post: async (req: NextApiRequest, res: NextApiResponse) => {
     const empId = req.query.empId as string;
-    const isExist = await readEmployees(empId);
-    if (!isExist) return res.status(404).json({ message: `employee of ${empId} does not exist` });
-
     await create({ ...req.body, empId });
-
     return res.status(200).json({ message: `tasks of employee id ${empId} created` });
   },
 };
 
-export default responder(handler);
+// hasEmplpyees を用いて指定IDの Employees が有ることを動作条件とします。
+export default contractableResponder(handler, hasEmplpyees);

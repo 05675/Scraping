@@ -1,0 +1,23 @@
+{
+  "fontName": "Noto Sans JP",
+  "fontSize": "12px",
+  "backgroundColor": "#000000",
+  "nodeShape": "box",
+  "nodeStyle": "rounded",
+  "nodeColor": "#c6c5fe",
+  "noDependencyColor": "#cfffac",
+  "cyclicNodeColor": "#ff6c60",
+  "edgeColor": "#757575",
+  "fileExtensions": [
+    "js",
+    "jsx",
+    "ts",
+    "tsx"
+  ],
+  "tsConfig": "./tsconfig.json",
+  "graphVizOptions": {
+    "G": {
+      "rankdir": "LR"
+    }
+  }
+}

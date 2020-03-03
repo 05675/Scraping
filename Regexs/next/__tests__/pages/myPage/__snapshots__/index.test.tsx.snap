@@ -1,132 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`マイページ snapshot_タスク無し 1`] = `
-<div>
-  <header>
-    <section
-      className="payroll"
+Array [
+  <header
+    className="page-header"
+  >
+    <title
+      className="sc-fzozJi jPUVi"
     >
       <div
-        className="payroll-body"
+        className="page-title"
       >
-        <div
-          className="container"
-        >
-          <div
-            className="flex-container"
-          >
-            <div
-              className="flex-item-left"
-            />
-            <div
-              className="flex-item-center"
-            >
-              <
-                className="sc-AxiKw kmdKNB"
-                height="30"
-                width="150"
-              />
-            </div>
-            <div
-              className="flex-item-right"
-            >
-              <button
-                className="sc-AxirZ jMCtdw"
-                onClick={[Function]}
-                open={false}
-              >
-                <div />
-                <div />
-                <div />
-              </button>
-              <nav
-                className="sc-AxjAm dsKhR"
-                open={false}
-              >
-                <a
-                  href="/"
-                  onClick={[Function]}
-                >
-                  ログアウト
-                </a>
-              </nav>
-            </div>
-          </div>
-        </div>
+        タスク一覧
       </div>
-    </section>
+    </title>
     <style
       jsx={true}
     >
       
-          header {
-            position: fixed;
-            top:0;
-            width:100%;
-            z-index:1;
-            height: 48px;
-          }
-          .arrow-left {
-            position: relative;
-            padding-left: 18px;
-            font-family: Noto Sans JP;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 150%;
-            letter-spacing: 0.06em;
-            color: #333333;
-            text-decoration: none;
-          }
-          .arrow-left ::before {
-            position: absolute;
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-top: solid 2px #797979;
-            border-left: solid 2px #797979;
-            -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-            top: 50%;
-            left: 0;
-            margin-top: -3px;
-          }
-          .arrow-left ::after {
-            position: absolute;
-            content: '';
-            width: 10px;
-            height: 2px;
-            background-color: #797979;
-            top: 50%;
-            left: 1px;
-          }
-          .flex-container {
-            width: 100%
-            position: fixed;
-            display: flex;
-            width: 100%;
-            height: 48px;
-            background: #fafafa;
-            align-items: center;
-          }
-          .flex-item-left {
-            width: 30%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding-left: 2px;
-          }
-          .flex-item-center {
-            width: 40%;
-            text-align: center;
-          }
-          .flex-item-right {
-            width: 30%;
-            text-align: right;
-          }
-        
+            .page-header {
+              background: #ffffff;
+              position: fixed;
+              width: 100%;
+              height: 48px;
+              margin: 0;
+              z-index: 1;
+            }
+            .page-title {
+              position: absolute;
+              top: 12px;
+              margin: 0;
+              width: 100%;
+            }
+            .page-button {
+              display: 'inline';
+              position: absolute;
+              top: 8px;
+              right: 8px;
+              margin: 0;
+            }
+          
     </style>
-  </header>
+  </header>,
   <div
     style={
       Object {
@@ -134,19 +49,13 @@ exports[`マイページ snapshot_タスク無し 1`] = `
         "width": "100%",
       }
     }
-  />
-  <section
-    className="section"
-  >
-    <div
-      className="container"
+  />,
+  <div>
+    <ul
+      className="sc-AxjAm cxSRUk"
     >
-      <div>
-        <p>
-          タスクがありません。
-        </p>
-      </div>
-    </div>
-  </section>
-</div>
+      <p />
+    </ul>
+  </div>,
+]
 `;

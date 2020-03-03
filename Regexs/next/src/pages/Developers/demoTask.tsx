@@ -2,26 +2,11 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
-import Layout from '@src/components/layout';
 import { withAuthSync } from '@src/util/auth';
 
-type OptionType = {
-  label: string;
-  value: string;
-  groupId?: string;
-};
-
-interface DemoTaskProps {
-  optionGroup: OptionType[];
-  optionUser: OptionType[];
-  status: number;
-  message: string;
-}
-
-const DemoTask: NextPage<DemoTaskProps> = props => {
+const DemoTask: NextPage = () => {
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState();
-  const [message, setMessage] = useState('処理を実行して宜しいですか？');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +18,7 @@ const DemoTask: NextPage<DemoTaskProps> = props => {
       const res = await axios.post('/api/demo', data);
       // eslint-disable-next-line no-console
       console.log(`registation success.(${res.status})`);
+      // eslint-disable-next-line no-alert
       alert(`登録完了しました`);
     } catch (error) {
       console.error(`registation failed.(${error.response.data.message})`);
@@ -40,11 +26,11 @@ const DemoTask: NextPage<DemoTaskProps> = props => {
   };
 
   return (
-    <Layout title='タスク登録' isHeader isFooter={false}>
+    <>
       <form action='' onSubmit={handleSubmit}>
         <div className='task-area'>
           <div>
-            <h3 className=''>タスク情報入力</h3>
+            <h3 className=''>タスク入力(全従業員)</h3>
           </div>
           <article className='box is-rounded'>
             <div className='field'>
@@ -68,7 +54,7 @@ const DemoTask: NextPage<DemoTaskProps> = props => {
             </div>
             <div className='field'>
               <p className=''>
-                <button type='submit' className='button is-medium is-info' onClick={message}>
+                <button type='submit' className='button is-medium is-info'>
                   一括登録
                 </button>
               </p>
@@ -113,45 +99,8 @@ const DemoTask: NextPage<DemoTaskProps> = props => {
           }
         `}
       </style>
-    </Layout>
+    </>
   );
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-DemoTask.getInitialProps = async _ctx => {
-  const response: DemoTaskProps = {
-    optionGroup: [],
-    optionUser: [],
-    status: 200,
-    message: '',
-  };
-  try {
-    const HOST = 'http://localhost:3000';
-    const resGroups = await axios.get(`${HOST}/api/groups`);
-    const resUsers = await axios.get(`${HOST}/api/employees`);
-
-    const { groupList } = resGroups.data;
-    const { employeeList } = resUsers.data;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response.optionGroup = groupList.map((d: any) => ({ value: d.id, label: d.name }));
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response.optionUser = employeeList.map((d: any) => ({
-      value: d.empId,
-      label: d.empName,
-      groupId: d.groupId,
-    }));
-
-    response.status = resGroups.status;
-    response.message = resGroups.statusText;
-
-    return response;
-  } catch (error) {
-    response.status = error.response.status;
-    response.message = error.response.data.message ?? error.response.statusText;
-
-    return response;
-  }
 };
 
 export default withAuthSync(DemoTask);

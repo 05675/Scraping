@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
-import { Layout } from '@src/components/layout';
 import { MultiSelectComponent } from '@src/components/multiSelection';
 import { withAuthSync } from '@src/util/auth';
 import { SingleSelectComponent } from '@src/components/singleSelection';
@@ -55,7 +54,7 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
   };
 
   return (
-    <Layout title='タスク登録' isHeader isFooter={false}>
+    <>
       <form action='' onSubmit={handleSubmit}>
         <div className='task-area'>
           <div>
@@ -164,7 +163,7 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
           }
         `}
       </style>
-    </Layout>
+    </>
   );
 };
 

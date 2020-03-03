@@ -26,7 +26,7 @@ export const MenuComponent: React.FC<SideMenuProps> = props => {
   return (
     <StyledMenu open={props.open}>
       <a href='/' onClick={logout}>
-        ログアウト
+        サインアウト
       </a>
     </StyledMenu>
   );

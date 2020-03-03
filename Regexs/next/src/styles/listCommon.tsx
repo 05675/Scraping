@@ -1,18 +1,26 @@
 import styled from 'styled-components';
 
-// 全体のライン。中のライン
 export const StyledList = styled.ul`
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0;
   font-size: 0;
   list-style: none;
   border: solid 1px #ebebeb;
   box-sizing: border-box;
 `;
-//件名
-export const StyledListItemTitle = styled.span`
+
+export const StyledListNencho = styled.ul`
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 16px;
+  font-size: 0;
+  list-style: none;
+  box-sizing: border-box;
+`;
+
+export const StyledListItemTitle = styled.div`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -22,9 +30,27 @@ export const StyledListItemTitle = styled.span`
   color: #333333;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
+  //TODO:不要
+  //overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-//newのロゴ
+export const StyledListItemTitleNencho = styled.div`
+  font-family: Noto Sans JP, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0.06em;
+  color: #525252;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const StyledListItemNewly = styled.span`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
@@ -37,22 +63,31 @@ export const StyledListItemNewly = styled.span`
   padding: 0;
 `;
 
-//未提出の部分
 export const StyledListItemStatus = styled.h5`
-  width: 54px;
-  height: 20px;
+  width: 100%;
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 180%;
   letter-spacing: 0.06em;
-  color: #ffffff;
   margin: 0;
   padding: 0;
 `;
 
-//提出年月日
+export const StyledListItemStatusNencho = styled.h5`
+  width: 100%;
+  font-family: Noto Sans JP, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.06em;
+  color: #949494;
+  margin: 0;
+  padding: 0;
+`;
+
 export const StyledListItemDueDate = styled.h5`
   font-family: Noto Sans JP, sans-serif;
   font-style: normal;
@@ -65,10 +100,18 @@ export const StyledListItemDueDate = styled.h5`
   padding: 0;
 `;
 
-//画像ファイル
 export const StyledListItemArrow = styled.svg`
   width: 13.41px;
   height: 13.41px;
   margin: 0;
   padding: 0;
+`;
+
+export const StyledListBody = styled.body`
+  background-color: #e5e5e5;
+`;
+
+export const StyledListBody2 = styled.body`
+  // background-color: #ffffff;
+  // bottom: 20px;
 `;

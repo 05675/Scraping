@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { NextPage } from 'next';
-import Dev from './Developers';
+import DevIndex from '@src/components/devIndex';
 
 const page: NextPage = () => {
-  return <Dev />;
+  return <DevIndex />;
 };
 
 page.getInitialProps = ctx => {

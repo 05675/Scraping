@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
+import Router from 'next/router';
 import React from 'react';
-import { Layout } from '@src/components/layout';
 import { StyledButton } from '@src/styles/button';
 import { InsuaranceList, InsuarancesListProps } from '@src/styles/insuaranceList';
 import { PageHeader } from '@src/components/pageHeader';
@@ -12,12 +12,18 @@ import { PageHeader } from '@src/components/pageHeader';
  * @returns {NextPage} 表示させる画面
  */
 const Insuarances: NextPage<InsuarancesListProps> = (props: InsuarancesListProps) => {
+  const clickHandler = () => Router.push('/nencho/lifeInsuranceInputs');
+
   return (
-    <Layout title='保険料控除' isHeader isFooter={false}>
+    <>
       <PageHeader title='保険料控除' />
-      <InsuaranceList {...props} />
+      <span onClick={clickHandler} role='button'>
+        <InsuaranceList {...props} />
+      </span>
       <div>
-        <StyledButton important>+{'　'}新しい保険を追加する</StyledButton>
+        <StyledButton important onClick={clickHandler}>
+          +{'　'}新しい保険を追加する
+        </StyledButton>
       </div>
       <style jsx>
         {`
@@ -29,7 +35,7 @@ const Insuarances: NextPage<InsuarancesListProps> = (props: InsuarancesListProps
           }
         `}
       </style>
-    </Layout>
+    </>
   );
 };
 

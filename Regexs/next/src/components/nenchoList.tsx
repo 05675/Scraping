@@ -1,73 +1,57 @@
-import styled from 'styled-components';
 import React from 'react';
 import { VectorSVG } from '../../assets/images';
+import * as listCommon from '../styles/listCommon';
 
 interface StyledPrimaryListProps {
-  readonly name?: string;
-  readonly created_at?: string;
+  readonly title: string;
+  readonly status: number;
 }
 
-export const StyledList = styled.ul`
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 0;
-  list-style: none;
-  border: solid 1px #ebebeb;
-`;
+const statusColor = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
 
-export const StyledListItem = styled.li`
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 48px;
-  background: #ffffff;
-  border-left: solid 5px #30b46e;
-`;
-
-export const StyledTitle = styled.h4`
-  position: absolute;
-  left: 15px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 50%;
-  letter-spacing: 0.06em;
-  color: #333333;
-`;
-
-export const StyledStatus = styled.h5`
-  position: absolute;
-  height: 18px;
-  right: 42px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 50%;
-  text-align: left;
-  color: #b3b3b3;
-`;
-
-export const StyledArrow = styled.h5`
-  position: absolute;
-  top: 15.29px;
-  right: 21px;
-  margin: 0;
-`;
+const statusName = ['未入力', '入力済み', '修正してください'];
 
 // FIXME:共通のCSSなどで対応？
-export const NenchoList: React.FC<StyledPrimaryListProps> = props => {
+export const NenchoListItem: React.FC<StyledPrimaryListProps> = props => {
   return (
     <>
-      <StyledList>
-        <StyledListItem>
-          <StyledTitle>{props.name}</StyledTitle>
-          <StyledStatus>{props.created_at}</StyledStatus>
-          <StyledArrow>
-            <VectorSVG />
-          </StyledArrow>
-        </StyledListItem>
-      </StyledList>
+      <div className='nencholist-item'>
+        <div className='nencholist-item-title'>
+          <listCommon.StyledListItemTitleNencho>{props.title}</listCommon.StyledListItemTitleNencho>{' '}
+        </div>
+        <div className='nencholist-item-status'>
+          <listCommon.StyledListItemStatusNencho>
+            {statusName[props.status]}
+          </listCommon.StyledListItemStatusNencho>
+        </div>
+      </div>
+      <style jsx>
+        {`
+          .nencholist-item {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            height: 72px;
+            background: #ffffff;
+            border-bottom: solid 1px #ebebeb;
+            //TODO:↓の1行不要
+            border-left: solid 0px ${statusColor[props.status]};
+            box-sizing: border-box;
+          }
+          .nencholist-item-title {
+            position: absolute;
+            top: 16px;
+            left: 72px;
+          }
+          .nencholist-item-status {
+            position: absolute;
+            bottom: 15px;
+            left: 72px;
+            text-align: left;
+            color: #b3b3b3;
+          }
+        `}
+      </style>
     </>
   );
 };

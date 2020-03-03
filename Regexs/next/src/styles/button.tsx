@@ -24,7 +24,7 @@ export const StyledButton = styled.button`
 
   ${(props: StyledButtonProps) =>
     css`
-      fontsize: ${props.fontSize ?? '16px'};
+      font-size: ${props.fontSize ?? '16px'};
       width: ${props.width ?? '283px'};
       height: ${props.height ?? '48px'};
     `}

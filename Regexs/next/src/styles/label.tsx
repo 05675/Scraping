@@ -24,7 +24,7 @@ export const StyledTitle = styled.title`
   width: 100%;
 `;
 
-export const StyledText = styled.text`
+export const StyledText = styled.div`
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -32,9 +32,4 @@ export const StyledText = styled.text`
   color: #333333;
   line-height: 150%;
   letter-spacing: 0.06em;
-`;
-
-export const StyledView = styled.div`
-  position: absolute;
-  background-color: #0bb3a7;
 `;

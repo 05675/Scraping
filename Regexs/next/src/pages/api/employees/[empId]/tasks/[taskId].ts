@@ -1,15 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { read as readEmployees } from '../../../../../model/employees';
-import { read as readTasks, update, destroy } from '../../../../../model/tasks';
-import { Handler } from '../../../../../util/api/interface';
-import responder from '../../../../../util/api/responder';
+import contractableResponder from '@src/util/api/contractableResponder';
+import { Handler } from '@src/util/api/interface';
+import { read as readTasks, update, destroy } from '@src/model/tasks';
+import { hasEmplpyees } from '..';
 
 const handler: Handler = {
   get: async (req: NextApiRequest, res: NextApiResponse) => {
-    const empId = req.query.empId as string;
-    const isExist = await readEmployees(empId);
-    if (!isExist) return res.status(404).json({ message: `employee of ${empId} does not exist` });
-
     const taskId = req.query.taskId as string;
     const task = await readTasks(taskId);
 
@@ -18,9 +14,6 @@ const handler: Handler = {
 
   put: async (req: NextApiRequest, res: NextApiResponse) => {
     const empId = req.query.empId as string;
-    const isExist = await readEmployees(empId);
-    if (!isExist) return res.status(404).json({ message: `employee of ${empId} does not exist` });
-
     const taskId = req.query.taskId as string;
     await update(taskId, req.body);
 
@@ -31,9 +24,6 @@ const handler: Handler = {
 
   delete: async (req: NextApiRequest, res: NextApiResponse) => {
     const empId = req.query.empId as string;
-    const isExist = await readEmployees(empId);
-    if (!isExist) return res.status(404).json({ message: `employee of ${empId} does not exist` });
-
     const taskId = req.query.taskId as string;
     await destroy(taskId);
 
@@ -41,4 +31,5 @@ const handler: Handler = {
   },
 };
 
-export default responder(handler);
+// hasEmplpyees を用いて指定IDの Employees が有ることを動作条件とします。
+export default contractableResponder(handler, hasEmplpyees);

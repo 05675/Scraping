@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledInput } from '@src/styles';
-import { EyeSVG, EyeSlashSVG } from '@assets/images';
+import { EyeSVG, EyeOffSVG } from '@assets/images';
 
 export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = props => {
   const [isMasked, setIsMasked] = React.useState(true);
@@ -13,13 +13,8 @@ export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>
     <>
       <div style={{ position: 'relative' }}>
         <StyledInput {...props} type={inputType} />
-        <span
-          className='eye-button'
-          onClick={handleClick}
-          onKeyDown={handleClick}
-          role='button'
-          tabIndex={-1}>
-          {isMasked ? <EyeSlashSVG /> : <EyeSVG />}
+        <span className='eye-button' onClick={handleClick} role='button'>
+          {isMasked ? <EyeOffSVG /> : <EyeSVG />}
         </span>
       </div>
 
@@ -27,7 +22,7 @@ export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>
       <style jsx>{`
         .eye-button {
           position: absolute;
-          top: 15px;
+          top: 13px;
           right: 17px;
         }
 

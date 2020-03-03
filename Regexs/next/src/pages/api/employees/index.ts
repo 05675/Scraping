@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { readAll, create, read } from '../../../model/employees';
-import { Handler } from '../../../util/api/interface';
-import responder from '../../../util/api/responder';
+import { readAll, create, read } from '@src/model/employees';
+import { Handler } from '@src/util/api/interface';
+import responder from '@src/util/api/responder';
 
 const handler: Handler = {
   // TODO: page機能を追加したい。

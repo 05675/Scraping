@@ -1,5 +1,6 @@
 import styled, { StyledComponent } from 'styled-components';
 import React, { ReactElement } from 'react';
+import { VectorSVG } from '@assets/images';
 
 /**
  * リストのアイテムに格納するプロパティのインターフェース
@@ -52,7 +53,9 @@ const InsuaranceListItem: React.FC<InsuaranceItemProps> = props => {
         <div>{props.kind}</div>
         <StyledFirmName>{props.firm}</StyledFirmName>
       </StyledNameFirmWrapper>
-      <StyledArrowWrapper theme={{ size: 1 }}>→</StyledArrowWrapper>
+      <StyledArrowWrapper theme={{ size: 1 }}>
+        <VectorSVG />
+      </StyledArrowWrapper>
     </StyledInsuaranceListItem>
   );
 };

@@ -1,72 +1,70 @@
 import * as React from 'react';
-import { NextPage, NextPageContext } from 'next';
-import axios from 'axios';
-import useSWR from 'swr';
-import nextCookie from 'next-cookies';
-import dayjs from 'dayjs';
-import { Layout } from '@src/components/layout';
-import { withAuthSync } from '@src/util/auth';
-import { apiUrl } from '@src/util/apiUrl';
-import { NenchoList } from '@src/components/nenchoList';
+import { NextPage } from 'next';
+import Router from 'next/router';
+import { StyledButton } from '@src/styles/button';
+import { NenchoListItem } from '@src/components/nenchoList';
 import { PageHeader } from '@src/components/pageHeader';
+import * as listCommon from '@src/styles/listCommon';
+import { withAuthSync } from '@src/util/auth';
 
-/**
- * タスク一覧画面用インターフェース
- *
- * @interface TasksProps
- */
-interface TasksProps {
-  taskList?: Tasks[];
-  error?: { status: string; message: string };
-  token?: string; // withAuth HOCからもらったtoken
-}
+const Nencho: NextPage = () => {
+  const statusNum: { [key: string]: number } = {
+    EMPTY: 0,
+    FINISHED: 1,
+    TBC: 2,
+  };
 
-interface Tasks {
-  name: string;
-  created_at: string;
-}
-
-const fetchTaskList = async (url: string) => {
-  const { taskList } = (await axios.get(url)).data;
-  return taskList;
-};
-
-const Tasks: NextPage<TasksProps> = props => {
-  const { data: taskList }: { data?: Tasks[] } = useSWR(`/api/groups`, fetchTaskList, {
-    initialData: props.taskList,
-  });
+  // FIXME: 実データに入れ替えてください。
+  const nenchoList = [
+    { id: 'uuid1', title: '本人情報', status: statusNum.FINISHED },
+    { id: 'uuid2', title: '配偶者情報', status: statusNum.FINISHED },
+    { id: 'uuid3', title: '家族情報', status: statusNum.FINISHED },
+    { id: 'uuid4', title: '保険料控除', status: statusNum.EMPTY },
+    { id: 'uuid5', title: '住宅ローン控除', status: statusNum.TBC },
+  ];
 
   return (
-    <Layout title='タスク一覧' isFooter={false}>
-      <PageHeader title='タスク一覧' />
-      <div>
-        {taskList?.length ? (
-          taskList.map(task => {
-            return <NenchoList name={task.name} created_at={task.created_at} />;
-          })
-        ) : (
-          <p>タスクがありません。</p>
-        )}
-      </div>
-    </Layout>
+    <>
+      <PageHeader title='2020年分年末調整' />
+      <listCommon.StyledListBody>
+        <listCommon.StyledListBody2>
+          <div className='page-background'>
+            <listCommon.StyledListNencho>
+              {nenchoList.map(nencho => (
+                <p key={nencho.id} onClick={() => Router.push('/nencho/insurances')} role='button'>
+                  <NenchoListItem title={nencho.title} status={nencho.status} />
+                </p>
+              ))}
+            </listCommon.StyledListNencho>
+            <p className='submission-button'>
+              <StyledButton important onClick={() => Router.push('/tasks')}>
+                提出する
+              </StyledButton>
+
+              <style jsx>
+                {`
+                  .submission-button {
+                    text-align: center;
+                    padding-top: 37px;
+                    padding-bottom: 16px;
+
+                    bottom: 20px;
+                    position: fixed;
+                    margin: 0 16px;
+                    bottom: 20px;
+                  }
+                  .page-background {
+                    background: #ffffff;
+                    border-radius: 0 0 8px 8px;
+                  }
+                `}
+              </style>
+            </p>
+          </div>
+        </listCommon.StyledListBody2>
+      </listCommon.StyledListBody>
+    </>
   );
 };
 
-Tasks.getInitialProps = async (ctx: NextPageContext) => {
-  const { token } = nextCookie(ctx);
-  // FIXME: 最終的にはerrorは共通で処理したい。全pageではthrowして共通のerror pageで処理する。
-  try {
-    return { taskList: await fetchTaskList(apiUrl(ctx, `/api/groups`)) };
-  } catch (error) {
-    const { response } = error;
-
-    return {
-      error: {
-        status: response.status,
-        message: response.data.message ?? response.statusText,
-      },
-    };
-  }
-};
-
-export default withAuthSync(Tasks);
+export default withAuthSync(Nencho);
