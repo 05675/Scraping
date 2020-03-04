@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledLabel = styled.label`
   font-size: 12px;
@@ -16,7 +16,7 @@ export const StyledTitle = styled.title`
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 100%;
   text-align: center;
   color: #333333;
   margin-top: 12px;

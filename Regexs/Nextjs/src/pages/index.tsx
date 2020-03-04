@@ -57,7 +57,7 @@ const Nencho: NextPage = () => {
                 background: #ffffff;
                 border-radius: 0px 0px 8px 8px;
                 width: (97% - 37.984px);
-                height: 93px;
+                //height: 93px;
               }
               .page-footer {
               }

@@ -28,7 +28,6 @@ export const NenchoHeader: React.FC = () => {
               width: (97% - 37.984px);
               border-radius: 8px 8px 0px 0px;
               background: #ffffff;
-              // height: 93px;
             }
           `}
         </style>
