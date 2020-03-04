@@ -18,6 +18,7 @@ export const StyledListNencho = styled.ul`
   font-size: 0;
   list-style: none;
   box-sizing: border-box;
+  min-height: 100%;
 `;
 
 export const StyledListItemTitle = styled.div`
@@ -31,8 +32,7 @@ export const StyledListItemTitle = styled.div`
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  //TODO:不要
-  //overflow: hidden;
+  verflow: hidden;
   text-overflow: ellipsis;
 `;
 
@@ -47,7 +47,8 @@ export const StyledListItemTitleNencho = styled.div`
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  overflow: hidden;
+  //TODO:不要
+  //overflow: hidden;
   text-overflow: ellipsis;
 `;
 
@@ -108,10 +109,5 @@ export const StyledListItemArrow = styled.svg`
 `;
 
 export const StyledListBody = styled.body`
-  background-color: #e5e5e5;
-`;
-
-export const StyledListBody2 = styled.body`
-  // background-color: #ffffff;
-  // bottom: 20px;
+  background-color: #edf4fa;
 `;

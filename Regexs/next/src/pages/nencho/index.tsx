@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Router from 'next/router';
 import { StyledButton } from '@src/styles/button';
 import { NenchoListItem } from '@src/components/nenchoList';
-import { PageHeader } from '@src/components/pageHeader';
+import { NenchoHeader } from '@src/components/nenchoHeader';
 import * as listCommon from '@src/styles/listCommon';
 import { withAuthSync } from '@src/util/auth';
 
@@ -25,43 +25,42 @@ const Nencho: NextPage = () => {
 
   return (
     <>
-      <PageHeader title='2020年分年末調整' />
+      <NenchoHeader />
       <listCommon.StyledListBody>
-        <listCommon.StyledListBody2>
-          <div className='page-background'>
-            <listCommon.StyledListNencho>
-              {nenchoList.map(nencho => (
-                <p key={nencho.id} onClick={() => Router.push('/nencho/insurances')} role='button'>
-                  <NenchoListItem title={nencho.title} status={nencho.status} />
-                </p>
-              ))}
-            </listCommon.StyledListNencho>
-            <p className='submission-button'>
-              <StyledButton important onClick={() => Router.push('/tasks')}>
-                提出する
-              </StyledButton>
-
-              <style jsx>
-                {`
-                  .submission-button {
-                    text-align: center;
-                    padding-top: 37px;
-                    padding-bottom: 16px;
-
-                    bottom: 20px;
-                    position: fixed;
-                    margin: 0 16px;
-                    bottom: 20px;
-                  }
-                  .page-background {
-                    background: #ffffff;
-                    border-radius: 0 0 8px 8px;
-                  }
-                `}
-              </style>
-            </p>
+        <div className='page-background'>
+          <listCommon.StyledListNencho>
+            {nenchoList.map(nencho => (
+              <div key={nencho.id} onClick={() => Router.push('/nencho/insurances')} role='button'>
+                <NenchoListItem title={nencho.title} status={nencho.status} />
+              </div>
+            ))}
+          </listCommon.StyledListNencho>
+        </div>
+        <footer className='page-footer'>
+          <div className='submission-button'>
+            <StyledButton important onClick={() => Router.push('/tasks')}>
+              提出する
+            </StyledButton>
           </div>
-        </listCommon.StyledListBody2>
+          <style jsx>
+            {`
+              .submission-button {
+                position: fixed;
+                right: 16px;
+                left: 16px;
+                bottom: 16px;
+                text-align: center;
+                padding: 93px 0px 16px 0px;
+                background: #ffffff;
+                border-radius: 0px 0px 8px 8px;
+                width: (97% - 37.984px);
+                height: 93px;
+              }
+              .page-footer {
+              }
+            `}
+          </style>
+        </footer>
       </listCommon.StyledListBody>
     </>
   );
