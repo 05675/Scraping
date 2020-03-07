@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -196,6 +197,13 @@ namespace jrascraping
             var triplecenter = regex.triplecenter.Matches(html);
             var tripleafter = regex.tripleafter.Matches(html);
             var refund = regex.refund.Matches(html);
+
+            TextReader inputData = Console.In;
+            var inputRefund = inputData.ReadToEnd();
+            var kanma = @",";
+            var result = Regex.Replace(inputRefund, kanma, string.Empty, RegexOptions.Singleline);
+
+            Debug.WriteLine(result);
 
 
             var payback = new Models.PayBack()
