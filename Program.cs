@@ -198,14 +198,6 @@ namespace jrascraping
             var tripleafter = regex.tripleafter.Matches(html);
             var refund = regex.refund.Matches(html);
 
-            TextReader inputData = Console.In;
-            var inputRefund = inputData.ReadToEnd();
-            var kanma = @",";
-            var result = Regex.Replace(inputRefund, kanma, string.Empty, RegexOptions.Singleline);
-
-            Debug.WriteLine(result);
-
-
             var payback = new Models.PayBack()
             {
                 TanshoNum = int.Parse(win[0].Value),
@@ -232,21 +224,19 @@ namespace jrascraping
                 Santan3Num = int.Parse(tripleafter[1].Value),
 
                 //金額に「,」が入ってるためエラー。
-                //TanshoRe = int.Parse(refund[0].Value),
-                //Fuku1Re = int.Parse(refund[1].Value),
-                //Fuku2Re = int.Parse(refund[2].Value),
-                //Fuku3Re = int.Parse(refund[3].Value),
-                //WakurenRe = int.Parse(refund[4].Value),
-                //Wide1Re = int.Parse(refund[5].Value),
-                //Wide2Re = int.Parse(refund[6].Value),
-                //Wide3Re = int.Parse(refund[7].Value),
-                //UmarenRe = int.Parse(refund[8].Value),
-                //UmatanRe = int.Parse(refund[9].Value),
-                //SanfukuRe = int.Parse(refund[10].Value),
-                //SantanRe = int.Parse(refund[11].Value)
+                TanshoRe = int.Parse(refund[0].Value, System.Globalization.NumberStyles.AllowThousands),
+                Fuku1Re = int.Parse(refund[1].Value, System.Globalization.NumberStyles.AllowThousands),
+                Fuku2Re = int.Parse(refund[2].Value, System.Globalization.NumberStyles.AllowThousands),
+                Fuku3Re = int.Parse(refund[3].Value, System.Globalization.NumberStyles.AllowThousands),
+                WakurenRe = int.Parse(refund[4].Value, System.Globalization.NumberStyles.AllowThousands),
+                Wide1Re = int.Parse(refund[5].Value, System.Globalization.NumberStyles.AllowThousands),
+                Wide2Re = int.Parse(refund[6].Value, System.Globalization.NumberStyles.AllowThousands),
+                Wide3Re = int.Parse(refund[7].Value, System.Globalization.NumberStyles.AllowThousands),
+                UmarenRe = int.Parse(refund[8].Value, System.Globalization.NumberStyles.AllowThousands),
+                UmatanRe = int.Parse(refund[9].Value, System.Globalization.NumberStyles.AllowThousands),
+                SanfukuRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands),
+                SantanRe = int.Parse(refund[11].Value, System.Globalization.NumberStyles.AllowThousands)
             };
-
-
 
             return null;
         }
