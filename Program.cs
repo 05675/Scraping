@@ -37,7 +37,7 @@ namespace jrascraping
                         string otherRace = new Downloder().GetRaceResults(resultCName);
                         var horses = InsertHorseInfo(otherRace);
                         var raceResults = CreateRaceResults(otherRace, horses);
-                        var payBacks = PayBack(otherRace, raceResults, horses);
+                        var payBacks = CreatePayBack(otherRace, raceResults, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         //context.PayBack.Add(PayBacks);
@@ -146,7 +146,6 @@ namespace jrascraping
         {
             try
             {
-                //正規表現
                 var regex = new HorseInfoCname();
                 var MatchHorseName = regex.horsenames.Match(html);
                 var MatchFather = regex.father.Match(html);
@@ -188,7 +187,55 @@ namespace jrascraping
             }
         }
 
-        public static PayBack PayBack(string html, RaceResults raceResults, List<HorseInfo> horses)
+        public static RaceResults CreateRaceResults(string html)
+        {
+            try
+            {
+                var regex = new RaceResultsCname();
+                var MatchDate = regex.date.Match(html);
+                var MatchNumberoftime = regex.numberoftime.Match(html);
+                var MatchPlace = regex.place.Match(html);
+                var MatchWaku = regex.waku.Match(html);
+                var MatchNum = regex.num.Match(html);
+                var MatchHorse = regex.horse.Match(html);
+                var MatchWeight = regex.weight.Match(html);
+                var MatchJockey = regex.jockey.Match(html);
+                var MatchTime = regex.time.Match(html);
+                var MatchArrivaldifference = regex.arrivaldifference.Match(html);
+                var MatchCorner = regex.corner.Match(html);
+                var MatchHalongtime = regex.halongtime.Match(html);
+                var MatchHorseweight = regex.horseweight.Match(html);
+                var MatchTrainer = regex.trainer.Match(html);
+                var MatchPop = regex.pop.Match(html);
+
+                var raceresults = new Models.RaceResults()
+                {
+                    Date = MatchDate.Value,
+                    NumberOfTime = MatchNumberoftime.Value,
+                    Place = MatchPlace.Value,
+                    Waku = int.Parse(MatchWaku.Value),
+                    Num = int.Parse(MatchNum.Value),
+                    // Horse = MatchHorse.Value, このエラーを解消
+                    Weight = MatchWeight.Value,
+                    Jockey = MatchJockey.Value,
+                    Time = MatchTime.Value,
+                    ArrivalDifference = MatchArrivaldifference.Value,
+                    Corner = MatchCorner.Value,
+                    HalongTime = MatchHalongtime.Value,
+                    HorseWeight = MatchHorseweight.Value,
+                    Trainer = MatchTrainer.Value,
+                    Pop = int.Parse(MatchPop.Value)
+                };
+                return raceresults;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+
+        public static PayBack CreatePayBack(string html, RaceResults raceResults, List<HorseInfo> horses)
         {
             var regex = new PayBackCname();
             var win = regex.win.Matches(html);
