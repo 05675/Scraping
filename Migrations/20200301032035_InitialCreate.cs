@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace jrascraping.Migrations
 {
-    public partial class InitialCreate2nd : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,44 +52,61 @@ namespace jrascraping.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TanshoHorseName = table.Column<string>(nullable: true),
                     TanshoBirthday = table.Column<DateTime>(nullable: true),
+                    TanshoNum = table.Column<int>(nullable: false),
                     TanshoRe = table.Column<int>(nullable: false),
                     Fuku1HorseName = table.Column<string>(nullable: true),
                     Fuku1Birthday = table.Column<DateTime>(nullable: true),
+                    Fuku1Num = table.Column<int>(nullable: false),
                     Fuku1Re = table.Column<int>(nullable: false),
                     Fuku2HorseName = table.Column<string>(nullable: true),
                     Fuku2Birthday = table.Column<DateTime>(nullable: true),
+                    Fuku2Num = table.Column<int>(nullable: false),
                     Fuku2Re = table.Column<int>(nullable: false),
                     Fuku3HorseName = table.Column<string>(nullable: true),
                     Fuku3Birthday = table.Column<DateTime>(nullable: true),
+                    Fuku3Num = table.Column<int>(nullable: false),
                     Fuku3Re = table.Column<int>(nullable: false),
                     Wakuren1HorseName = table.Column<string>(nullable: true),
                     Wakuren1Birthday = table.Column<DateTime>(nullable: true),
-                    Wakuren2 = table.Column<string>(nullable: true),
+                    Wakuren1Waku = table.Column<int>(nullable: false),
+                    Wakuren2HorseName = table.Column<string>(nullable: true),
+                    Wakuren2Birthday = table.Column<DateTime>(nullable: true),
+                    Wakuren2Waku = table.Column<int>(nullable: false),
                     WakurenRe = table.Column<int>(nullable: false),
                     Wide1_1HorseName = table.Column<string>(nullable: true),
                     Wide1_1Birthday = table.Column<DateTime>(nullable: true),
                     Wide1_2HorseName = table.Column<string>(nullable: true),
                     Wide1_2Birthday = table.Column<DateTime>(nullable: true),
+                    Wide1_1Num = table.Column<int>(nullable: false),
+                    Wide1_2Num = table.Column<int>(nullable: false),
                     Wide1Re = table.Column<int>(nullable: false),
                     Wide2_1HorseName = table.Column<string>(nullable: true),
                     Wide2_1Birthday = table.Column<DateTime>(nullable: true),
                     Wide2_2HorseName = table.Column<string>(nullable: true),
                     Wide2_2Birthday = table.Column<DateTime>(nullable: true),
+                    Wide2_1Num = table.Column<int>(nullable: false),
+                    Wide2_2Num = table.Column<int>(nullable: false),
                     Wide2Re = table.Column<int>(nullable: false),
                     Wide3_1HorseName = table.Column<string>(nullable: true),
                     Wide3_1Birthday = table.Column<DateTime>(nullable: true),
                     Wide3_2HorseName = table.Column<string>(nullable: true),
                     Wide3_2Birthday = table.Column<DateTime>(nullable: true),
+                    Wide3_1Num = table.Column<int>(nullable: false),
+                    Wide3_2Num = table.Column<int>(nullable: false),
                     Wide3Re = table.Column<int>(nullable: false),
                     Umaren1HorseName = table.Column<string>(nullable: true),
                     Umaren1Birthday = table.Column<DateTime>(nullable: true),
                     Umaren2HorseName = table.Column<string>(nullable: true),
                     Umaren2Birthday = table.Column<DateTime>(nullable: true),
+                    Umaren1Num = table.Column<int>(nullable: false),
+                    Umaren2Num = table.Column<int>(nullable: false),
                     UmarenRe = table.Column<int>(nullable: false),
                     Umatan1HorseName = table.Column<string>(nullable: true),
                     Umatan1Birthday = table.Column<DateTime>(nullable: true),
                     Umatan2HorseName = table.Column<string>(nullable: true),
                     Umatan2Birthday = table.Column<DateTime>(nullable: true),
+                    Umatan1Num = table.Column<int>(nullable: false),
+                    Umatan2Num = table.Column<int>(nullable: false),
                     UmatanRe = table.Column<int>(nullable: false),
                     Sanfuku1HorseName = table.Column<string>(nullable: true),
                     Sanfuku1Birthday = table.Column<DateTime>(nullable: true),
@@ -97,6 +114,9 @@ namespace jrascraping.Migrations
                     Sanfuku2Birthday = table.Column<DateTime>(nullable: true),
                     Sanfuku3HorseName = table.Column<string>(nullable: true),
                     Sanfuku3Birthday = table.Column<DateTime>(nullable: true),
+                    Sanfuku1Num = table.Column<int>(nullable: false),
+                    Sanfuku2Num = table.Column<int>(nullable: false),
+                    Sanfuku3Num = table.Column<int>(nullable: false),
                     SanfukuRe = table.Column<int>(nullable: false),
                     Santan1HorseName = table.Column<string>(nullable: true),
                     Santan1Birthday = table.Column<DateTime>(nullable: true),
@@ -104,6 +124,9 @@ namespace jrascraping.Migrations
                     Santan2Birthday = table.Column<DateTime>(nullable: true),
                     Santan3HorseName = table.Column<string>(nullable: true),
                     Santan3Birthday = table.Column<DateTime>(nullable: true),
+                    Santan1Num = table.Column<int>(nullable: false),
+                    Santan2Num = table.Column<int>(nullable: false),
+                    Santan3Num = table.Column<int>(nullable: false),
                     SantanRe = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -196,6 +219,12 @@ namespace jrascraping.Migrations
                     table.ForeignKey(
                         name: "FK_PayBack_HorseInfo_Wakuren1HorseName_Wakuren1Birthday",
                         columns: x => new { x.Wakuren1HorseName, x.Wakuren1Birthday },
+                        principalTable: "HorseInfo",
+                        principalColumns: new[] { "HorseName", "Birthday" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PayBack_HorseInfo_Wakuren2HorseName_Wakuren2Birthday",
+                        columns: x => new { x.Wakuren2HorseName, x.Wakuren2Birthday },
                         principalTable: "HorseInfo",
                         principalColumns: new[] { "HorseName", "Birthday" },
                         onDelete: ReferentialAction.Restrict);
@@ -376,6 +405,11 @@ namespace jrascraping.Migrations
                 name: "IX_PayBack_Wakuren1HorseName_Wakuren1Birthday",
                 table: "PayBack",
                 columns: new[] { "Wakuren1HorseName", "Wakuren1Birthday" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PayBack_Wakuren2HorseName_Wakuren2Birthday",
+                table: "PayBack",
+                columns: new[] { "Wakuren2HorseName", "Wakuren2Birthday" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PayBack_Wide1_1HorseName_Wide1_1Birthday",

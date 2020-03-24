@@ -91,6 +91,9 @@ namespace jrascraping.Migrations
                     b.Property<string>("Fuku1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Fuku1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Fuku1Re")
                         .HasColumnType("INTEGER");
 
@@ -99,6 +102,9 @@ namespace jrascraping.Migrations
 
                     b.Property<string>("Fuku2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Fuku2Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Fuku2Re")
                         .HasColumnType("INTEGER");
@@ -109,6 +115,9 @@ namespace jrascraping.Migrations
                     b.Property<string>("Fuku3HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Fuku3Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Fuku3Re")
                         .HasColumnType("INTEGER");
 
@@ -118,17 +127,26 @@ namespace jrascraping.Migrations
                     b.Property<string>("Sanfuku1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Sanfuku1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Sanfuku2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Sanfuku2HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Sanfuku2Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Sanfuku3Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Sanfuku3HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Sanfuku3Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SanfukuRe")
                         .HasColumnType("INTEGER");
@@ -139,17 +157,26 @@ namespace jrascraping.Migrations
                     b.Property<string>("Santan1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Santan1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Santan2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Santan2HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Santan2Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Santan3Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Santan3HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Santan3Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SantanRe")
                         .HasColumnType("INTEGER");
@@ -160,6 +187,9 @@ namespace jrascraping.Migrations
                     b.Property<string>("TanshoHorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TanshoNum")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("TanshoRe")
                         .HasColumnType("INTEGER");
 
@@ -169,11 +199,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Umaren1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Umaren1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Umaren2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Umaren2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Umaren2Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UmarenRe")
                         .HasColumnType("INTEGER");
@@ -184,11 +220,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Umatan1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Umatan1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Umatan2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Umatan2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Umatan2Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UmatanRe")
                         .HasColumnType("INTEGER");
@@ -199,8 +241,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Wakuren1HorseName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Wakuren2")
+                    b.Property<int>("Wakuren1Waku")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("Wakuren2Birthday")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Wakuren2HorseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Wakuren2Waku")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("WakurenRe")
                         .HasColumnType("INTEGER");
@@ -214,11 +265,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Wide1_1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Wide1_1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Wide1_2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Wide1_2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Wide1_2Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Wide2Re")
                         .HasColumnType("INTEGER");
@@ -229,11 +286,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Wide2_1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Wide2_1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Wide2_2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Wide2_2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Wide2_2Num")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Wide3Re")
                         .HasColumnType("INTEGER");
@@ -244,11 +307,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Wide3_1HorseName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Wide3_1Num")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("Wide3_2Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Wide3_2HorseName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Wide3_2Num")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 
@@ -281,6 +350,8 @@ namespace jrascraping.Migrations
                     b.HasIndex("Umatan2HorseName", "Umatan2Birthday");
 
                     b.HasIndex("Wakuren1HorseName", "Wakuren1Birthday");
+
+                    b.HasIndex("Wakuren2HorseName", "Wakuren2Birthday");
 
                     b.HasIndex("Wide1_1HorseName", "Wide1_1Birthday");
 
@@ -475,6 +546,10 @@ namespace jrascraping.Migrations
                     b.HasOne("jrascraping.Models.HorseInfo", "Wakuren1")
                         .WithMany()
                         .HasForeignKey("Wakuren1HorseName", "Wakuren1Birthday");
+
+                    b.HasOne("jrascraping.Models.HorseInfo", "Wakuren2")
+                        .WithMany()
+                        .HasForeignKey("Wakuren2HorseName", "Wakuren2Birthday");
 
                     b.HasOne("jrascraping.Models.HorseInfo", "Wide1_1")
                         .WithMany()
