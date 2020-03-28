@@ -38,15 +38,16 @@ namespace jrascraping
                         var horses = InsertHorseInfo(otherRace);
                         var raceResults = CreateRaceResults(otherRace, horses);
                         var payBacks = CreatePayBack(otherRace, raceResults, horses);
+            
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         //context.PayBack.Add(PayBacks);
 
-                        // otherRaceからRaceInfoを作る
-                        //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
-                        // otherRaceからRaceResultを作る(複数)
-                        //CreateResults(race, horses, otherRace); // なかでinsertしてます。
-                    }
+            // otherRaceからRaceInfoを作る
+            //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
+            // otherRaceからRaceResultを作る(複数)
+            //CreateResults(race, horses, otherRace); // なかでinsertしてます。
+          }
                     context.SaveChanges();
                 }
                 target = target.AddMonths(-1);
@@ -71,7 +72,7 @@ namespace jrascraping
             foreach (var horseInfo in horseCNames)
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
-                var horse = CreateHorse(horseHtml); // なかでinsertしてます。
+                var horse = CreateHorseInfo(horseHtml); // なかでinsertしてます。
                 var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
 
                 if (horsenames == null)
@@ -142,7 +143,7 @@ namespace jrascraping
             return table;
         }
 
-        public static HorseInfo CreateHorse(string html)
+        public static HorseInfo CreateHorseInfo(string html)
         {
             try
             {
@@ -187,6 +188,20 @@ namespace jrascraping
             }
         }
 
+        public static RaceInfo CreateRaceInfo(string html)
+        {
+            try
+            {
+
+            return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+
         public static RaceResults CreateRaceResults(string html)
         {
             try
@@ -215,7 +230,6 @@ namespace jrascraping
                     Place = MatchPlace.Value,
                     Waku = int.Parse(MatchWaku.Value),
                     Num = int.Parse(MatchNum.Value),
-                    // Horse = MatchHorse.Value, このエラーを解消
                     Weight = MatchWeight.Value,
                     Jockey = MatchJockey.Value,
                     Time = MatchTime.Value,
@@ -247,7 +261,6 @@ namespace jrascraping
             var refund = regex.refund.Matches(html);
 
             var payback = new Models.PayBack();
-
             var count = win.Count + widebefore.Count + wideafter.Count + triplebefor.Count + triplecenter.Count + tripleafter.Count;
             if (count == 22) { 
                 payback.TanshoNum = int.Parse(win[0].Value);

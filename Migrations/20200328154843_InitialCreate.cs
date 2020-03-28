@@ -307,7 +307,6 @@ namespace jrascraping.Migrations
                     CountOfDay = table.Column<string>(nullable: false),
                     RaceName = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    PlaceDate = table.Column<string>(nullable: true),
                     ShippingTime = table.Column<string>(nullable: true),
                     Weather = table.Column<string>(nullable: true),
                     Baba = table.Column<string>(nullable: true),
@@ -316,8 +315,6 @@ namespace jrascraping.Migrations
                     Class = table.Column<string>(nullable: true),
                     Distance = table.Column<string>(nullable: true),
                     Around = table.Column<string>(nullable: true),
-                    PrizeMoney = table.Column<string>(nullable: true),
-                    LoadPrize = table.Column<string>(nullable: true),
                     RefundID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

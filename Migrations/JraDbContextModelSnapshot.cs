@@ -394,16 +394,7 @@ namespace jrascraping.Migrations
                     b.Property<string>("Distance")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LoadPrize")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Old")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PlaceDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PrizeMoney")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("RefundID")

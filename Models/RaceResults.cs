@@ -26,5 +26,6 @@ namespace jrascraping.Models
         public string HorseWeight { get; set; }
         public string Trainer { get; set; }
         public int Pop { get; set; }
+
     }
 }
