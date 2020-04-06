@@ -201,7 +201,6 @@ namespace jrascraping
                 throw;
             }
         }
-
         public static RaceResults CreateRaceResults(string html)
         {
             try
@@ -248,7 +247,6 @@ namespace jrascraping
                 throw;
             }
         }
-
         public static PayBack CreatePayBack(string html, RaceResults raceResults, List<HorseInfo> horses)
         {
             var regex = new PayBackCname();
