@@ -6,13 +6,14 @@ interface StyledBurgerProps {
 
 export const StyledBurger = styled.button`
   position: absolute;
-  top: 12px;
+  top: 50%;
+  margin-top: -9px;
   right: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 18px;
+  height: 18px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -24,9 +25,9 @@ export const StyledBurger = styled.button`
   }
 
   div {
-    width: 1.5rem;
-    height: 0.25rem;
-    background: #797979;
+    width: 1.2rem;
+    height: 0.13rem;
+    background: #ffffff;
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;

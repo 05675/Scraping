@@ -64,95 +64,58 @@ Array [
             onKeyDown={[Function]}
           >
             <div
-              className=" css-cxi24g-control"
+              className=" css-88o9p8-control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-1hwfws3"
+                className=" css-86rg1c-ValueContainer"
               >
                 <div
                   className=" css-1wa3eu0-placeholder"
                 >
-                  Select...
+                  選択してください
                 </div>
-                <div
-                  className="css-b8ldur-Input"
-                >
-                  <div
-                    className=""
-                    style={
-                      Object {
-                        "display": "inline-block",
-                      }
-                    }
-                  >
-                    <input
-                      aria-autocomplete="list"
-                      autoCapitalize="none"
-                      autoComplete="off"
-                      autoCorrect="off"
-                      disabled={false}
-                      id="react-select-2-input"
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      onFocus={[Function]}
-                      spellCheck="false"
-                      style={
-                        Object {
-                          "background": 0,
-                          "border": 0,
-                          "boxSizing": "content-box",
-                          "color": "inherit",
-                          "fontSize": "inherit",
-                          "label": "input",
-                          "opacity": 1,
-                          "outline": 0,
-                          "padding": 0,
-                          "width": "1px",
-                        }
-                      }
-                      tabIndex="0"
-                      type="text"
-                      value=""
-                    />
-                    <div
-                      style={
-                        Object {
-                          "height": 0,
-                          "left": 0,
-                          "overflow": "scroll",
-                          "position": "absolute",
-                          "top": 0,
-                          "visibility": "hidden",
-                          "whiteSpace": "pre",
-                        }
-                      }
-                    >
-                      
-                    </div>
-                  </div>
-                </div>
+                <input
+                  aria-autocomplete="list"
+                  className="css-62g3xt-dummyInput"
+                  disabled={false}
+                  id="react-select-2-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  tabIndex="0"
+                  value=""
+                />
               </div>
               <div
                 className=" css-1hb7zxy-IndicatorsContainer"
               >
-                <div />
+                <span
+                  className=" css-62wm9a-IndicatorSeparator"
+                />
                 <div
-                  aria-hidden="true"
-                  className=" css-tlfecz-indicatorContainer"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
+                  style={
+                    Object {
+                      "marginRight": "0",
+                    }
+                  }
                 >
                   <div
-                    style={
-                      Object {
-                        "borderLeft": "5px solid transparent",
-                        "borderRight": "5px solid transparent",
-                        "borderTop": "5px solid #525252",
-                      }
-                    }
-                  />
+                    aria-hidden="true"
+                    className=" css-tlfecz-indicatorContainer"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg>
+
+                      className="sc-AxjAm fwkFKF"
+                      color="#949494"
+                      height="12px"
+                      width="12px"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,7 +139,7 @@ Array [
               onTouchEnd={[Function]}
             >
               <div
-                className=" css-1hwfws3"
+                className=" css-g1d714-ValueContainer"
               >
                 <div
                   className=" css-1wa3eu0-placeholder"

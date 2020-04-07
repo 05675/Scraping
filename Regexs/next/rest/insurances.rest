@@ -1,0 +1,9 @@
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+
+###
+@insuranceid = test_id_0xd1
+
+###
+GET http://{{host}}/api/insurances/{{insuranceid}} HTTP/1.1

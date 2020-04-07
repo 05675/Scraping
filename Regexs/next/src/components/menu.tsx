@@ -1,5 +1,5 @@
 import React from 'react';
-import { logout } from '@src/util/auth';
+import { signout } from '@src/util/auth';
 import { StyledMenu } from '@src/styles/menu';
 
 /**
@@ -9,8 +9,7 @@ import { StyledMenu } from '@src/styles/menu';
  */
 interface SideMenuProps {
   open: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setOpen: any;
+  setOpen: (newValue: boolean) => void;
 }
 
 /**
@@ -25,7 +24,7 @@ interface SideMenuProps {
 export const MenuComponent: React.FC<SideMenuProps> = props => {
   return (
     <StyledMenu open={props.open}>
-      <a href='/' onClick={logout}>
+      <a href='/' onClick={signout}>
         サインアウト
       </a>
     </StyledMenu>

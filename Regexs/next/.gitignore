@@ -1,5 +1,6 @@
 # Docs
 docs
+apidoc
 
 # Logs
 logs
@@ -114,3 +115,7 @@ dist
 
 # VSCode deployment extensions
 .deployment
+
+# load test report
+load-test-report.json
+load-test-report.json.html

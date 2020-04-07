@@ -1,6 +1,13 @@
 import 'reflect-metadata';
 import { ConnectionOptions, createConnection, Connection, getConnectionManager } from 'typeorm';
-import { Employees, Tasks, Groups } from './entity';
+import {
+  Employees,
+  Tasks,
+  Groups,
+  Nencho,
+  NenchoInsuranceLifeInput2020,
+  InsuranceCategories,
+} from './entity';
 
 const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
@@ -16,8 +23,9 @@ const options: ConnectionOptions = {
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  entities: [Employees, Tasks, Groups],
+  entities: [Employees, Tasks, Groups, Nencho, NenchoInsuranceLifeInput2020, InsuranceCategories],
   logging: false,
+  charset: 'utf8mb4',
 };
 
 export default async () => {
@@ -27,6 +35,5 @@ export default async () => {
   const connectionManager = getConnectionManager();
   if (connectionManager.has(CONNECTION_NAME)) connection = connectionManager.get(CONNECTION_NAME);
   else connection = await createConnection(options);
-
   return connection;
 };

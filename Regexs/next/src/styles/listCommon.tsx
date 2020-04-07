@@ -1,13 +1,52 @@
 import styled from 'styled-components';
 
-export const StyledList = styled.ul`
-  width: 100%;
-  height: 100%;
+export const StyledUl = styled.ul`
+  padding: 16px;
   margin: 0;
-  font-size: 0;
-  list-style: none;
-  border: solid 1px #ebebeb;
-  box-sizing: border-box;
+`;
+export const StyledList = styled.li`
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 88px;
+  margin-bottom: 9px;
+  padding: 0;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  cursor: hand;
+`;
+export const StyledListItemTitle = styled.span`
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0.06em;
+  font-weight: normal;
+  color: #525252;
+  vertical-align: top;
+`;
+export const StyledListItemStatus = styled.h5`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.06em;
+  margin: 0;
+`;
+export const StyledListItemDueDate = styled.h5`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.06em;
+  margin: 0;
+`;
+export const StyledListItemArrow = styled.svg`
+  width: 13.41px;
+  height: 13.41px;
+  margin: 0;
+  padding: 0;
 `;
 
 export const StyledListNencho = styled.ul`
@@ -21,23 +60,7 @@ export const StyledListNencho = styled.ul`
   min-height: 100%;
 `;
 
-export const StyledListItemTitle = styled.div`
-  font-family: Noto Sans JP, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 180%;
-  letter-spacing: 0.06em;
-  color: #333333;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-  verflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 export const StyledListItemTitleNencho = styled.div`
-  font-family: Noto Sans JP, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -47,38 +70,11 @@ export const StyledListItemTitleNencho = styled.div`
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  //TODO:不要
-  //overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-export const StyledListItemNewly = styled.span`
-  font-family: Noto Sans JP, sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0.06em;
-  color: #0f84ec;
-  margin: 0;
-  padding: 0;
-`;
-
-export const StyledListItemStatus = styled.h5`
+export const StyledListItemLabelNencho = styled.h5`
   width: 100%;
-  font-family: Noto Sans JP, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 180%;
-  letter-spacing: 0.06em;
-  margin: 0;
-  padding: 0;
-`;
-
-export const StyledListItemStatusNencho = styled.h5`
-  width: 100%;
-  font-family: Noto Sans JP, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -87,27 +83,4 @@ export const StyledListItemStatusNencho = styled.h5`
   color: #949494;
   margin: 0;
   padding: 0;
-`;
-
-export const StyledListItemDueDate = styled.h5`
-  font-family: Noto Sans JP, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 150%;
-  letter-spacing: 0.06em;
-  color: #333333;
-  margin: 0;
-  padding: 0;
-`;
-
-export const StyledListItemArrow = styled.svg`
-  width: 13.41px;
-  height: 13.41px;
-  margin: 0;
-  padding: 0;
-`;
-
-export const StyledListBody = styled.body`
-  background-color: #edf4fa;
 `;

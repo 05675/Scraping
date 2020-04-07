@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import Link from 'next/link';
 import { MenuComponent } from '@src/components/menu';
 import { BurgerComponent } from '@src/components/burger';
 import { useOnClickOutside } from '@src/util/hooks';
-import { StyledLogoSvg } from '@src/styles/svg';
+import { StyledLogoWhiteSVG, StyledArrowLeftSVG } from '@src/styles/svg';
+import Headroom from 'react-headroom';
+import Router from 'next/router';
+import { CommonConfirmAlert } from '@src/components/commonConfirmAlert';
 
 interface HeaderProps {
   previousPageName: string;
@@ -20,103 +22,102 @@ export const Header: React.FC<HeaderProps> = ({ previousPageName, previousPathna
   const node = useRef<HTMLDivElement>(null);
   useOnClickOutside(node, () => setOpen(false));
 
+  const isLifeInpuranceInputPage = previousPageName === '保険料控除';
+
+  const goToPreviousPath = () => Router.push(previousPathname);
+
+  const showGoBackAlertDialog = CommonConfirmAlert({
+    message: 'この保険情報を破棄してもよろしいですか？',
+    leftButton: {
+      label: '破棄',
+      labelColor: '#FA3939',
+      clickHandler: goToPreviousPath,
+    },
+    rightButton: { label: '編集を続ける' },
+  });
+
   return (
     <>
-      <header>
-        <section className='payroll'>
-          <div className='payroll-body'>
-            <div className='container'>
-              <div className='flex-container'>
-                <div className='flex-item-left'>
-                  {previousPageName && previousPathname && (
-                    <Link href={previousPathname}>
-                      <a className='arrow-left'>{previousPageName}</a>
-                    </Link>
-                  )}
-                </div>
-                <div className='flex-item-center'>
-                  <StyledLogoSvg width='150' height='24' />
-                </div>
-                <div ref={node} className='flex-item-right'>
-                  <BurgerComponent open={open} setOpen={setOpen} />
-                  <MenuComponent open={open} setOpen={setOpen} />
-                </div>
-              </div>
-            </div>
+      {/* <header> */}
+      <Headroom className='common-header' disableInlineStyles onUnpin={() => setOpen(false)}>
+        <div className='flex-container'>
+          <div className='flex-item-left'>
+            {previousPageName && previousPathname && (
+              <a
+                onClick={isLifeInpuranceInputPage ? showGoBackAlertDialog : goToPreviousPath}
+                role='button'>
+                <span className='flex-item-left-arrow'>
+                  <StyledArrowLeftSVG color='white' />
+                </span>
+                <span className='flex-item-left-text'>{previousPageName}</span>
+              </a>
+            )}
           </div>
-        </section>
+          <div className='flex-item-center'>
+            <StyledLogoWhiteSVG color='white' width='65.75' height='20' />
+          </div>
+          <div ref={node} className='flex-item-right'>
+            <BurgerComponent open={open} setOpen={setOpen} />
+            <MenuComponent open={open} setOpen={setOpen} />
+          </div>
+        </div>
         <style jsx>
           {`
-          header {
-            position: fixed;
-            top:0;
-            width:100%;
-            z-index:100;
-            height: 48px;
-          }
-          .arrow-left {
-            position: relative;
-            padding-left: 24px;
-            font-family: Noto Sans JP, sans-serif;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 150%;
-            letter-spacing: 0.06em;
-            color: #333333;
-            text-decoration: none;
-          }
-          .arrow-left ::before {
-            position: absolute;
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-top: solid 2px #797979;
-            border-left: solid 2px #797979;
-            -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-            top: 45%;
-            left: 10px;
-            margin-top: -3px;
-          }
-          .arrow-left ::after {
-            position: absolute;
-            content: '';
-            width: 10px;
-            height: 2px;
-            background-color: #797979;
-            top: 45%;
-            left: 11px;
-          }
           .flex-container {
             width: 100%
             position: fixed;
             display: flex;
             width: 100%;
             height: 48px;
-            background: #fafafa;
+            background: #005BAC;
             align-items: center;
           }
           .flex-item-left {
-            width: 30%;
+            position: relative;
+            width:calc(50% - 65px);
+            height: 100%;
+            text-align: left;
+            overflow: hidden;
+          }
+          .flex-item-left-arrow {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 12px;
+            left: 16px;
+          }
+          .flex-item-left-text {
+            position: absolute;
+            width: calc(100% - 48px);
+            height: 12px;
+            top: 18px;
+            left: 48px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 100%;
+            color: #ffffff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-left: 2px;
+            margin: 0;
+            padding: 0;
           }
           .flex-item-center {
-            width: 40%;
-            height: 24px;
-            text-align: center;
+            width: calc(65px + 32px + 32px);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
           .flex-item-right {
-            width: 30%;
+            width: calc(50% - 65px);
+            height: 100%;
             text-align: right;
           }
         `}
         </style>
-      </header>
-      <div style={{ width: '100%', height: '48px' }} />
+      </Headroom>
     </>
   );
 };

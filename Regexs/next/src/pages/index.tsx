@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NextPage } from 'next';
 import DevIndex from '@src/components/devIndex';
+import { PageInfo } from '@src/interfaces/pageInfo';
 
 const page: NextPage = () => {
   return <DevIndex />;
@@ -14,7 +15,9 @@ page.getInitialProps = ctx => {
     }
   }
 
-  return {};
+  const pageInfo: PageInfo = { currentPageName: 'インデックス' };
+
+  return { pageInfo };
 };
 
 export default page;

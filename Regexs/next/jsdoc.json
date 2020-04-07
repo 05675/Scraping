@@ -7,7 +7,7 @@
     "template": "node_modules/better-docs"
   },
   "tags": {
-    "allowUnknownTags": ["optional", "category"]
+    "allowUnknownTags": true
   },
   "plugins": ["better-docs/typescript", "better-docs/category", "plugins/markdown"],
   "source": {

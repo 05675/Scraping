@@ -1,8 +1,8 @@
 import React from 'react';
+import { StyledEyeSVG, StyledEyeOffSVG } from '@src/styles/svg';
 import { StyledInput } from '@src/styles';
-import { EyeSVG, EyeOffSVG } from '@assets/images';
 
-export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = props => {
+export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => {
   const [isMasked, setIsMasked] = React.useState(true);
 
   const inputType = isMasked ? 'password' : 'text';
@@ -13,17 +13,22 @@ export const PasswordInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>
     <>
       <div style={{ position: 'relative' }}>
         <StyledInput {...props} type={inputType} />
-        <span className='eye-button' onClick={handleClick} role='button'>
-          {isMasked ? <EyeOffSVG /> : <EyeSVG />}
-        </span>
+        <div className='eye-button-container' onClick={handleClick} role='button'>
+          {isMasked ? <StyledEyeSVG /> : <StyledEyeOffSVG />}
+        </div>
       </div>
 
       {/* style */}
       <style jsx>{`
-        .eye-button {
+        .eye-button-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           position: absolute;
-          top: 13px;
-          right: 17px;
+          top: 0px;
+          right: 0px;
+          width: 48px;
+          height: 48px;
         }
 
         .eye-button:focus {

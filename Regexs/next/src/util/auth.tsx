@@ -9,7 +9,7 @@ export interface CookieProps {
   token: string;
 }
 
-export const login = ({ token }: CookieProps) => {
+export const signin = ({ token }: CookieProps) => {
   cookie.set('token', token, { expires: 1 });
   Router.push('/tasks');
 };
@@ -20,21 +20,21 @@ export const auth = (ctx: NextPageContext) => {
   // If there's no token, it means the user is not logged in.
   if (!token) {
     if (typeof window === 'undefined') {
-      ctx.res?.writeHead(302, { Location: '/login' });
+      ctx.res?.writeHead(302, { Location: '/signin' });
       ctx.res?.end();
     } else {
-      Router.push('/login');
+      Router.push('/signin');
     }
   }
 
   return token;
 };
 
-export const logout = () => {
+export const signout = () => {
   cookie.remove('token');
   // to support logging out from all windows
-  window.localStorage.setItem('logout', Date.now().toString());
-  Router.push('/login');
+  window.localStorage.setItem('signout', Date.now().toString());
+  Router.push('/signin');
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

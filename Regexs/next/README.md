@@ -1,6 +1,8 @@
-# FS：Next.js でアプリを作成してみる
+# 次世代プロダクト：給与労務
 
-http://ysv-ddtrac03/trac/kyuyo_renewal/ticket/37
+## Project Home
+
+http://ysv-ddtrac04/trac/nextgen/
 
 ## Getting Started
 
@@ -8,6 +10,12 @@ http://ysv-ddtrac03/trac/kyuyo_renewal/ticket/37
 
 ```
 npm install
+```
+
+### アプリ実行
+
+```
+npm run dev
 ```
 
 ### Git コミットテンプレートを設定
@@ -45,10 +53,6 @@ git config --global core.autoCRLF false
 
 ## Running the test
 
-npm run test
-
-## Deployment
-
-未実装
-
-## Development Rule
+```
+npm test
+```

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`burger snapshot 1`] = `
+<button
+  className="sc-AxjAm ePlsZX"
+  onClick={[Function]}
+  open={false}
+>
+  <div />
+  <div />
+  <div />
+</button>
+`;

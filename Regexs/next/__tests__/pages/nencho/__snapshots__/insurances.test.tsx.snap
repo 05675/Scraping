@@ -1,102 +1,232 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`保険料控除_入力前（従業員） snapshot 1`] = `
-Array [
-  <header
-    className="page-header"
-  >
+<div
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "borderRadius": "8px 8px 8px 8px",
+      "boxShadow": "0px 4px 8px rgba(0, 0, 0, 0.2)",
+      "height": "calc(100% - 80px)",
+      "left": "16px",
+      "position": "fixed",
+      "top": "64px",
+      "width": "calc(100% - 32px)",
+    }
+  }
+>
+  <header>
     <title
-      className="sc-Axmtr WUTXi"
+      className="sc-fzqNqU EdA-DO"
+    >
+      保険料控除
+    </title>
+  </header>
+  <main
+    style={
+      Object {
+        "height": "calc(100% - 136px)",
+        "marginTop": "8px",
+        "overflowY": "auto",
+      }
+    }
+  >
+    <ul
+      className="sc-fzoXzr iKjySX"
     >
       <div
-        className="page-title"
+        className="notif-container"
       >
-        保険料控除
+        <p>
+          登録はありません
+        </p>
+        <style
+          jsx={true}
+        >
+          
+            .notif-container {
+              width: 100%;
+              height: 88px;
+              display: flex;
+              position: relative;
+              border: 4px dashed #dedede;
+              box-sizing: border-box;
+              border-radius: 8px;
+              justify-content: center;
+              align-items: center;
+            }
+            .notif-container p {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 16px;
+              line-height: 100%;
+              letter-spacing: 0.06em;
+              color: #b3b3b3;
+            }
+          
+        </style>
       </div>
-    </title>
+    </ul>
+  </main>
+  <footer
+    style={
+      Object {
+        "margin": "0px 16px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": "48px",
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+    >
+      <span
+        className="plus-icon"
+      >
+        <svg>
+
+          className="sc-fznKkj fybCnn"
+          color="white"
+        />
+      </span>
+      <button
+        className="sc-fznJRM ediIjy"
+        onClick={[Function]}
+      >
+        新しい保険を追加する
+      </button>
+    </div>
     <style
       jsx={true}
     >
       
-            .page-header {
-              background: #ffffff;
+          .plus-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: calc(50% - 12px);
+            left: 24px;
+          }
+        
+    </style>
+  </footer>
+  <div
+    className="notif-container"
+  >
+    <p>
+      保存されました。
+    </p>
+    <span
+      className="close-button"
+      onClick={[Function]}
+      role="button"
+    >
+      <svg>
+
+        className="sc-AxhUy cEqNdK"
+        color="#ffffff"
+        height="14"
+        width="14"
+      />
+    </span>
+    <style
+      jsx={true}
+    >
+      
+            .notif-container {
               position: fixed;
               width: 100%;
               height: 48px;
-              margin: 0;
-              z-index: 1;
+              bottom: 0;
+              display: flex;
+              box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+              border-radius: 8px 8px 0px 0px;
+              align-items: center;
+              background: #005bac;
+              text-align-center;
+              transform: translateY(100%);
+              opacity: 0;
+              pointer-events: none;
+              transition: transform 0.2s ease-in-out, opacity 0.23s ease-in-out;
             }
-            .page-title {
-              position: absolute;
-              top: 12px;
-              margin: 0;
+            .notif-container p {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 12px;
+              line-height: 100%;
+              letter-spacing: 0.06em;
+              color: #ffffff;
+              padding-left:16px;
               width: 100%;
             }
-            .page-button {
-              display: 'inline';
-              position: absolute;
-              top: 8px;
-              right: 8px;
-              margin: 0;
+            .close-button {
+              position: relative;
+              padding:0;
+              margin-right:13px;
             }
           
     </style>
-  </header>,
+  </div>
   <div
-    style={
-      Object {
-        "height": "48px",
-        "width": "100%",
-      }
-    }
-  />,
-  <span
-    onClick={[Function]}
-    role="button"
+    className="notif-container"
   >
-    <div
-      className="sc-AxirZ hrazwK"
-    >
-      <div
-        className="sc-AxiKw PhevT"
-      >
-        <div>
-          生命保険（一般）
-        </div>
-        <div
-          className="sc-AxhCb djBOOG"
-        >
-          弥生生命
-        </div>
-      </div>
-      <div
-        className="sc-AxiKw sc-AxhUy dJoiVc"
-      >
-        →
-      </div>
-    </div>
-  </span>,
-  <div>
-    <button
-      className="sc-AxjAm bYEIpN"
+    <p>
+      
+    </p>
+    <span
+      className="close-button"
       onClick={[Function]}
+      role="button"
     >
-      +
-      　
-      新しい保険を追加する
-    </button>
-  </div>,
-  <style
-    jsx={true}
-  >
-    
-          div {
-            bottom: 20px;
-            width: 99%;
-            position: fixed;
-            text-align: center;
-          }
-        
-  </style>,
-]
+      <svg>
+
+        className="sc-AxhUy cEqNdK"
+        color="#ffffff"
+        height="14"
+        width="14"
+      />
+    </span>
+    <style
+      jsx={true}
+    >
+      
+            .notif-container {
+              position: fixed;
+              width: 100%;
+              height: 48px;
+              bottom: 0;
+              display: flex;
+              box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+              border-radius: 8px 8px 0px 0px;
+              align-items: center;
+              background: red;
+              text-align-center;
+              transform: translateY(100%);
+              opacity: 0;
+              pointer-events: none;
+              transition: transform 0.2s ease-in-out, opacity 0.23s ease-in-out;
+            }
+            .notif-container p {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 12px;
+              line-height: 100%;
+              letter-spacing: 0.06em;
+              color: #ffffff;
+              padding-left:16px;
+              width: 100%;
+            }
+            .close-button {
+              position: relative;
+              padding:0;
+              margin-right:13px;
+            }
+          
+    </style>
+  </div>
+</div>
 `;

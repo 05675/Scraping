@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
-import { MultiSelectComponent } from '@src/components/multiSelection';
+import { SelectBoxMulti } from '@src/components/selectBoxMulti';
 import { withAuthSync } from '@src/util/auth';
-import { SingleSelectComponent } from '@src/components/singleSelection';
+import { SelectBoxSingle } from '@src/components/selectBoxSingle';
 import { apiUrl } from '@src/util/apiUrl';
+import { PageInfo } from '@src/interfaces/pageInfo';
+import { NenchoInsuranceStatus } from '@src/model/entity/nencho/nencho';
 
 type OptionType = {
+  key: string;
   label: string;
-  value: string;
+  value: string | boolean;
   groupId?: string;
 };
 
@@ -25,17 +28,32 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
   const [employeeList, setEmployeeList] = useState<OptionType[]>([]);
   const [explanation, setExplanation] = useState('');
   const [summary, setSummary] = useState('');
-  const [dueDate, setDueDate] = useState();
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const [optionUser, setOptionUser] = useState(props.optionUser);
+  const [nenchoInsuranceStatus] = useState(NenchoInsuranceStatus.NOT_COMPLETED);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = {
-      task: { title, dueDate, explanation, summary },
+    const taskData = {
+      task: {
+        title,
+        dueDate,
+        explanation,
+        summary,
+      },
       empIdList: employeeList.map(employee => employee.value),
     };
     try {
-      const res = await axios.post('/api/tasks', data);
+      const res = await axios.post('/api/tasks', taskData);
+
+      const nenchoData = {
+        nencho: {
+          nenchoInsuranceStatus,
+        },
+        taskIdList: res.data.taskIdList,
+      };
+      await axios.post('/api/nencho', nenchoData);
+
       // eslint-disable-next-line no-console
       console.log(`registation success.(${res.status})`);
     } catch (error) {
@@ -43,7 +61,8 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
     }
   };
 
-  const handleChange = (value: React.SetStateAction<string>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange = (value: any) => {
     setEmployeeList([]);
     if (value === undefined || value === null) {
       setOptionUser(props.optionUser);
@@ -83,18 +102,14 @@ const CreateTask: NextPage<CreateTaskProps> = props => {
             </div>
             <div className='field'>
               <label className='label'>組織</label>
-              <SingleSelectComponent
-                options={props.optionGroup}
-                onChange={handleChange}
-                // onChange={(value: React.SetStateAction<string>) => setTaskOrganization(value)}
-              />
+              <SelectBoxSingle options={props.optionGroup} onChange={handleChange} value={false} />
             </div>
             <div className='field'>
               <label className='label'>担当者</label>
-              <MultiSelectComponent
+              <SelectBoxMulti
                 options={optionUser}
                 value={employeeList}
-                onChange={(value: React.SetStateAction<OptionType[]>) => setEmployeeList(value)}
+                onChange={setEmployeeList}
               />
             </div>
             <div className='field'>
@@ -182,9 +197,9 @@ CreateTask.getInitialProps = async ctx => {
     const { employeeList } = resUsers.data;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response.optionGroup = groupList.map((d: any) => ({ value: d.id, label: d.name }));
+    response.optionGroup = groupList?.map((d: any) => ({ value: d.id, label: d.name }));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response.optionUser = employeeList.map((d: any) => ({
+    response.optionUser = employeeList?.map((d: any) => ({
       value: d.empId,
       label: d.empName,
       groupId: d.groupId,
@@ -193,7 +208,9 @@ CreateTask.getInitialProps = async ctx => {
     response.status = resGroups.status;
     response.message = resGroups.statusText;
 
-    return response;
+    const pageInfo: PageInfo = { currentPageName: 'タスク情報入力' };
+
+    return { ...response, pageInfo };
   } catch (error) {
     response.status = error.response.status;
     response.message = error.response.data.message ?? error.response.statusText;

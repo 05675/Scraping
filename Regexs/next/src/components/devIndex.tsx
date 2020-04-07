@@ -1,16 +1,32 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { pathnameToPageInfo } from '@src/util/pathnameToPageInfo';
+
+// テスト用 sample
+const pathnameToPageName: { [pathname: string]: string } = {
+  // Developers
+  '/Developers/createTask': 'タスク作成',
+  '/Developers/demoTask': 'タスク一括登録',
+  '/Developers/demoControl': 'デモ用管理機能',
+  '/Developers/taskManage': '年末調整',
+
+  // 従業員page
+  '/signin': 'サインイン',
+  '/tasks': 'タスク一覧',
+  '/nencho/test_id_0xd1': '2020年分年末調整',
+  '/nencho/test_id_0xd1/insurances': '保険料控除',
+  '/nencho/test_id_0xd1/lifeInsuranceInputs/new': '生命保険入力',
+};
 
 const DevIndex: React.FC = () => {
   return (
     <div>
       <ul className='list-style'>
-        {Object.keys(pathnameToPageInfo).map(pathname => (
+        <p style={{ textAlign: 'center', color: '#525252' }}>Sample Page（開発用）</p>
+        {Object.keys(pathnameToPageName).map(pathname => (
           <div key={pathname}>
             <li className='listItem-style'>
               <Link href={pathname}>
-                <a className='Anchor-style'>{pathnameToPageInfo[pathname].currentPageName}</a>
+                <a className='Anchor-style'>{pathnameToPageName[pathname]}</a>
               </Link>
             </li>
           </div>

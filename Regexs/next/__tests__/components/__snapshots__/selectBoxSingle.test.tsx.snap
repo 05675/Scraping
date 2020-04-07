@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectBoxSingle snapshot isError 1`] = `
+<div
+  className=" css-2b097c-container"
+  onKeyDown={[Function]}
+>
+  <div
+    className=" css-y6gifx-control"
+    onMouseDown={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className=" css-86rg1c-ValueContainer"
+    >
+      <div
+        className=" css-1wa3eu0-placeholder"
+      >
+        label
+      </div>
+      <input
+        aria-autocomplete="list"
+        className="css-62g3xt-dummyInput"
+        disabled={false}
+        id="react-select-2-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        readOnly={true}
+        tabIndex="0"
+        value=""
+      />
+    </div>
+    <div
+      className=" css-1hb7zxy-IndicatorsContainer"
+    >
+      <span
+        className=" css-62wm9a-IndicatorSeparator"
+      />
+      <div
+        style={
+          Object {
+            "marginRight": "40px",
+          }
+        }
+      >
+        <div
+          aria-hidden="true"
+          className=" css-tlfecz-indicatorContainer"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <svg>
+
+            className="sc-AxjAm fwkFKF"
+            color="#949494"
+            height="12px"
+            width="12px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SelectBoxSingle snapshot isNotError 1`] = `
+<div
+  className=" css-2b097c-container"
+  onKeyDown={[Function]}
+>
+  <div
+    className=" css-88o9p8-control"
+    onMouseDown={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className=" css-86rg1c-ValueContainer"
+    >
+      <div
+        className=" css-1wa3eu0-placeholder"
+      >
+        label
+      </div>
+      <input
+        aria-autocomplete="list"
+        className="css-62g3xt-dummyInput"
+        disabled={false}
+        id="react-select-3-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        readOnly={true}
+        tabIndex="0"
+        value=""
+      />
+    </div>
+    <div
+      className=" css-1hb7zxy-IndicatorsContainer"
+    >
+      <span
+        className=" css-62wm9a-IndicatorSeparator"
+      />
+      <div
+        style={
+          Object {
+            "marginRight": "0",
+          }
+        }
+      >
+        <div
+          aria-hidden="true"
+          className=" css-tlfecz-indicatorContainer"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <svg>
+
+            className="sc-AxjAm fwkFKF"
+            color="#949494"
+            height="12px"
+            width="12px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

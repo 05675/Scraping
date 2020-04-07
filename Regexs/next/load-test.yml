@@ -1,0 +1,106 @@
+config:
+  target: 'https://nextgen-iteration05-app02.azurewebsites.net'
+  phases:
+    - name: 'Demo Test'
+      duration: 10
+      arrivalRate: 2 # virtual users
+  variables:
+    empId: '0841'
+    empPassword: '0841'
+  ensure:
+    median: 3000 #保証したい平均の値
+scenarios:
+  - name: 'Demo Test'
+    flow:
+      # サインイン画面に入る。
+      - get:
+          url: '/signin'
+
+      # # idとpasswordの入力を待っている。
+      # - think: 5
+
+      # idとpasswordのserverに送信してtokenを取得する。（サインインする。）
+      - post:
+          url: '/api/token'
+          json:
+            empId: '{{ empId }}'
+            empPassword: '{{ empPassword }}'
+          capture:
+            json: '$.token'
+            as: 'token'
+      - log: 'token: {{ token }}'
+
+      # タスク一覧画面に入る。
+      - get:
+          url: '/tasks'
+          cookie:
+            token: '{{ token }}'
+
+      # タスクidを取得する。
+      - get:
+          url: '/api/employees/{{ empId }}/tasks'
+          capture:
+            json: '$.taskList[0].id'
+            as: 'taskId'
+      - log: 'taskId: {{ taskId }}'
+
+      # 年調画面に入る。
+      - get:
+          url: '/nencho/{{ taskId }}'
+          cookie:
+            token: '{{ token }}'
+
+      # 保険料控除画面に入る。
+      - get:
+          url: '/nencho/{{ taskId }}/insurances'
+          cookie:
+            token: '{{ token }}'
+
+      # 保険入力画面に入る。
+      - get:
+          url: '/nencho/{{ taskId }}/lifeInsuranceInputs/new'
+          cookie:
+            token: '{{ token }}'
+
+      # # 保険情報の入力を待っている。
+      # - think: 60
+
+      # 保険情報をserverに送信する。
+      - post:
+          url: '/api/nenchoInsurancesLife'
+          headers:
+            Content-Type: application/json
+          json:
+            nenchoId: '{{ taskId }}'
+            category:
+              id: 'insurance_0001'
+              name: 'category'
+            firmName: '保険会社'
+            categoryDetail: '一般'
+            period: '5年'
+            contractorName: '渡辺'
+            receiverName: '高橋'
+            relation: '妻'
+            payment: '10000000'
+
+      # 保険料控除画面に遷移される。
+      - get:
+          url: '/nencho/{{ taskId }}/insurances?insuranceRegister=true'
+          cookie:
+            token: '{{ token }}'
+
+      # 年調画面に戻る。
+      - get:
+          url: '/nencho/{{ taskId }}'
+          cookie:
+            token: '{{ token }}'
+
+      # 年末調整を提出する。
+      - put:
+          url: '/api/nencho/{{ taskId }}/report'
+
+      # タスク一覧画面に遷移される。
+      - get:
+          url: '/nencho/{{ taskId }}?completeTask={{ taskId }}'
+          cookie:
+            token: '{{ token }}'

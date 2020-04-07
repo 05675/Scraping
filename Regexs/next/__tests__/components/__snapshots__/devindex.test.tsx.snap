@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`devindex snapshot 1`] = `
+<div>
+  <ul
+    className="list-style"
+  >
+    <p
+      style={
+        Object {
+          "color": "#525252",
+          "textAlign": "center",
+        }
+      }
+    >
+      Sample Page（開発用）
+    </p>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/Developers/createTask"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          タスク作成
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/Developers/demoTask"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          タスク一括登録
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/Developers/demoControl"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          デモ用管理機能
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/Developers/taskManage"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          年末調整
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/signin"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          サインイン
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/tasks"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          タスク一覧
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/nencho/test_id_0xd1"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          2020年分年末調整
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/nencho/test_id_0xd1/insurances"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          保険料控除
+        </a>
+      </li>
+    </div>
+    <div>
+      <li
+        className="listItem-style"
+      >
+        <a
+          className="Anchor-style"
+          href="/nencho/test_id_0xd1/lifeInsuranceInputs/new"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          生命保険入力
+        </a>
+      </li>
+    </div>
+  </ul>
+  <style
+    jsx={true}
+  >
+    
+          .list-style {
+            margin: 0;
+            padding: 0;
+            position: relative;
+          }
+          .listItem-style {
+            color: black;
+            border-left: solid 8px orange;
+            background: whitesmoke;
+            margin-bottom: 5px;
+            line-height: 1.5;
+            border-radius: 0 15px 15px 0;
+            padding: 0.5em;
+            list-style-type: none !important;
+          }
+          .anchor-style {
+            display: block;
+            padding: 5px;
+          }
+        
+  </style>
+</div>
+`;

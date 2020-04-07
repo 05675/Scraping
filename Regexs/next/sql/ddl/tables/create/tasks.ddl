@@ -1,5 +1,5 @@
 CREATE TABLE `tasks` (
-  `id` binary(16) NOT NULL,
+  `id` varchar(36) NOT NULL,
   `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `summary` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `explanation` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,

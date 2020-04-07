@@ -3,15 +3,19 @@ import { NextPage } from 'next';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import { withAuthSync } from '@src/util/auth';
+import { PageInfo } from '@src/interfaces/pageInfo';
+import { NenchoInsuranceStatus } from '@src/model/entity/nencho/nencho';
 
 const DemoTask: NextPage = () => {
   const [title, setTitle] = useState('');
-  const [dueDate, setDueDate] = useState();
+  const [dueDate, setDueDate] = useState<Date | null>();
+  const [nenchoInsuranceStatus] = useState(NenchoInsuranceStatus.NOT_COMPLETED);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
       task: { title, dueDate },
+      nencho: { nenchoInsuranceStatus },
     };
 
     try {
@@ -101,6 +105,12 @@ const DemoTask: NextPage = () => {
       </style>
     </>
   );
+};
+
+DemoTask.getInitialProps = () => {
+  const pageInfo: PageInfo = { currentPageName: 'タスク入力（全従業員）' };
+
+  return { pageInfo };
 };
 
 export default withAuthSync(DemoTask);

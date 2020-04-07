@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
+import { doAsyncWithLogging } from '@src/util/api/typeormUtils';
 import Groups from './entity/groups';
-import { doAsyncWithLogging } from '../util/api/typeormUtils';
 
 const doAsyncGroupProcess = async <TResult>(
   action: (repository: Repository<Groups>) => Promise<TResult>

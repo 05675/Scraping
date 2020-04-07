@@ -4,7 +4,6 @@ export const StyledLabel = styled.label`
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
-  font-family: Noto Sans JP, sans-serif;
   color: #797979;
   line-height: 150%;
   letter-spacing: 0.06em;
@@ -12,15 +11,14 @@ export const StyledLabel = styled.label`
 
 export const StyledTitle = styled.title`
   display: block;
-  font-family: Noto Sans JP, sans-serif;
   font-style: normal;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 100%;
   text-align: center;
-  color: #333333;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  color: #525252;
+  padding-top: 20px;
+  padding-bottom: 28px;
   width: 100%;
 `;
 
@@ -28,8 +26,16 @@ export const StyledText = styled.div`
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
-  font-family: Noto Sans JP, sans-serif;
-  color: #333333;
+  color: #525252;
+  line-height: 150%;
+  letter-spacing: 0.06em;
+`;
+
+export const StyledErrorText = styled.div`
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  color: #fa3939;
   line-height: 150%;
   letter-spacing: 0.06em;
 `;

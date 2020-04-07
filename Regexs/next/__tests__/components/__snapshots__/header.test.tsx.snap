@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header snapshot 1`] = `
+<div
+  className="common-header headroom-wrapper"
+  style={
+    Object {
+      "height": null,
+    }
+  }
+>
+  <div
+    className="headroom headroom--unfixed"
+  >
+    <div
+      className="flex-container"
+    >
+      <div
+        className="flex-item-left"
+      >
+        <a
+          onClick={[Function]}
+          role="button"
+        >
+          <span
+            className="flex-item-left-arrow"
+          >
+            <svg>
+
+              className="sc-AxhCb NcLaj"
+              color="white"
+            />
+          </span>
+          <span
+            className="flex-item-left-text"
+          >
+            testPage
+          </span>
+        </a>
+      </div>
+      <div
+        className="flex-item-center"
+      >
+        <svg>
+
+          className="sc-fzpans dbiFkb"
+          color="white"
+          height="20"
+          width="65.75"
+        />
+      </div>
+      <div
+        className="flex-item-right"
+      >
+        <button
+          className="sc-AxirZ eTutho"
+          onClick={[Function]}
+          open={false}
+        >
+          <div />
+          <div />
+          <div />
+        </button>
+        <nav
+          className="sc-AxjAm gLeCXj"
+          open={false}
+        >
+          <a
+            href="/"
+            onClick={[Function]}
+          >
+            サインアウト
+          </a>
+        </nav>
+      </div>
+    </div>
+    <style
+      jsx={true}
+    >
+      
+          .flex-container {
+            width: 100%
+            position: fixed;
+            display: flex;
+            width: 100%;
+            height: 48px;
+            background: #005BAC;
+            align-items: center;
+          }
+          .flex-item-left {
+            position: relative;
+            width:calc(50% - 65px);
+            height: 100%;
+            text-align: left;
+            overflow: hidden;
+          }
+          .flex-item-left-arrow {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 12px;
+            left: 16px;
+          }
+          .flex-item-left-text {
+            position: absolute;
+            width: calc(100% - 48px);
+            height: 12px;
+            top: 18px;
+            left: 48px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 100%;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+            padding: 0;
+          }
+          .flex-item-center {
+            width: calc(65px + 32px + 32px);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .flex-item-right {
+            width: calc(50% - 65px);
+            height: 100%;
+            text-align: right;
+          }
+        
+    </style>
+  </div>
+</div>
+`;

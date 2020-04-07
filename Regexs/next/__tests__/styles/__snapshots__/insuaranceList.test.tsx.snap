@@ -19,7 +19,8 @@ exports[`InsuaranceList InsuaranceList_snapshot 1`] = `
   <div
     className="sc-AxirZ sc-AxhCb tTVXF"
   >
-    →
+    <svg>
+ />
   </div>
 </div>
 `;

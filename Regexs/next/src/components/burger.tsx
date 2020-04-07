@@ -8,8 +8,7 @@ import { StyledBurger } from '@src/styles/burger';
  */
 interface BurgerProps {
   open: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setOpen: any;
+  setOpen: (newValue: boolean) => void;
 }
 
 /**

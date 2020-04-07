@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot default 1`] = `
+<div
+  style={
+    Object {
+      "marginBottom": "32px",
+    }
+  }
+>
+  <div
+    className="label"
+  >
+    <label
+      className="sc-AxhCb fZxPgc"
+      id="titleLabel"
+    >
+      labelData
+    </label>
+  </div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      className="sc-AxiKw kKbxQr"
+      id="inputField"
+      label="labelData"
+      maxLength={1234}
+      name="nameData"
+      onChange={[MockFunction]}
+      type="typeData"
+      value="valueData"
+    />
+    <span
+      className="errorIcon"
+    >
+      <svg>
+
+        className="sc-fzoXzr gTpTcX"
+        color="#fa3939"
+        id="errorIcon"
+      />
+    </span>
+  </div>
+  <div
+    className="errorText"
+  >
+    <div
+      className="sc-AxheI cnbkls"
+      id="errorText"
+    >
+      errerMessageData
+    </div>
+  </div>
+  <style
+    jsx={true}
+  >
+    
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+  </style>
+</div>
+`;

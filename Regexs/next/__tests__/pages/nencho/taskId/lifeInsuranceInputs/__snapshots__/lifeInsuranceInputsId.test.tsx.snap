@@ -1,0 +1,752 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot default 1`] = `
+<div
+  style={
+    Object {
+      "background": "#FFFFFF",
+    }
+  }
+>
+  <div
+    className="page-header page-header-life-insurance headroom-wrapper"
+    style={
+      Object {
+        "height": null,
+      }
+    }
+  >
+    <div
+      className="headroom headroom--unfixed"
+    >
+      <div
+        style={
+          Object {
+            "background": "#DEEEFC",
+            "position": "fixed",
+            "width": "100%",
+            "zIndex": 1,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "background": "#FFFFFF",
+              "borderRadius": "8px 8px 0px 0px",
+              "marginTop": "16px",
+            }
+          }
+        >
+          <button
+            className="sc-AxjAm GLyvs"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#525252",
+                "height": "12px",
+                "left": "16px",
+                "padding": "0",
+                "position": "absolute",
+                "top": "38px",
+              }
+            }
+            width="65px"
+          >
+            キャンセル
+          </button>
+          <title
+            className="sc-AxhUy dpKhk"
+          >
+            生命保険
+          </title>
+          <button
+            className="sc-AxjAm dxkTwa"
+            disabled={true}
+            name="saveLifeInsurance"
+            onClick={[Function]}
+            style={
+              Object {
+                "position": "absolute",
+                "right": "16px",
+                "top": "32px",
+              }
+            }
+            width="62px"
+          >
+            保存
+          </button>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "background": "#FFFFFF",
+            "height": "80px",
+            "width": "100%",
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "height": "128px",
+      }
+    }
+  />
+  <div
+    style={
+      Object {
+        "margin": "0px 16px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          加入している生命保険
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          className=" css-2b097c-container"
+          id="selectBoxSingle"
+          onKeyDown={[Function]}
+        >
+          <div
+            className=" css-88o9p8-control"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <div
+              className=" css-86rg1c-ValueContainer"
+            >
+              <div
+                className=" css-1neebod-singleValue"
+              >
+                一般の生命保険：新制度
+              </div>
+              <input
+                aria-autocomplete="list"
+                className="css-62g3xt-dummyInput"
+                disabled={false}
+                id="react-select-2-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                readOnly={true}
+                tabIndex="0"
+                value=""
+              />
+            </div>
+            <div
+              className=" css-1hb7zxy-IndicatorsContainer"
+            >
+              <span
+                className=" css-62wm9a-IndicatorSeparator"
+              />
+              <div
+                style={
+                  Object {
+                    "marginRight": "0",
+                  }
+                }
+              >
+                <div
+                  aria-hidden="true"
+                  className=" css-tlfecz-indicatorContainer"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <svg>
+
+                    className="sc-fzokOt enYZSd"
+                    color="#949494"
+                    height="12px"
+                    width="12px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <input
+            name="category"
+            type="hidden"
+            value="insurance_0001"
+          />
+        </div>
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+          background: white;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          保険会社等の名称
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          className="sc-AxiKw cyBugS"
+          id="inputField"
+          label="保険会社等の名称"
+          maxLength={36}
+          name="firmName"
+          onChange={[Function]}
+          value="firmNameData"
+        />
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          保険等の種類
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          className="sc-AxiKw cyBugS"
+          id="inputField"
+          label="保険等の種類"
+          maxLength={36}
+          name="categoryDetail"
+          onChange={[Function]}
+          value="categoryDetailData"
+        />
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          保険期間
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          className="sc-AxiKw cyBugS"
+          id="inputField"
+          label="保険期間"
+          maxLength={36}
+          name="period"
+          onChange={[Function]}
+          value="periodData"
+        />
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          保険等の契約者の氏名
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          className="sc-AxiKw cyBugS"
+          id="inputField"
+          label="保険等の契約者の氏名"
+          maxLength={36}
+          name="contractorName"
+          onChange={[Function]}
+          value="contractorNameData"
+        />
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <label
+      className="sc-AxhCb fZxPgc"
+    >
+      保険金等の受取人
+    </label>
+    <div
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "marginBottom": "32px",
+            }
+          }
+        >
+          <div
+            className="label"
+          >
+            <label
+              className="sc-AxhCb fZxPgc"
+              id="titleLabel"
+            >
+              氏名
+            </label>
+          </div>
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <input
+              className="sc-AxiKw cyBugS"
+              id="inputField"
+              label="氏名"
+              maxLength={36}
+              name="receiverName"
+              onChange={[Function]}
+              value="receiverNameData"
+            />
+          </div>
+          <style
+            jsx={true}
+          >
+            
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+          </style>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginLeft": "16px",
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "marginBottom": "32px",
+            }
+          }
+        >
+          <div
+            className="label"
+          >
+            <label
+              className="sc-AxhCb fZxPgc"
+              id="titleLabel"
+            >
+              あなたとの続柄
+            </label>
+          </div>
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <input
+              className="sc-AxiKw cyBugS"
+              id="inputField"
+              label="あなたとの続柄"
+              maxLength={6}
+              name="relation"
+              onChange={[Function]}
+              value="relationData"
+            />
+          </div>
+          <style
+            jsx={true}
+          >
+            
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+          </style>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": "32px",
+        }
+      }
+    >
+      <div
+        className="label"
+      >
+        <label
+          className="sc-AxhCb fZxPgc"
+          id="titleLabel"
+        >
+          申請額
+        </label>
+      </div>
+      <div
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          className="sc-AxiKw gHDYXa"
+          id="inputField"
+          label="申請額"
+          maxLength={10}
+          name="payment"
+          onChange={[Function]}
+          type="tel"
+          value="paymentData"
+        />
+        <span
+          className="yenChar"
+        >
+          <label
+            className="sc-AxhCb fZxPgc"
+            id="yenLabel"
+          >
+            円
+          </label>
+        </span>
+      </div>
+      <style
+        jsx={true}
+      >
+        
+        .label {
+          height: 18px;
+          margin: 0;
+        }
+        .yenChar {
+          position: absolute;
+          width: 12px;
+          height: 18px;
+          bottom: 18px;
+          right: 0px;
+        }
+        .errorIcon {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 0px;
+        }
+        .errorText {
+          width: 100%;
+          left: 0px;
+          margin-top: 6px;
+        }
+      
+      </style>
+    </div>
+    <div
+      className="sc-AxgMl hnSpCS"
+      style={
+        Object {
+          "paddingBottom": "32px",
+        }
+      }
+    >
+      あなたが本年中に支払った保険料等の金額（分配を受けた剰余金等の控除後の金額）
+    </div>
+    <button
+      className="sc-AxjAm ebJHzb"
+      name="deleteLifeInsurance"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginBottom": "32px",
+          "width": "100%",
+        }
+      }
+    >
+      この保険を削除する
+    </button>
+  </div>
+  <div
+    className="notif-container"
+  >
+    <p>
+      
+    </p>
+    <span
+      className="close-button"
+      onClick={[Function]}
+      role="button"
+    >
+      <svg>
+
+        className="sc-fzoLag gAJUJy"
+        color="#ffffff"
+        height="14"
+        width="14"
+      />
+    </span>
+    <style
+      jsx={true}
+    >
+      
+            .notif-container {
+              position: fixed;
+              width: 100%;
+              height: 48px;
+              bottom: 0;
+              display: flex;
+              box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+              border-radius: 8px 8px 0px 0px;
+              align-items: center;
+              background: red;
+              text-align-center;
+              transform: translateY(100%);
+              opacity: 0;
+              pointer-events: none;
+              transition: transform 0.2s ease-in-out, opacity 0.23s ease-in-out;
+            }
+            .notif-container p {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 12px;
+              line-height: 100%;
+              letter-spacing: 0.06em;
+              color: #ffffff;
+              padding-left:16px;
+              width: 100%;
+            }
+            .close-button {
+              position: relative;
+              padding:0;
+              margin-right:13px;
+            }
+          
+    </style>
+  </div>
+</div>
+`;

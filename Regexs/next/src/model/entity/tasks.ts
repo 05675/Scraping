@@ -22,8 +22,14 @@ export default class Tasks {
   empId!: string;
 
   @Column({ name: 'status', type: 'int', nullable: false })
-  status!: string;
+  status!: TaskStatus;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt?: string;
+}
+
+export enum TaskStatus {
+  NEW,
+  DONE,
+  NOT_SUBMITTED,
 }

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledInput snapshot isError isNotPaddingRight 1`] = `
+<input
+  className="sc-AxjAm eGfAp"
+/>
+`;
+
+exports[`StyledInput snapshot isError isPaddingRight 1`] = `
+<input
+  className="sc-AxjAm dmWriN"
+/>
+`;
+
+exports[`StyledInput snapshot isNotError isNotPaddingRight 1`] = `
+<input
+  className="sc-AxjAm ljofMs"
+/>
+`;
+
+exports[`StyledInput snapshot isNotError isPaddingRight 1`] = `
+<input
+  className="sc-AxjAm ktMOEw"
+/>
+`;
