@@ -38,7 +38,7 @@ namespace jrascraping.Regexs
 
         public Regex classes = new Regex(
             "div class=\\\"type\\\"\\>(?<classes>.*?)\\<div class=\\\"cell course\\\"\\>",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
         public Regex distance = new Regex(
             "(?<=<div class=\\\"cell course\\\"><span class=\\\"cap\\\">コース：</span>).*?(?=<span class=\\\"unit\\\">)",
