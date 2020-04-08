@@ -37,7 +37,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex classes = new Regex(
-            "(?<=).*?(?=)",
+            "div class=\\\"type\\\"\\>(?<classes>.*?)\\<div class=\\\"cell course\\\"\\>",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex distance = new Regex(
