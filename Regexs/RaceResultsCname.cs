@@ -55,7 +55,7 @@ namespace jrascraping.Regexs
         public Regex halongtime = new Regex(
             "(?<halongtime>((?<=<td class=\\\"f_time\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        //HorseInfoCnameの調教師の取り方を参考に
+        
         public Regex horseweight = new Regex(
             "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n\\\\s+).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);

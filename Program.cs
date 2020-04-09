@@ -336,6 +336,7 @@ namespace jrascraping
 
         public static RaceResults CreateRaceResults(string html, List<HorseInfo> horses)
         {
+            //コーナー
             var regex = new RaceResultsCname();
             var MatchDate = regex.date.Match(html);
             var matches = new RaceResultsCname().corner.Matches(html);
@@ -348,14 +349,15 @@ namespace jrascraping
                     .Select(match => match.Groups["number"].Value));
             }
 
-            var classesMatch = new RaceInfoCname().oldclass.Matches(html);
-            foreach (Match match in classesMatch)
+            //レースの出走条件
+            var oldclassMatch = new RaceInfoCname().oldclass.Matches(html);
+            foreach (Match match in oldclassMatch)
             {
                 var category = match.Groups["oldclass"].Value;
-                var classes = string.Join(",",
-                Regex.Matches(category, "順位\\\">(?<number>.*?)\\</li\\>", RegexOptions.Singleline)
+                var oldclass = string.Join(" ",
+                Regex.Matches(category, "cell (category|class|rule|weight)\\\">(?<name>.*?)\\</div\\>", RegexOptions.Singleline)
                     .Cast<Match>()
-                    .Select(match => match.Groups["number"].Value));
+                    .Select(match => match.Groups["name"].Value));
             }
             var raceresults = new Models.RaceResults()
             {
