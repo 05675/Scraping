@@ -348,10 +348,10 @@ namespace jrascraping
                     .Select(match => match.Groups["number"].Value));
             }
 
-            var classesMatch = new RaceInfoCname().classes.Matches(html);
+            var classesMatch = new RaceInfoCname().oldclass.Matches(html);
             foreach (Match match in classesMatch)
             {
-                var category = match.Groups["classes"].Value;
+                var category = match.Groups["oldclass"].Value;
                 var classes = string.Join(",",
                 Regex.Matches(category, "順位\\\">(?<number>.*?)\\</li\\>", RegexOptions.Singleline)
                     .Cast<Match>()

@@ -14,8 +14,7 @@ namespace jrascraping.Models
         public string Weather { get; set; }
         public string Baba { get; set; }
         public string BabaState { get; set; }
-        public string Old { get; set; }
-        public string Class { get; set; }
+        public string OldClass { get; set; }
         public string Distance { get; set; }
         public string Around { get; set; }
         public PayBack Refund { get; set; }
