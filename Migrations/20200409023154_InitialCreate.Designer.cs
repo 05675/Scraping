@@ -9,7 +9,7 @@ using jrascraping.Models;
 namespace jrascraping.Migrations
 {
     [DbContext(typeof(JraDbContext))]
-    [Migration("20200301032035_InitialCreate")]
+    [Migration("20200409023154_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -390,22 +390,10 @@ namespace jrascraping.Migrations
                     b.Property<string>("BabaState")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Class")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Distance")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LoadPrize")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Old")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PlaceDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PrizeMoney")
+                    b.Property<string>("OldClass")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("RefundID")

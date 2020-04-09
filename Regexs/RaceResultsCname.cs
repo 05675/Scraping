@@ -47,7 +47,7 @@ namespace jrascraping.Regexs
         public Regex arrivaldifference = new Regex(
             "(?<arrivaldifference>((?<=<td class=\\\"margin\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        //まだ
+        
         public Regex corner = new Regex(
             "corner_list\\\"\\>(?<corner>.*?)\\</div\\>",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);

@@ -388,22 +388,10 @@ namespace jrascraping.Migrations
                     b.Property<string>("BabaState")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Class")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Distance")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LoadPrize")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Old")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PlaceDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PrizeMoney")
+                    b.Property<string>("OldClass")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("RefundID")
