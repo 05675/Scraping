@@ -20,8 +20,8 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
-            DateTime target = new DateTime(2020, 4, 5);
-            while (target >= new DateTime(2020, 4, 4))
+            DateTime target = new DateTime(2020, 2, 27);
+            while (target >= new DateTime(2020, 2, 1))
             {
                 var html = FetchRaceResultPage(target);
                 List<string> RaceDays = RaceDaysCNames(html);
@@ -38,17 +38,19 @@ namespace jrascraping
                         var horses = InsertHorseInfo(otherRace);
                         var raceResults = CreateRaceResults(otherRace, horses);
                         var payBacks = CreatePayBack(otherRace, raceResults, horses);
+                        var raceInfo = CreateRaceInfo(otherRace, horses);
             
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         //context.PayBack.Add(PayBacks);
 
-            // otherRaceからRaceInfoを作る
-            //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
-            // otherRaceからRaceResultを作る(複数)
-            //CreateResults(race, horses, otherRace); // なかでinsertしてます。
-          }
-                    context.SaveChanges();
+                        // otherRaceからRaceInfoを作る
+                        //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
+                        
+                        // otherRaceからRaceResultを作る(複数)
+                        //CreateResults(race, horses, otherRace); // なかでinsertしてます。
+                    }
+                        context.SaveChanges();
                 }
                 target = target.AddMonths(-1);
             }
@@ -68,7 +70,7 @@ namespace jrascraping
             var horses = new List<HorseInfo>();
 
 
-            // 馬の情報を取得
+            //馬の情報を取得
             //foreach (var horseInfo in horseCNames)
             //{
             //    var horseHtml = new Downloder().GetHorse(horseInfo);
@@ -78,15 +80,15 @@ namespace jrascraping
             //    if (horsenames == null)
             //    {
             //        Debug.WriteLine("Insert実行");
-            //        context.HorseInfo.Add(horse);
+            //        //context.HorseInfo.Add(horse); //Insert
             //    }
             //    else
             //    {
             //        Debug.WriteLine("Insertしない");
             //    }
-            //    horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒
+            //    //horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
             //}
-            //context.SaveChanges();
+            ////context.SaveChanges();  //Insert?
             return horses;
         }
 
@@ -188,12 +190,47 @@ namespace jrascraping
             }
         }
 
-        public static RaceInfo CreateRaceInfo(string html)
+        public static RaceInfo CreateRaceInfo(string html, List<HorseInfo> horses)
         {
             try
             {
+                var regex = new RaceInfoCname();
+                var MatchCountOfDay = regex.countofday.Match(html);
+                var MatchRaceName = regex.racename.Match(html);
+                var MatchDate = regex.date.Match(html);
+                var MatchShippingTime = regex.shippingtime.Match(html);
+                var MatchWeather = regex.weather.Match(html);
+                var MatchBaba = regex.baba.Match(html);
+                var MatchBabaState = regex.babastate.Match(html);
+                var MatchDistance = regex.distance.Match(html);
+                var MatchAround = regex.around.Match(html);
 
-            return null;
+                //レースの出走条件
+                var Matcholdclass = regex.oldclass.Matches(html);
+                var oldclass = "";
+                foreach (Match match in Matcholdclass)
+                {
+                    var category = match.Groups["oldclass"].Value;
+                    oldclass = string.Join(" ",
+                    Regex.Matches(category, "cell (category|class|rule|weight)\\\">(?<name>.*?)\\</div\\>", RegexOptions.Singleline)
+                        .Cast<Match>()
+                        .Select(match => match.Groups["name"].Value));
+                }
+                var raceinfo = new RaceInfo()
+                {
+                    CountOfDay = MatchCountOfDay.Value,
+                    RaceName = MatchRaceName.Value,
+                    Date = DateTime.ParseExact(MatchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                    ShippingTime = MatchShippingTime.Value,
+                    Weather = MatchWeather.Value,
+                    Baba = MatchBaba.Value,
+                    BabaState = MatchBabaState.Value,
+                    OldClass = oldclass,
+                    Distance = MatchDistance.Value,
+                    Around = MatchAround.Value,
+                };
+                //context.RaceInfo.Add(raceinfo);
+                return raceinfo;
             }
             catch (Exception ex)
             {
@@ -222,7 +259,7 @@ namespace jrascraping
                 var MatchTrainer = regex.trainer.Match(html);
                 var MatchPop = regex.pop.Match(html);
 
-                var raceresults = new Models.RaceResults()
+                var raceresults = new RaceResults()
                 {
                     Date = MatchDate.Value,
                     NumberOfTime = MatchNumberoftime.Value,
@@ -258,7 +295,7 @@ namespace jrascraping
             var tripleafter = regex.tripleafter.Matches(html);
             var refund = regex.refund.Matches(html);
 
-            var payback = new Models.PayBack();
+            var payback = new PayBack();
             var count = win.Count + widebefore.Count + wideafter.Count + triplebefor.Count + triplecenter.Count + tripleafter.Count;
             if (count == 22) { 
                 //payback.TanshoNum = int.Parse(win[0].Value);
@@ -339,8 +376,8 @@ namespace jrascraping
             //コーナー
             var regex = new RaceResultsCname();
             var MatchDate = regex.date.Match(html);
-            var matches = new RaceResultsCname().corner.Matches(html);
-            foreach (Match match in matches)
+            var MatchCorner = regex.corner.Matches(html);
+            foreach (Match match in MatchCorner)
             {
                 var ulul = match.Groups["corner"].Value;
                 var corner = string.Join(",",
@@ -348,20 +385,9 @@ namespace jrascraping
                     .Cast<Match>()
                     .Select(match => match.Groups["number"].Value));
             }
-
-            //レースの出走条件
-            var oldclassMatch = new RaceInfoCname().oldclass.Matches(html);
-            foreach (Match match in oldclassMatch)
+            var raceresults = new RaceResults()
             {
-                var category = match.Groups["oldclass"].Value;
-                var oldclass = string.Join(" ",
-                Regex.Matches(category, "cell (category|class|rule|weight)\\\">(?<name>.*?)\\</div\\>", RegexOptions.Singleline)
-                    .Cast<Match>()
-                    .Select(match => match.Groups["name"].Value));
-            }
-            var raceresults = new Models.RaceResults()
-            {
-                Date = MatchDate.Value
+                Date = MatchDate.Value,
             };
 
             //context.RaceResults.Add(raceresults);

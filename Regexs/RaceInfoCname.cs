@@ -8,15 +8,19 @@ namespace jrascraping.Regexs
 {
     public class RaceInfoCname
     {
-        public Regex countOfDay = new Regex(
-            "(?<=<div class=\\\"cell date\\\">\n\\\\s{27,}).*?(?=（)",
+        public Regex countofday = new Regex(
+            "(?<=） ).*?(?=\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex raceName = new Regex(
-            "(?<=<span class=\\\"race_name\\\">\n\\\\s{32}).*?(?=<span class=\\\"grade_icon lg\\\">)",
+        public Regex racename = new Regex(
+            "(?<=<span class=\\\"race_name\\\">\n.{32}).*?(?=<|\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex shippingTime = new Regex(
+        public Regex date = new Regex(
+            "(?<=<div class=\\\"cell date\\\">\n.{27,}).*?(?=（)",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        public Regex shippingtime = new Regex(
             "(?<=発走時刻：<strong>).*?(?=</strong></div>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
@@ -25,11 +29,11 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex baba = new Regex(
-            "(?<=<span class=\\\"inner\\\">\n\\\\s{32}<span class=\\\"cap\\\">).*?(?=</span>)",
+            "(?<=<span class=\\\"inner\\\">\n.{32}<span class=\\\"cap\\\">).*?(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex babaState = new Regex(
-            "(?<=</span>\n\\\\s{32}<span class=\\\"txt\\\">).*?(?=</span>)",
+        public Regex babastate = new Regex(
+            "(?<=</span>\n.{32}<span class=\\\"txt\\\">).*?(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex old = new Regex(
