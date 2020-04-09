@@ -311,8 +311,7 @@ namespace jrascraping.Migrations
                     Weather = table.Column<string>(nullable: true),
                     Baba = table.Column<string>(nullable: true),
                     BabaState = table.Column<string>(nullable: true),
-                    Old = table.Column<string>(nullable: true),
-                    Class = table.Column<string>(nullable: true),
+                    OldClass = table.Column<string>(nullable: true),
                     Distance = table.Column<string>(nullable: true),
                     Around = table.Column<string>(nullable: true),
                     RefundID = table.Column<int>(nullable: true)
