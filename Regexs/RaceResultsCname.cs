@@ -9,7 +9,7 @@ namespace jrascraping.Regexs
     public class RaceResultsCname
     {
         public Regex date = new Regex(
-            "(?<date>((?<=<span class=\\\"opt\\\">).*?曜）))",
+            "(?<date>((?<=<span class=\\\"opt\\\">).*?(?=（)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex numberoftime = new Regex(

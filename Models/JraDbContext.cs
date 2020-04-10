@@ -23,7 +23,7 @@ namespace jrascraping.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RaceResults>()
-                .HasKey(c => new { c.Date, c.Racename, c.Place, c.Waku });
+                .HasKey(c => new { c.Date, c.RaceName, c.Place, c.Waku });
             modelBuilder.Entity<HorseInfo>()
                 .HasKey(c => new { c.HorseName, c.Birthday });
             modelBuilder.Entity<RaceInfo>()
