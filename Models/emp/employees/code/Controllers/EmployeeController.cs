@@ -28,7 +28,7 @@ namespace Yayoi.Employees.Controllers
 
             // データ取得
             // 全件数、該当ページのEmployeeリスト
-            var dao = new EmployeeDao();
+            var dao = new EmployeeDao(employeeContext);
             (int totalItemCount, int lastPage, List<Employee> employees) =
               dao.GetEmployees(page, EmployeeController.CountPerPage);
 
