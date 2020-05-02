@@ -24,9 +24,9 @@ namespace jrascraping
             while (target >= new DateTime(2020, 2, 1))
             {
                 var html = FetchRaceResultPage(target);
-                List<string> RaceDays = RaceDaysCNames(html);
+                List<string> raceDays = RaceDaysCNames(html);
                 //Cname：1回東京1日目
-                foreach (var cname in RaceDays)
+                foreach (var cname in raceDays)
                 {
                     string otherRaceHtml = new Downloder().GetRaceResults(cname);
                     var raceResultCNames = ParseRaceResultCNames(otherRaceHtml);
