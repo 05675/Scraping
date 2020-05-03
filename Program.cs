@@ -20,8 +20,8 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
-            DateTime target = new DateTime(2020, 2, 27);
-            while (target >= new DateTime(2020, 2, 1))
+            DateTime target = new DateTime(2020, 4, 30);    //From
+            while (target >= new DateTime(2020, 4, 1))      //To
             {
                 var html = FetchRaceResultPage(target);
                 List<string> raceDays = RaceDaysCNames(html);
@@ -391,9 +391,12 @@ namespace jrascraping
         {
             var idx1 = month.Year;
             var idx2 = month.Month;
-            var arg = (idx1 * 100) + idx2;
+            var arg = YearAndMonth(idx1, idx2);
+            var yearNow = DateTime.Now.Year;
+            var monthNow = DateTime.Now.Month;
+            var currenYear = YearAndMonth(yearNow, monthNow);
             string param;
-            if (arg >= 202002)
+            if (arg >= currenYear)
             {
                 param = "pw01skl00" + arg.ToString() + "/";
             }
@@ -403,6 +406,11 @@ namespace jrascraping
             }
             var cname = param + ObjParam.ObjParamCname(arg.ToString().Substring(2, 4));
             return cname;
+        }
+
+        private int YearAndMonth(int year,int month)
+        {
+            return year * 100 + month;
         }
     }
 }
