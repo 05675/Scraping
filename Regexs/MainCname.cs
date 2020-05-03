@@ -9,17 +9,17 @@ namespace jrascraping.Regexs
     public class MainCname
     {
         // 1回東京1日目のようなCnameを取得
-        public Regex countofdaycname = new Regex(
+        public Regex countOfDayCName = new Regex(
             "(?<CountOfDayCname>pw.{28,28})\\'\\);\\\">",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         //各レースのCnameを取得
-        public Regex racenamecname = new Regex(
+        public Regex raceNameCName = new Regex(
             "(?<RaceNameCname>pw01sde.{25,25})\\'\\);\\\">",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         //馬名のCnameを取得
-        public Regex horsename = new Regex(
+        public Regex horseCName = new Regex(
             "(?<horsecname>pw01dud.{15,15})\\'\\);\\\">",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
     }

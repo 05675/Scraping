@@ -20,11 +20,14 @@ namespace jrascraping
         public static void Main(string[] args)
         {
             DbContext();
+
+            //FromToの期間を入力
             DateTime target = new DateTime(2020, 4, 30);    //From
-            while (target >= new DateTime(2020, 4, 1))      //To
+            while (target >= new DateTime(2020, 1, 1))      //To
             {
                 var html = FetchRaceResultPage(target);
                 List<string> raceDays = RaceDaysCNames(html);
+
                 //Cname：1回東京1日目
                 foreach (var cname in raceDays)
                 {
@@ -112,7 +115,7 @@ namespace jrascraping
         {
             var table = new List<string>();
             var regex = new MainCname();
-            var matches = regex.countofdaycname.Matches(html);
+            var matches = regex.countOfDayCName.Matches(html);
             foreach (Match match in matches)
             {
                 table.Add(match.Groups["CountOfDayCname"].Value);
@@ -124,10 +127,10 @@ namespace jrascraping
         {
             var table = new List<string>();
             var regex = new MainCname();
-            var matches = regex.racenamecname.Matches(html);
+            var matches = regex.raceNameCName.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["RaceNameCname"].Value);
+                table.Add(match.Groups["aceNameCname"].Value);
             }
             return table;
         }
@@ -136,10 +139,10 @@ namespace jrascraping
         {
             var table = new List<string>();
             var regex = new MainCname();
-            var matches = regex.horsename.Matches(html);
+            var matches = regex.horseCName.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["horsecname"].Value);
+                table.Add(match.Groups["horseCName"].Value);
             }
             return table;
         }
