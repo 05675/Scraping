@@ -37,7 +37,7 @@ namespace jrascraping.Regexs
             "(?<birthday>(?<=生年月日</td>\n<td nowrap bgcolor=\\\"#F5F5EA\\\">\n\n).*?(?=\n\n</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex coatcolor = new Regex(
+        public Regex coatColor = new Regex(
             "(?<coatcolor>(?<=毛色</td>\n<td nowrap bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 

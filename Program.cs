@@ -76,9 +76,9 @@ namespace jrascraping
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorseInfo(horseHtml); // なかでinsertしてます。
-                var horsenames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
+                var horseNames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
 
-                if (horsenames == null)
+                if (horseNames == null)
                 {
                     Debug.WriteLine("Insert実行");
                     //context.HorseInfo.Add(horse); //Insert
@@ -95,9 +95,9 @@ namespace jrascraping
 
         private static void InsertRaceResults(string otherRace)
         {
-            var raceCname = ParseRaceResultCNames(otherRace);
+            var raceCName = ParseRaceResultCNames(otherRace);
             //var horses = new List<HorseInfo>();　これをどうにかしてInsertする
-            foreach (var raceResults in raceCname)
+            foreach (var raceResults in raceCName)
             {
                 var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
             }
@@ -117,7 +117,7 @@ namespace jrascraping
             var matches = regex.holding.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["CountOfDayCname"].Value);
+                table.Add(match.Groups["holding"].Value);
             }
             return table;
         }
@@ -129,7 +129,7 @@ namespace jrascraping
             var matches = regex.raceNameCName.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["aceNameCname"].Value);
+                table.Add(match.Groups["raceNameCname"].Value);
             }
             return table;
         }
@@ -151,38 +151,38 @@ namespace jrascraping
             try
             {
                 var regex = new HorseInfoCname();
-                var MatchHorseName = regex.horseNames.Match(html);
-                var MatchFather = regex.father.Match(html);
-                var MatchMother = regex.mother.Match(html);
-                var MatchMotherFather = regex.motherFather.Match(html);
-                var MatchMotherMother = regex.motherMother.Match(html);
-                var MatchSex = regex.sex.Match(html);
-                var MatchBirthday = regex.birthday.Match(html);
-                var MatchCoatColor = regex.coatcolor.Match(html);
-                var MatchHorseNameMeaning = regex.horseNameMeaning.Match(html);
-                var MatchHorseOwner = regex.horseOwner.Match(html);
+                var matchHorseName = regex.horseNames.Match(html);
+                var matchFather = regex.father.Match(html);
+                var matchMother = regex.mother.Match(html);
+                var matchMotherFather = regex.motherFather.Match(html);
+                var matchMotherMother = regex.motherMother.Match(html);
+                var matchSex = regex.sex.Match(html);
+                var matchBirthday = regex.birthday.Match(html);
+                var matchCoatColor = regex.coatColor.Match(html);
+                var matchHorseNameMeaning = regex.horseNameMeaning.Match(html);
+                var matchHorseOwner = regex.horseOwner.Match(html);
                 var TrainerName = regex.trainer.Match(html);
-                var MatchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
-                var MatchProductionRanch = regex.productionRanch.Match(html);
-                var MatchOrigin = regex.origin.Match(html);
+                var matchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
+                var matchProductionRanch = regex.productionRanch.Match(html);
+                var matchOrigin = regex.origin.Match(html);
 
-                var horseinfo = new HorseInfo()
+                var horseInfo = new HorseInfo()
                 {
-                    HorseName = MatchHorseName.Value,
-                    Father = MatchFather.Value,
-                    Mother = MatchMother.Value,
-                    MotherFather = MatchMotherFather.Value,
-                    MotherMother = MatchMotherMother.Value,
-                    Sex = MatchSex.Value,
-                    Birthday = DateTime.ParseExact(MatchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
-                    CoatColor = MatchCoatColor.Value,
-                    HorseNameMeaning = MatchHorseNameMeaning.Value,
-                    HorseOwner = MatchHorseOwner.Value,
-                    Trainer = MatchTrainer,
-                    ProductionRanch = MatchProductionRanch.Value,
-                    Origin = MatchOrigin.Value
+                    HorseName = matchHorseName.Value,
+                    Father = matchFather.Value,
+                    Mother = matchMother.Value,
+                    MotherFather = matchMotherFather.Value,
+                    MotherMother = matchMotherMother.Value,
+                    Sex = matchSex.Value,
+                    Birthday = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                    CoatColor = matchCoatColor.Value,
+                    HorseNameMeaning = matchHorseNameMeaning.Value,
+                    HorseOwner = matchHorseOwner.Value,
+                    Trainer = matchTrainer,
+                    ProductionRanch = matchProductionRanch.Value,
+                    Origin = matchOrigin.Value
                 };
-                return horseinfo;
+                return horseInfo;
             }
             catch (Exception ex)
             {
@@ -196,42 +196,42 @@ namespace jrascraping
             try
             {
                 var regex = new RaceInfoCname();
-                var MatchCountOfDay = regex.holding.Match(html);
-                var MatchRaceName = regex.raceName.Match(html);
-                var MatchDate = regex.date.Match(html);
-                var MatchShippingTime = regex.shippingTime.Match(html);
-                var MatchWeather = regex.weather.Match(html);
-                var MatchBaba = regex.baba.Match(html);
-                var MatchBabaState = regex.babaState.Match(html);
-                var MatchDistance = regex.distance.Match(html);
-                var MatchAround = regex.around.Match(html);
+                var matchHolding = regex.holding.Match(html);
+                var matchRaceName = regex.raceName.Match(html);
+                var matchDate = regex.date.Match(html);
+                var matchShippingTime = regex.shippingTime.Match(html);
+                var matchWeather = regex.weather.Match(html);
+                var matchBaba = regex.baba.Match(html);
+                var matchBabaState = regex.babaState.Match(html);
+                var matchDistance = regex.distance.Match(html);
+                var matchAround = regex.around.Match(html);
 
                 //レースの出走条件
-                var Matcholdclass = regex.oldClass.Matches(html);
-                var oldclass = "";
-                foreach (Match match in Matcholdclass)
+                var matchOldClass = regex.oldClass.Matches(html);
+                var oldClass = "";
+                foreach (Match match in matchOldClass)
                 {
                     var category = match.Groups["oldclass"].Value;
-                    oldclass = string.Join(" ",
+                    oldClass = string.Join(" ",
                     Regex.Matches(category, "cell (category|class|rule|weight)\\\">(?<name>.*?)\\</div\\>", RegexOptions.Singleline)
                         .Cast<Match>()
                         .Select(match => match.Groups["name"].Value));
                 }
-                var raceinfo = new RaceInfo()
+                var raceInfo = new RaceInfo()
                 {
-                    CountOfDay = MatchCountOfDay.Value,
-                    RaceName = MatchRaceName.Value,
-                    Date = DateTime.ParseExact(MatchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
-                    ShippingTime = MatchShippingTime.Value,
-                    Weather = MatchWeather.Value,
-                    Baba = MatchBaba.Value,
-                    BabaState = MatchBabaState.Value,
-                    OldClass = oldclass,
-                    Distance = MatchDistance.Value,
-                    Around = MatchAround.Value,
+                    Holding = matchHolding.Value,
+                    RaceName = matchRaceName.Value,
+                    Date = DateTime.ParseExact(matchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                    ShippingTime = matchShippingTime.Value,
+                    Weather = matchWeather.Value,
+                    Baba = matchBaba.Value,
+                    BabaState = matchBabaState.Value,
+                    OldClass = oldClass,
+                    Distance = matchDistance.Value,
+                    Around = matchAround.Value,
                 };
                 //context.RaceInfo.Add(raceinfo);
-                return raceinfo;
+                return raceInfo;
             }
             catch (Exception ex)
             {
@@ -243,38 +243,38 @@ namespace jrascraping
         {
             var regex = new PayBackCname();
             var win = regex.win.Matches(html);
-            var widebefore = regex.wideBefore.Matches(html);
-            var wideafter = regex.wideAfter.Matches(html);
-            var triplebefor = regex.tripleBefor.Matches(html);
-            var triplecenter = regex.tripleCenter.Matches(html);
-            var tripleafter = regex.tripleAfter.Matches(html);
+            var wideBefore = regex.wideBefore.Matches(html);
+            var wideAfter = regex.wideAfter.Matches(html);
+            var tripleBefor = regex.tripleBefor.Matches(html);
+            var tripleCenter = regex.tripleCenter.Matches(html);
+            var tripleAfter = regex.tripleAfter.Matches(html);
             var refund = regex.refund.Matches(html);
 
             var payback = new PayBack();
-            var count = win.Count + widebefore.Count + wideafter.Count + triplebefor.Count + triplecenter.Count + tripleafter.Count;
+            var count = win.Count + wideBefore.Count + wideAfter.Count + tripleBefor.Count + tripleCenter.Count + tripleAfter.Count;
             if (count == 22) {
                 payback.TanshoNum = int.Parse(win[0].Value);
                 payback.Fuku1Num = int.Parse(win[1].Value);
                 payback.Fuku2Num = int.Parse(win[2].Value);
                 payback.Fuku3Num = int.Parse(win[3].Value);
-                payback.Wakuren1Waku = int.Parse(widebefore[0].Value);
-                payback.Wakuren2Waku = int.Parse(wideafter[0].Value);
-                payback.Wide1_1Num = int.Parse(widebefore[1].Value);
-                payback.Wide1_2Num = int.Parse(wideafter[1].Value);
-                payback.Wide2_1Num = int.Parse(widebefore[2].Value);
-                payback.Wide2_2Num = int.Parse(wideafter[2].Value);
-                payback.Wide3_1Num = int.Parse(widebefore[3].Value);
-                payback.Wide3_2Num = int.Parse(wideafter[3].Value);
-                payback.Umaren1Num = int.Parse(widebefore[4].Value);
-                payback.Umaren2Num = int.Parse(wideafter[4].Value);
-                payback.Umatan1Num = int.Parse(widebefore[5].Value);
-                payback.Umatan2Num = int.Parse(wideafter[5].Value);
-                payback.Sanfuku1Num = int.Parse(triplebefor[0].Value);
-                payback.Sanfuku2Num = int.Parse(triplecenter[0].Value);
-                payback.Sanfuku3Num = int.Parse(tripleafter[0].Value);
-                payback.Santan1Num = int.Parse(triplebefor[1].Value);
-                payback.Santan2Num = int.Parse(triplecenter[1].Value);
-                payback.Santan3Num = int.Parse(tripleafter[1].Value);
+                payback.Wakuren1Waku = int.Parse(wideBefore[0].Value);
+                payback.Wakuren2Waku = int.Parse(wideAfter[0].Value);
+                payback.Wide1_1Num = int.Parse(wideBefore[1].Value);
+                payback.Wide1_2Num = int.Parse(wideAfter[1].Value);
+                payback.Wide2_1Num = int.Parse(wideBefore[2].Value);
+                payback.Wide2_2Num = int.Parse(wideAfter[2].Value);
+                payback.Wide3_1Num = int.Parse(wideBefore[3].Value);
+                payback.Wide3_2Num = int.Parse(wideAfter[3].Value);
+                payback.Umaren1Num = int.Parse(wideBefore[4].Value);
+                payback.Umaren2Num = int.Parse(wideAfter[4].Value);
+                payback.Umatan1Num = int.Parse(wideBefore[5].Value);
+                payback.Umatan2Num = int.Parse(wideAfter[5].Value);
+                payback.Sanfuku1Num = int.Parse(tripleBefor[0].Value);
+                payback.Sanfuku2Num = int.Parse(tripleCenter[0].Value);
+                payback.Sanfuku3Num = int.Parse(tripleAfter[0].Value);
+                payback.Santan1Num = int.Parse(tripleBefor[1].Value);
+                payback.Santan2Num = int.Parse(tripleCenter[1].Value);
+                payback.Santan3Num = int.Parse(tripleAfter[1].Value);
             }
             else
             {
@@ -329,27 +329,27 @@ namespace jrascraping
         public static RaceResults CreateRaceResults(string html, List<HorseInfo> horses)
         {
             var regex = new RaceResultsCname();
-            var MatchDate = regex.date.Match(html);
-            var MatchNumberoftime = regex.holding.Match(html);
-            var MatchPlace = regex.place.Match(html);
-            var MatchWaku = regex.waku.Match(html);
-            var MatchNum = regex.num.Match(html);
-            var MatchHorse = regex.horse.Match(html);
-            var MatchWeight = regex.weight.Match(html);
-            var MatchJockey = regex.jockey.Match(html);
-            var MatchTime = regex.time.Match(html);
-            var MatchArrivaldifference = regex.arrivaldifference.Match(html);
-            var MatchCorner = regex.corner.Matches(html);
-            var MatchHalongtime = regex.halongTime.Match(html);
-            var MatchHorseweight = regex.horseWeight.Match(html);
-            var MatchTrainer = regex.trainer.Match(html);
-            var MatchPop = regex.pop.Match(html);
+            var matchDate = regex.date.Match(html);
+            var matchHolding = regex.holding.Match(html);
+            var matchPlace = regex.place.Match(html);
+            var matchWaku = regex.waku.Match(html);
+            var matchNum = regex.num.Match(html);
+            var matchHorse = regex.horse.Match(html);
+            var matchWeight = regex.weight.Match(html);
+            var matchJockey = regex.jockey.Match(html);
+            var matchTime = regex.time.Match(html);
+            var matchArrivalDifference = regex.arrivalDifference.Match(html);
+            var matchCorner = regex.corner.Matches(html);
+            var matchHalongtime = regex.halongTime.Match(html);
+            var matchHorseweight = regex.horseWeight.Match(html);
+            var matchTrainer = regex.trainer.Match(html);
+            var matchPop = regex.pop.Match(html);
 
             var _regex = new RaceInfoCname();
-            var MatchRaceName = _regex.raceName.Match(html);
+            var matchRaceName = _regex.raceName.Match(html);
 
             var corner = "";
-            foreach (Match match in MatchCorner)
+            foreach (Match match in matchCorner)
             {
                 var ulul = match.Groups["corner"].Value;
                 corner = string.Join(",",
@@ -357,33 +357,33 @@ namespace jrascraping
                     .Cast<Match>()
                     .Select(match => match.Groups["number"].Value));
             }
-            var raceresults = new RaceResults()
+            var raceResults = new RaceResults()
             {
-                Date = DateTime.ParseExact(MatchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
-                NumberOfTime = MatchNumberoftime.Value,
-                RaceName = MatchRaceName.Value,
-                Place = MatchPlace.Value,
-                Waku = int.Parse(MatchWaku.Value),
-                Num = int.Parse(MatchNum.Value),
-                Weight = MatchWeight.Value,
-                Jockey = MatchJockey.Value,
-                Time = MatchTime.Value,
-                ArrivalDifference = MatchArrivaldifference.Value,
+                Date = DateTime.ParseExact(matchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
+                Holding = matchHolding.Value,
+                RaceName = matchRaceName.Value,
+                Place = matchPlace.Value,
+                Waku = int.Parse(matchWaku.Value),
+                Num = int.Parse(matchNum.Value),
+                Weight = matchWeight.Value,
+                Jockey = matchJockey.Value,
+                Time = matchTime.Value,
+                ArrivalDifference = matchArrivalDifference.Value,
                 Corner = corner,
-                HalongTime = MatchHalongtime.Value,
-                HorseWeight = MatchHorseweight.Value,
-                Trainer = MatchTrainer.Value,
-                Pop = int.Parse(MatchPop.Value)
+                HalongTime = matchHalongtime.Value,
+                HorseWeight = matchHorseweight.Value,
+                Trainer = matchTrainer.Value,
+                Pop = int.Parse(matchPop.Value)
             };
 
             //context.RaceResults.Add(raceresults);
-            return raceresults;
+            return raceResults;
         }
 
         static string FetchRaceResultPage(DateTime month)
         {
-            var cname = new AccessSCodeMonthlyConvertor().ConvertTo(month);
-            return new Downloder().GetRaceResults(cname);
+            var cName = new AccessSCodeMonthlyConvertor().ConvertTo(month);
+            return new Downloder().GetRaceResults(cName);
         }
     }
 
