@@ -8,7 +8,7 @@ namespace jrascraping.Regexs
 {
     public class PayBackCname
     {
-        public Regex horsename = new Regex(
+        public Regex horseName = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=</span>\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
      
@@ -16,23 +16,23 @@ namespace jrascraping.Regexs
             "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=</span>\r\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
-        public Regex widebefore = new Regex(
+        public Regex wideBefore = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">)\\d{1,2}(?=-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
-        public Regex wideafter = new Regex(
+        public Regex wideAfter = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-)\\d{1,2}(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
-        public Regex triplebefor = new Regex(
+        public Regex tripleBefor = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">).*?(?=-\\d{1,2}-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex triplecenter = new Regex(
+        public Regex tripleCenter = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-).*?(?=-\\d{1,2}</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex tripleafter = new Regex(
+        public Regex tripleAfter = new Regex(
             "(?<=^[ \t]*<span class=\\\"num\\\">\\d{1,2}-\\d{1,2}-).*?(?=</span>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline); 
 

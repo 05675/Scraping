@@ -12,7 +12,7 @@ namespace jrascraping.Regexs
             "(?<date>((?<=<span class=\\\"opt\\\">).*?(?=（)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex numberoftime = new Regex(
+        public Regex holding = new Regex(
             "(?<numberoftime>((?<=曜）).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
@@ -44,7 +44,7 @@ namespace jrascraping.Regexs
             "(?<time>((?<=<td class=\\\"time\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public Regex arrivaldifference = new Regex(
+        public Regex arrivalDifference = new Regex(
             "(?<arrivaldifference>((?<=<td class=\\\"margin\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
@@ -52,11 +52,11 @@ namespace jrascraping.Regexs
             "corner_list\\\"\\>(?<corner>.*?)\\</div\\>",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-        public Regex halongtime = new Regex(
+        public Regex halongTime = new Regex(
             "(?<halongtime>((?<=<td class=\\\"f_time\\\">).*?(?=</td>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
-        public Regex horseweight = new Regex(
+        public Regex horseWeight = new Regex(
             "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n\\\\s+).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 

@@ -9,7 +9,7 @@ namespace jrascraping.Regexs
     public class MainCname
     {
         // 1回東京1日目のようなCnameを取得
-        public Regex countOfDayCName = new Regex(
+        public Regex holding = new Regex(
             "(?<CountOfDayCname>pw.{28,28})\\'\\);\\\">",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 

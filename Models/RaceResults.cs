@@ -10,7 +10,7 @@ namespace jrascraping.Models
     public class RaceResults
     {
         public DateTime Date { get; set; }
-        public string NumberOfTime { get; set; }
+        public string Holding { get; set; }
         public string RaceName { get; set; }
         public string Place { get; set; }
         public int Waku { get; set; }

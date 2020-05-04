@@ -7,7 +7,7 @@ namespace jrascraping.Models
 {
     public class RaceInfo
     {
-        public string CountOfDay { get; set; }
+        public string Holding { get; set; }
         public string RaceName { get; set; }
         public DateTime Date { get; set; }
         public string ShippingTime { get; set; }
