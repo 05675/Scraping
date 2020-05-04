@@ -113,7 +113,7 @@ namespace jrascraping
         private static List<string> RaceDaysCNames(string html)
         {
             var table = new List<string>();
-            var regex = new MainCname();
+            var regex = new MainCName();
             var matches = regex.holding.Matches(html);
             foreach (Match match in matches)
             {
@@ -125,7 +125,7 @@ namespace jrascraping
         private static List<string> ParseRaceResultCNames(string html)
         {
             var table = new List<string>();
-            var regex = new MainCname();
+            var regex = new MainCName();
             var matches = regex.raceNameCName.Matches(html);
             foreach (Match match in matches)
             {
@@ -137,7 +137,7 @@ namespace jrascraping
         private static List<string> ParseHorseCNames(string html)
         {
             var table = new List<string>();
-            var regex = new MainCname();
+            var regex = new MainCName();
             var matches = regex.horseCName.Matches(html);
             foreach (Match match in matches)
             {

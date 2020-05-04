@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace jrascraping.Regexs
 {
-    public class MainCname
+    public class MainCName
     {
         // 1回東京1日目のようなCnameを取得
         public Regex holding = new Regex(

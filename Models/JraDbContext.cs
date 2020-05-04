@@ -27,7 +27,7 @@ namespace jrascraping.Models
             modelBuilder.Entity<HorseInfo>()
                 .HasKey(c => new { c.HorseName, c.Birthday });
             modelBuilder.Entity<RaceInfo>()
-                .HasKey(c => new { c.CountOfDay, c.RaceName, c.Date });
+                .HasKey(c => new { c.Holding, c.RaceName, c.Date });
         }
     }
 }
