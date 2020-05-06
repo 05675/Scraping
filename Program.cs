@@ -22,7 +22,7 @@ namespace jrascraping
             DbContext();
 
             //FromToの期間を入力
-            DateTime target = new DateTime(2020, 4, 30);    //From
+            DateTime target = new DateTime(2020, 5, 6);    //From
             while (target >= new DateTime(2020, 1, 1))      //To
             {
                 var html = FetchRaceResultPage(target);
@@ -38,7 +38,7 @@ namespace jrascraping
                     foreach (var resultCName in raceResultCNames)
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
-                        var horses = InsertHorseInfo(otherRace);
+                        var horses = InsertHorseInfo(otherRace);        //HorseInfoへInsertする関数がある
                         var raceResults = CreateRaceResults(otherRace, horses);
                         var payBacks = CreatePayBack(otherRace, raceResults, horses);
                         var raceInfo = CreateRaceInfo(otherRace, horses);
@@ -323,12 +323,13 @@ namespace jrascraping
                 //payback.SanfukuRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands);
                 //payback.SantanRe = int.Parse(refund[11].Value, System.Globalization.NumberStyles.AllowThousands);
             }
+            //context.RaceResults.Add(payback);
             return payback;
         }
 
         public static RaceResults CreateRaceResults(string html, List<HorseInfo> horses)
         {
-            var regex = new RaceResultsCname();
+            var regex = new RaceResultsCName();
             var matchDate = regex.date.Match(html);
             var matchHolding = regex.holding.Match(html);
             var matchPlace = regex.place.Match(html);
@@ -345,8 +346,8 @@ namespace jrascraping
             var matchTrainer = regex.trainer.Match(html);
             var matchPop = regex.pop.Match(html);
 
-            var _regex = new RaceInfoCname();
-            var matchRaceName = _regex.raceName.Match(html);
+            var raceNameRegex = new RaceInfoCname();
+            var matchRaceName = raceNameRegex.raceName.Match(html);
 
             var corner = "";
             foreach (Match match in matchCorner)

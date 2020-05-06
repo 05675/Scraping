@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace jrascraping.Regexs
 {
-    public class RaceResultsCname
+    public class RaceResultsCName
     {
         public Regex date = new Regex(
             "(?<date>((?<=<span class=\\\"opt\\\">).*?(?=（)))",
