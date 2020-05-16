@@ -16,13 +16,20 @@ namespace jrascraping
     public class Jra
     {
         private static JraDbContext context;
+        private static void DbContext()
+        {
+            //初期化
+            var options = new DbContextOptionsBuilder<JraDbContext>();
+            options.UseSqlite("Data Source=Jra.db");
+            context = new JraDbContext(options.Options);
+        }
 
         public static void Main(string[] args)
         {
             DbContext();
 
             //FromToの期間を入力
-            DateTime target = new DateTime(2020, 5, 6);    //From
+            DateTime target = new DateTime(2020, 5, 16);    //From
             while (target >= new DateTime(2020, 1, 1))      //To
             {
                 var html = FetchRaceResultPage(target);
@@ -58,13 +65,6 @@ namespace jrascraping
             }
         }
 
-        private static void DbContext()
-        {
-            //初期化
-            var options = new DbContextOptionsBuilder<JraDbContext>();
-            options.UseSqlite("Data Source=Jra.db");
-            context = new JraDbContext(options.Options);
-        }
         private static List<HorseInfo> InsertHorseInfo(string otherRace)
         {
             var horseCNames = ParseHorseCNames(otherRace);
@@ -323,7 +323,7 @@ namespace jrascraping
                 //payback.SanfukuRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands);
                 //payback.SantanRe = int.Parse(refund[11].Value, System.Globalization.NumberStyles.AllowThousands);
             }
-            //context.RaceResults.Add(payback);
+            context.PayBack.Add(payback);
             return payback;
         }
 
