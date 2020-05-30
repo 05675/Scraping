@@ -23,16 +23,15 @@ namespace jrascraping
             options.UseSqlite("Data Source=Jra.db");
             context = new JraDbContext(options.Options);
         }
-
         public static void Main(string[] args)
         {
             DbContext();
 
             //FromToの期間を入力
-            DateTime target = new DateTime(2020, 5, 16);    //From
-            while (target >= new DateTime(2020, 1, 1))      //To
+            DateTime target = new DateTime(2020, 2, 27);    //From
+            while (target >= new DateTime(2020, 2, 1))      //To
             {
-                var html = FetchRaceResultPage(target);
+                var html = FetchRaceResultPage(target);     //パラメータエラー時は、Cnameが0件になるため処理できない
                 List<string> raceDays = RaceDaysCNames(html);
 
                 //Cname：1回東京1日目などを取得
@@ -51,15 +50,15 @@ namespace jrascraping
                         var raceInfo = CreateRaceInfo(otherRace, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
-                        //context.PayBack.Add(PayBacks);
+                        //context.PayBack.Add(payBacks);
 
                         // otherRaceからRaceInfoを作る
-                        //RaceInfo race = CreateRace(otherRace, 払い戻しテーブル); // なかでinsertしてます。
-                        
+                        RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
+
                         // otherRaceからRaceResultを作る(複数)
                         //CreateResults(race, horses, otherRace); // なかでinsertしてます。
                     }
-                        context.SaveChanges();
+                    //context.SaveChanges();
                 }
                 target = target.AddMonths(-1);
             }
@@ -81,13 +80,13 @@ namespace jrascraping
                 if (horseNames == null)
                 {
                     Debug.WriteLine("Insert実行");
-                    //context.HorseInfo.Add(horse); //Insert
+                    context.HorseInfo.Add(horse); //Insert
                 }
                 else
                 {
                     Debug.WriteLine("Insertしない");
                 }
-                //horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
+                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
             }
             //context.SaveChanges();  //Insert?
             return horses;
@@ -96,7 +95,7 @@ namespace jrascraping
         private static void InsertRaceResults(string otherRace)
         {
             var raceCName = ParseRaceResultCNames(otherRace);
-            //var horses = new List<HorseInfo>();　これをどうにかしてInsertする
+            var horses = new List<HorseInfo>();　//これをどうにかしてInsertする
             foreach (var raceResults in raceCName)
             {
                 var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
@@ -230,7 +229,7 @@ namespace jrascraping
                     Distance = matchDistance.Value,
                     Around = matchAround.Value,
                 };
-                //context.RaceInfo.Add(raceinfo);
+                context.RaceInfo.Add(raceInfo);
                 return raceInfo;
             }
             catch (Exception ex)
@@ -252,7 +251,8 @@ namespace jrascraping
 
             var payback = new PayBack();
             var count = win.Count + wideBefore.Count + wideAfter.Count + tripleBefor.Count + tripleCenter.Count + tripleAfter.Count;
-            if (count == 22) {
+            if (count == 22)
+            {
                 payback.TanshoNum = int.Parse(win[0].Value);
                 payback.Fuku1Num = int.Parse(win[1].Value);
                 payback.Fuku2Num = int.Parse(win[2].Value);
@@ -411,7 +411,7 @@ namespace jrascraping
             return cname;
         }
 
-        private int YearAndMonth(int year,int month)
+        private int YearAndMonth(int year, int month)
         {
             return year * 100 + month;
         }
