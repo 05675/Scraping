@@ -28,8 +28,8 @@ namespace jrascraping
             DbContext();
 
             //FromToの期間を入力
-            DateTime target = new DateTime(2020, 2, 27);    //From
-            while (target >= new DateTime(2020, 2, 1))      //To
+            DateTime target = new DateTime(2020, 6, 19);    //From
+            while (target >= new DateTime(2020, 5, 1))      //To
             {
                 var html = FetchRaceResultPage(target);     //パラメータエラー時は、Cnameが0件になるため処理できない
                 List<string> raceDays = RaceDaysCNames(html);
@@ -56,7 +56,6 @@ namespace jrascraping
                         RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
 
                         // otherRaceからRaceResultを作る(複数)
-                        CreateResults(race, horses, otherRace); // なかでinsertしてます。
                     }
                     context.SaveChanges();
                 }
@@ -116,7 +115,7 @@ namespace jrascraping
             var matches = regex.holding.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["holding"].Value);
+                table.Add(match.Groups["CountOfDayCname"].Value);
             }
             return table;
         }
@@ -128,7 +127,7 @@ namespace jrascraping
             var matches = regex.raceNameCName.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["raceNameCname"].Value);
+                table.Add(match.Groups["RaceNameCname"].Value);
             }
             return table;
         }
@@ -140,7 +139,7 @@ namespace jrascraping
             var matches = regex.horseCName.Matches(html);
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["horseCName"].Value);
+                table.Add(match.Groups["HorseCname"].Value);
             }
             return table;
         }
@@ -210,7 +209,7 @@ namespace jrascraping
                 var oldClass = "";
                 foreach (Match match in matchOldClass)
                 {
-                    var category = match.Groups["oldclass"].Value;
+                    var category = match.Groups["OldClass"].Value;
                     oldClass = string.Join(" ",
                     Regex.Matches(category, "cell (category|class|rule|weight)\\\">(?<name>.*?)\\</div\\>", RegexOptions.Singleline)
                         .Cast<Match>()

@@ -20,7 +20,7 @@ namespace jrascraping.Regexs
 
         //馬名のCnameを取得
         public Regex horseCName = new Regex(
-            "(?<horsecname>pw01dud.{15,15})\\'\\);\\\">",
+            "(?<HorseCname>pw01dud.{15,15})\\'\\);\\\">",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
     }
 }
