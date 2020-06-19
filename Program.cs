@@ -50,7 +50,7 @@ namespace jrascraping
                         var raceInfo = CreateRaceInfo(otherRace, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
-                        //context.PayBack.Add(payBacks);
+                        context.PayBack.Add(payBacks);
 
                         // otherRaceからRaceInfoを作る
                         RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
@@ -238,6 +238,7 @@ namespace jrascraping
                 throw;
             }
         }
+        #region 払い戻しを取得
         public static PayBack CreatePayBack(string html, RaceResults raceResults, List<HorseInfo> horses)
         {
             var regex = new PayBackCname();
@@ -326,7 +327,9 @@ namespace jrascraping
             context.PayBack.Add(payback);
             return payback;
         }
+        #endregion
 
+        #region レース結果を取得
         public static RaceResults CreateRaceResults(string html, List<HorseInfo> horses)
         {
             var regex = new RaceResultsCName();
@@ -377,10 +380,12 @@ namespace jrascraping
                 Pop = int.Parse(matchPop.Value)
             };
 
-            //context.RaceResults.Add(raceesults);
+            context.RaceResults.Add(raceResults);
             return raceResults;
         }
+        #endregion
 
+    #region Cnameの算出
         static string FetchRaceResultPage(DateTime month)
         {
             var cName = new AccessSCodeMonthlyConvertor().ConvertTo(month);
@@ -416,4 +421,5 @@ namespace jrascraping
             return year * 100 + month;
         }
     }
+    #endregion
 }
