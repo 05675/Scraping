@@ -56,9 +56,9 @@ namespace jrascraping
                         RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
 
                         // otherRaceからRaceResultを作る(複数)
-                        //CreateResults(race, horses, otherRace); // なかでinsertしてます。
+                        CreateResults(race, horses, otherRace); // なかでinsertしてます。
                     }
-                    //context.SaveChanges();
+                    context.SaveChanges();
                 }
                 target = target.AddMonths(-1);
             }
@@ -88,7 +88,7 @@ namespace jrascraping
                 }
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
             }
-            //context.SaveChanges();  //Insert?
+            context.SaveChanges();  //Insert?
             return horses;
         }
 
