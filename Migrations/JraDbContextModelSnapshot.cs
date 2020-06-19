@@ -370,7 +370,7 @@ namespace jrascraping.Migrations
 
             modelBuilder.Entity("jrascraping.Models.RaceInfo", b =>
                 {
-                    b.Property<string>("CountOfDay")
+                    b.Property<string>("Holding")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RaceName")
@@ -403,7 +403,7 @@ namespace jrascraping.Migrations
                     b.Property<string>("Weather")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CountOfDay", "RaceName", "Date");
+                    b.HasKey("Holding", "RaceName", "Date");
 
                     b.HasIndex("RefundID");
 
@@ -412,10 +412,10 @@ namespace jrascraping.Migrations
 
             modelBuilder.Entity("jrascraping.Models.RaceResults", b =>
                 {
-                    b.Property<string>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Racename")
+                    b.Property<string>("RaceName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Place")
@@ -431,6 +431,9 @@ namespace jrascraping.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("HalongTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Holding")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("HorseBirthday")
@@ -451,9 +454,6 @@ namespace jrascraping.Migrations
                     b.Property<int>("Num")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("NumberOfTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");
 
@@ -466,7 +466,7 @@ namespace jrascraping.Migrations
                     b.Property<string>("Weight")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Date", "Racename", "Place", "Waku");
+                    b.HasKey("Date", "RaceName", "Place", "Waku");
 
                     b.HasIndex("HorseName", "HorseBirthday");
 

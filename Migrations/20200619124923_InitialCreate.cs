@@ -270,11 +270,11 @@ namespace jrascraping.Migrations
                 name: "RaceResults",
                 columns: table => new
                 {
-                    Date = table.Column<string>(nullable: false),
-                    Racename = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    RaceName = table.Column<string>(nullable: false),
                     Place = table.Column<string>(nullable: false),
                     Waku = table.Column<int>(nullable: false),
-                    NumberOfTime = table.Column<string>(nullable: true),
+                    Holding = table.Column<string>(nullable: true),
                     Num = table.Column<int>(nullable: false),
                     HorseName = table.Column<string>(nullable: true),
                     HorseBirthday = table.Column<DateTime>(nullable: true),
@@ -291,7 +291,7 @@ namespace jrascraping.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceResults", x => new { x.Date, x.Racename, x.Place, x.Waku });
+                    table.PrimaryKey("PK_RaceResults", x => new { x.Date, x.RaceName, x.Place, x.Waku });
                     table.ForeignKey(
                         name: "FK_RaceResults_HorseInfo_HorseName_HorseBirthday",
                         columns: x => new { x.HorseName, x.HorseBirthday },
@@ -304,7 +304,7 @@ namespace jrascraping.Migrations
                 name: "RaceInfo",
                 columns: table => new
                 {
-                    CountOfDay = table.Column<string>(nullable: false),
+                    Holding = table.Column<string>(nullable: false),
                     RaceName = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     ShippingTime = table.Column<string>(nullable: true),
@@ -318,7 +318,7 @@ namespace jrascraping.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceInfo", x => new { x.CountOfDay, x.RaceName, x.Date });
+                    table.PrimaryKey("PK_RaceInfo", x => new { x.Holding, x.RaceName, x.Date });
                     table.ForeignKey(
                         name: "FK_RaceInfo_PayBack_RefundID",
                         column: x => x.RefundID,

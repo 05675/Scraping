@@ -41,7 +41,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex oldClass = new Regex(
-            "div class=\\\"type\\\"\\>(?<oldclass>.*?)\\<div class=\\\"cell course\\\"\\>",
+            "div class=\\\"type\\\"\\>(?<OldClass>.*?)\\<div class=\\\"cell course\\\"\\>",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
         public Regex distance = new Regex(

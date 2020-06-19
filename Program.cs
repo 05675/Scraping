@@ -53,7 +53,7 @@ namespace jrascraping
                         context.PayBack.Add(payBacks);
 
                         // otherRaceからRaceInfoを作る
-                        RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
+                        //RaceInfo race = CreateRaceInfo(otherRace, horses); // なかでinsertしてます。horsesは「払い戻しテーブル？」
 
                         // otherRaceからRaceResultを作る(複数)
                     }
