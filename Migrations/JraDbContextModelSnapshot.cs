@@ -370,12 +370,6 @@ namespace jrascraping.Migrations
 
             modelBuilder.Entity("jrascraping.Models.RaceInfo", b =>
                 {
-                    b.Property<string>("Holding")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RaceName")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
@@ -391,7 +385,13 @@ namespace jrascraping.Migrations
                     b.Property<string>("Distance")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Holding")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("OldClass")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RaceName")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("RefundID")
@@ -403,26 +403,17 @@ namespace jrascraping.Migrations
                     b.Property<string>("Weather")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Holding", "RaceName", "Date");
+                    b.HasKey("Date");
 
                     b.HasIndex("RefundID");
 
                     b.ToTable("RaceInfo");
                 });
 
-            modelBuilder.Entity("jrascraping.Models.RaceResults", b =>
+            modelBuilder.Entity("jrascraping.Models.RaceResult", b =>
                 {
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("RaceName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Place")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Waku")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ArrivalDifference")
                         .HasColumnType("TEXT");
@@ -454,8 +445,17 @@ namespace jrascraping.Migrations
                     b.Property<int>("Num")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Place")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("RaceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShippingTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Time")
                         .HasColumnType("TEXT");
@@ -463,10 +463,13 @@ namespace jrascraping.Migrations
                     b.Property<string>("Trainer")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Waku")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Weight")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Date", "RaceName", "Place", "Waku");
+                    b.HasKey("Date");
 
                     b.HasIndex("HorseName", "HorseBirthday");
 
@@ -571,7 +574,7 @@ namespace jrascraping.Migrations
                         .HasForeignKey("RefundID");
                 });
 
-            modelBuilder.Entity("jrascraping.Models.RaceResults", b =>
+            modelBuilder.Entity("jrascraping.Models.RaceResult", b =>
                 {
                     b.HasOne("jrascraping.Models.HorseInfo", "Horse")
                         .WithMany()

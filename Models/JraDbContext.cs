@@ -10,7 +10,7 @@ namespace jrascraping.Models
     {
         public JraDbContext(DbContextOptions options)
        : base(options) { }
-        public DbSet<RaceResults> RaceResults { get; set; }
+        public DbSet<RaceResult> RaceResults { get; set; }
         public DbSet<CnameTable> CnameTable { get; set; }
         public DbSet<HorseInfo> HorseInfo { get; set; }
         public DbSet<PayBack> PayBack { get; set; }
@@ -22,12 +22,14 @@ namespace jrascraping.Models
         //復号キーの作成
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RaceResults>()
-                .HasKey(c => new { c.Date, c.RaceName, c.Place, c.Waku });
+            modelBuilder.Entity<RaceResult>()
+                .HasKey(c => new { c.Date });
+                //.HasKey(c => new { c.Date, c.RaceName, c.Place, c.Waku });
             modelBuilder.Entity<HorseInfo>()
                 .HasKey(c => new { c.HorseName, c.Birthday });
             modelBuilder.Entity<RaceInfo>()
-                .HasKey(c => new { c.Holding, c.RaceName, c.Date });
+                .HasKey(c => new { c.Date });
+                //.HasKey(c => new { c.Holding, c.RaceName, c.Date });
         }
     }
 }

@@ -11,9 +11,13 @@ namespace jrascraping.Regexs
         public Regex date = new Regex(
             "(?<date>((?<=<span class=\\\"opt\\\">).*?(?=（)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        
+        public Regex shippingTime = new Regex(
+            "(?<shippingtime>((?<=発走時刻：<strong>).*?(?=</strong></div>)))",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex holding = new Regex(
-            "(?<numberoftime>((?<=曜）).*?(?=</span>)))",
+            "(?<holding>((?<=曜）).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex place = new Regex(
