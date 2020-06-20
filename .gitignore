@@ -235,3 +235,4 @@ bin/
 obj/
 !.gitignore
 Models/dll
+JraTest/
