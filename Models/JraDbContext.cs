@@ -24,12 +24,10 @@ namespace jrascraping.Models
         {
             modelBuilder.Entity<RaceResult>()
                 .HasKey(c => new { c.Date });
-                //.HasKey(c => new { c.Date, c.RaceName, c.Place, c.Waku });
             modelBuilder.Entity<HorseInfo>()
                 .HasKey(c => new { c.HorseName, c.Birthday });
             modelBuilder.Entity<RaceInfo>()
                 .HasKey(c => new { c.Date });
-                //.HasKey(c => new { c.Holding, c.RaceName, c.Date });
         }
     }
 }
