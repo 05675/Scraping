@@ -28,8 +28,8 @@ namespace jrascraping
             DbContext();
 
             //FromToの期間を入力
-            DateTime target = new DateTime(2020, 6, 14);    //From
-            while (target >= new DateTime(2020, 6, 14))      //To
+            DateTime target = new DateTime(2020, 6, 21);    //From
+            while (target >= new DateTime(2020, 6, 20))      //To
             {
                 var html = FetchRaceResultPage(target);     //パラメータエラー時は、Cnameが0件になるため処理できない
                 List<string> raceDays = RaceDaysCNames(html);
@@ -44,16 +44,13 @@ namespace jrascraping
                     foreach (var resultCName in raceResultCNames)
                     {
                         string otherRace = new Downloder().GetRaceResults(resultCName);
-                        var horses = InsertHorseInfo(otherRace);        //HorseInfoへInsertする関数がある
-                        var raceResults = CreateRaceResults(otherRace, horses);
-                        var payBacks = CreatePayBack(otherRace, raceResults, horses);
+                        var horses = InsertHorseInfo(otherRace);
+                        var raceResults = InsertRaceResults(otherRace);
+                        var payBacks = CreatePayBack(otherRace);
                         var raceInfo = CreateRaceInfo(otherRace, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
-                        context.PayBack.Add(payBacks);
-
                         // otherRaceからRaceInfoを作る
-
                         // otherRaceからRaceResultを作る(複数)
                     }
                     context.SaveChanges();
@@ -73,19 +70,16 @@ namespace jrascraping
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorseInfo(horseHtml);
-                var horseNames = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
-                var count = 0;
+                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
 
-                if (horseNames == null)
+                if (horseCheck == null)
                 {
-                    count++;
-                    Debug.WriteLine("Insert実行");
+                    Debug.WriteLine("Insert実行：" + horse.HorseName);
                     context.HorseInfo.Add(horse);
                 }
                 else
                 {
-                    count++;
-                    Debug.WriteLine("Insertしない");
+                    Debug.WriteLine(horse.HorseName + "：既に存在。");
                 }
                 horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
             }
@@ -93,14 +87,29 @@ namespace jrascraping
             return horses;
         }
 
-        private static void InsertRaceResults(string otherRace)
+        private static List<RaceResult> InsertRaceResults(string otherRace)
         {
             var raceCName = ParseRaceResultCNames(otherRace);
-            var horses = new List<HorseInfo>();　//これをどうにかしてInsertする
+            var raceResult = new List<RaceResult>();
             foreach (var raceResults in raceCName)
             {
                 var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
+                var createRaceResults = CreateRaceResults(raceResultsHtml);
+                var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == createRaceResults.Date && c.Waku == createRaceResults.Waku);
+
+                if (raceCheck == null)
+                {
+                    Debug.WriteLine("Insert実行：" + createRaceResults.RaceName + "：" + createRaceResults.Horse);
+                    context.RaceResults.Add(createRaceResults);
+                }
+                else
+                {
+                    Debug.WriteLine(createRaceResults.RaceName + "：" + createRaceResults.Horse + "：既に存在。");
+                }
+                raceResult.Add(createRaceResults);
             }
+            context.SaveChanges();
+            return raceResult;
         }
 
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -235,7 +244,7 @@ namespace jrascraping
                     Distance = matchDistance.Value,
                     Around = matchAround.Value,
                 };
-                context.RaceInfo.Add(raceInfo);
+                //context.RaceInfo.Add(raceInfo);
                 return raceInfo;
             }
             catch (Exception ex)
@@ -245,7 +254,7 @@ namespace jrascraping
             }
         }
         #region 払い戻しを取得
-        public static PayBack CreatePayBack(string html, RaceResult raceResults, List<HorseInfo> horses)
+        public static PayBack CreatePayBack(string html)
         {
             var regex = new PayBackCname();
             var win = regex.win.Matches(html);
@@ -336,7 +345,7 @@ namespace jrascraping
         #endregion
 
         #region レース結果を取得
-        public static RaceResult CreateRaceResults(string html, List<HorseInfo> horses)
+        public static RaceResult CreateRaceResults(string html)
         {
             try
             {
@@ -395,7 +404,7 @@ namespace jrascraping
                     Pop = int.Parse(matchPop.Value)
                 };
 
-                context.RaceResults.Add(raceResults);
+                //context.RaceResults.Add(raceResults);
                 return raceResults;
             }
             catch (Exception ex)
