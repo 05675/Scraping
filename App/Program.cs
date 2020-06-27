@@ -93,24 +93,24 @@ namespace jrascraping
             var raceResult = new List<RaceResult>();
             foreach (var raceResults in raceCName)
             {
-                var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
-                var createRaceResults = CreateRaceResults(raceResultsHtml);
+                var getResultsHtml = new Downloder().GetRaceResults(raceResults);
+                var createRaceResults = CreateRaceResults(getResultsHtml);
 
                 ///<summary>
                 ///1着～最下位のHTMLを取得
                 ///</summary>
-                var i = new List<RaceResult>();
-                var raceResultHtml = Regex.Match(raceResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
-                MatchCollection index = Regex.Matches(raceResultHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
+                var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
+                MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
                 
-                foreach(Match result in index)
-                {
-                     var results = CreateRaceResults(result.Value);
-                }
+                //foreach(Match result in raceResultHtml)
+                //{
+                //     var results = CreateRaceResults(result.Value);
+                //}
 
-                //i.AddRange(raceResultHtml
-                //    .Cast<Match>()
-                //    .Select(m => m.Value));
+                var raceresult = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
+                .Cast<Match>()
+                .Select(raceresult => CreateRaceResults(raceresult.Value))
+                .ToList();
 
                 var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == createRaceResults.Date && c.Waku == createRaceResults.Waku);
 
