@@ -95,6 +95,23 @@ namespace jrascraping
             {
                 var raceResultsHtml = new Downloder().GetRaceResults(raceResults);
                 var createRaceResults = CreateRaceResults(raceResultsHtml);
+
+                ///<summary>
+                ///1着～最下位のHTMLを取得
+                ///</summary>
+                var i = new List<RaceResult>();
+                var raceResultHtml = Regex.Match(raceResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
+                MatchCollection index = Regex.Matches(raceResultHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
+                
+                foreach(Match result in index)
+                {
+                     var results = CreateRaceResults(result.Value);
+                }
+
+                //i.AddRange(raceResultHtml
+                //    .Cast<Match>()
+                //    .Select(m => m.Value));
+
                 var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == createRaceResults.Date && c.Waku == createRaceResults.Waku);
 
                 if (raceCheck == null)
@@ -347,6 +364,12 @@ namespace jrascraping
         #region レース結果を取得
         public static RaceResult CreateRaceResults(string html)
         {
+
+
+            ///<summary>
+            ///1着～最下位までHTMLを細分化
+            /// </summary>
+
             try
             {
                 var regex = new RaceResultsCName();
@@ -403,10 +426,11 @@ namespace jrascraping
                     Trainer = matchTrainer.Value,
                     Pop = int.Parse(matchPop.Value)
                 };
-
+                
                 //context.RaceResults.Add(raceResults);
                 return raceResults;
             }
+
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);

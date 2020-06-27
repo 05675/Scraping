@@ -415,6 +415,15 @@ namespace jrascraping.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("RaceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Num")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Place")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ArrivalDifference")
                         .HasColumnType("TEXT");
 
@@ -442,17 +451,8 @@ namespace jrascraping.Migrations
                     b.Property<string>("Margin")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Num")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Place")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Pop")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("RaceName")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("ShippingTime")
                         .HasColumnType("TEXT");
@@ -469,7 +469,7 @@ namespace jrascraping.Migrations
                     b.Property<string>("Weight")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Date");
+                    b.HasKey("Date", "RaceName", "Num", "Place");
 
                     b.HasIndex("HorseName", "HorseBirthday");
 
