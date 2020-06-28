@@ -94,36 +94,36 @@ namespace jrascraping
             foreach (var raceResults in raceCName)
             {
                 var getResultsHtml = new Downloder().GetRaceResults(raceResults);
-                var createRaceResults = CreateRaceResults(getResultsHtml);
+                var createRaceResults = CreateRaceResults(getResultsHtml, getResultsHtml);
 
                 ///<summary>
                 ///1着～最下位のHTMLを取得
                 ///</summary>
                 var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
                 MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
-                
-                //foreach(Match result in raceResultHtml)
-                //{
-                //     var results = CreateRaceResults(result.Value);
-                //}
-
-                var raceresult = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
+                var result = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
                 .Cast<Match>()
-                .Select(raceresult => CreateRaceResults(raceresult.Value))
+                .Select(result => CreateRaceResults(result.Value, getResultsHtml))
                 .ToList();
 
-                var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == createRaceResults.Date && c.Waku == createRaceResults.Waku);
+                ///<summary>
+                ///for文内でエラーが発生している
+                /// </summary>
+                for (var i = 0; i < result.Count; i++)
+                {
+                    var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == result[i].Date && c.Waku == result[i].Waku);
 
-                if (raceCheck == null)
-                {
-                    Debug.WriteLine("Insert実行：" + createRaceResults.RaceName + "：" + createRaceResults.Horse);
-                    context.RaceResults.Add(createRaceResults);
+                    if (raceCheck == null)
+                    {
+                        Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
+                        context.RaceResults.Add(result[i]);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(result[i].RaceName + "：" + result[i].Horse + "：既に存在。");
+                    }
+                    raceResult.Add(result[i]);
                 }
-                else
-                {
-                    Debug.WriteLine(createRaceResults.RaceName + "：" + createRaceResults.Horse + "：既に存在。");
-                }
-                raceResult.Add(createRaceResults);
             }
             context.SaveChanges();
             return raceResult;
@@ -362,19 +362,13 @@ namespace jrascraping
         #endregion
 
         #region レース結果を取得
-        public static RaceResult CreateRaceResults(string html)
+        public static RaceResult CreateRaceResults(string html, string dateHtml)
         {
-
-
-            ///<summary>
-            ///1着～最下位までHTMLを細分化
-            /// </summary>
-
             try
             {
                 var regex = new RaceResultsCName();
-                var matchDate = regex.date.Match(html);
-                var matchShippingTime = regex.shippingTime.Match(html);
+                var matchDate = regex.date.Match(dateHtml);
+                var matchShippingTime = regex.shippingTime.Match(dateHtml);
 
                 ///<summary>
                 ///Dateに時刻を加え、PKが重複しないようにする
@@ -426,7 +420,7 @@ namespace jrascraping
                     Trainer = matchTrainer.Value,
                     Pop = int.Parse(matchPop.Value)
                 };
-                
+
                 //context.RaceResults.Add(raceResults);
                 return raceResults;
             }
