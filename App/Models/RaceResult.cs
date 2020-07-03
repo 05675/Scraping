@@ -14,7 +14,7 @@ namespace jrascraping.Models
         public string Holding { get; set; }
         public string RaceName { get; set; }
         public string Place { get; set; }
-        public int Waku { get; set; }
+        public int? Waku { get; set; }
         public int Num { get; set; }
         public HorseInfo Horse { get; set; }
         public string Weight { get; set; }
@@ -26,7 +26,7 @@ namespace jrascraping.Models
         public string HalongTime { get; set; }
         public string HorseWeight { get; set; }
         public string Trainer { get; set; }
-        public int Pop { get; set; }
+        public int? Pop { get; set; }
 
     }
 }
