@@ -89,7 +89,7 @@ namespace jrascraping
 
         private static List<RaceResult> InsertRaceResults(string otherRace)
         {
-            var raceCName = ParseRaceResultCNames(otherRace);
+            var raceCName = ParseRaceResultCNames(otherRace).Distinct();
             var raceResult = new List<RaceResult>();
             foreach (var raceResults in raceCName)
             {
@@ -111,7 +111,12 @@ namespace jrascraping
                 /// </summary>
                 for (var i = 0; i < result.Count; i++)
                 {
-                    var raceCheck = context.RaceResults.SingleOrDefault(c => c.Date == result[i].Date && c.Waku == result[i].Waku);
+                    var raceCheck = context.RaceResults.SingleOrDefault(c =>
+                        c.Date == result[i].Date &&
+                        c.Waku == result[i].Waku &&
+                        c.RaceName == result[i].RaceName &&
+                        c.Place == result[i].Place
+                    );
 
                     if (raceCheck == null)
                     {
@@ -401,6 +406,22 @@ namespace jrascraping
                         .Cast<Match>()
                         .Select(match => match.Groups["number"].Value));
                 }
+
+                ///<summary>
+                ///人気順位のNullチェック
+                ///競争除外はNullになるため、変数に100をセット
+                ///int.Parseの例外を回避する
+                ///</summary>
+                int pop;
+                if (string.IsNullOrEmpty(matchPop.Value))
+                {
+                    pop = 100;
+                }
+                else
+                {
+                    pop = int.Parse(matchPop.Value);
+                }
+
                 var raceResults = new RaceResult()
                 {
                     Date = DateTime.ParseExact(matchDate.Value, "yyyy年M月d日", CultureInfo.InvariantCulture) + shippingTime,
@@ -418,7 +439,7 @@ namespace jrascraping
                     HalongTime = matchHalongtime.Value,
                     HorseWeight = matchHorseweight.Value,
                     Trainer = matchTrainer.Value,
-                    Pop = int.Parse(matchPop.Value)
+                    Pop = pop
                 };
 
                 //context.RaceResults.Add(raceResults);
