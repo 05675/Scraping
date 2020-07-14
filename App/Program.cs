@@ -94,7 +94,7 @@ namespace jrascraping
             foreach (var raceResults in raceCName)
             {
                 var getResultsHtml = new Downloder().GetRaceResults(raceResults);
-                var createRaceResults = CreateRaceResults(getResultsHtml, getResultsHtml);
+                //var createRaceResults = CreateRaceResults(getResultsHtml, getResultsHtml);
 
                 ///<summary>
                 ///1着～最下位のHTMLを取得
@@ -102,12 +102,12 @@ namespace jrascraping
                 var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
                 MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
                 var result = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
-                .Cast<Match>()
-                .Select(result => CreateRaceResults(result.Value, getResultsHtml))
-                .ToList();
+                    .Cast<Match>()
+                    .Select(result => CreateRaceResults(result.Value, getResultsHtml))
+                    .ToList();
 
                 ///<summary>
-                ///for文内でエラーが発生している
+                ///すでにレース結果が存在している場合は、Insertしない
                 /// </summary>
                 for (var i = 0; i < result.Count; i++)
                 {
@@ -387,15 +387,15 @@ namespace jrascraping
                 var matchWeight = regex.weight.Match(html);
                 var matchJockey = regex.jockey.Match(html);
                 var matchTime = regex.time.Match(html);
-                var matchArrivalDifference = regex.arrivalDifference.Match(html);
+                var matchArrivalDifference = regex.arrivalDifference.Match(dateHtml);
                 var matchCorner = regex.corner.Matches(html);
                 var matchHalongtime = regex.halongTime.Match(html);
-                var matchHorseweight = regex.horseWeight.Match(html);
+                var matchHorseweight = regex.horseWeight.Match(dateHtml);
                 var matchTrainer = regex.trainer.Match(html);
                 var matchPop = regex.pop.Match(html);
 
                 var raceNameRegex = new RaceInfoCname();
-                var matchRaceName = raceNameRegex.raceName.Match(html);
+                var matchRaceName = raceNameRegex.raceName.Match(dateHtml);
 
                 var corner = "";
                 foreach (Match match in matchCorner)
