@@ -27,11 +27,13 @@ namespace jrascraping
         {
             DbContext();
 
-            //FromToの期間を入力
+            ///<summary>
+            /// 現状は月単位で取得
+            /// </summary>
             DateTime target = new DateTime(2020, 6, 21);    //From
-            while (target >= new DateTime(2020, 6, 20))      //To
+            while (target >= new DateTime(2020, 6, 20))     //To
             {
-                var html = FetchRaceResultPage(target);     //パラメータエラー時は、Cnameが0件になるため処理できない
+                var html = FetchRaceResultPage(target);
                 List<string> raceDays = RaceDaysCNames(html);
 
                 //Cname：1回東京1日目などを取得
@@ -43,6 +45,11 @@ namespace jrascraping
                     //Cname：1R～12Rまで取得
                     foreach (var resultCName in raceResultCNames)
                     {
+
+                        //if()    //raceInfoがすでにあれば、PAYBACKは不要の条件を入れる。
+                        //{
+                        //  cotinue;
+                        //}
                         string otherRace = new Downloder().GetRaceResults(resultCName);
                         var horses = InsertHorseInfo(otherRace);
                         var raceResults = InsertRaceResults(otherRace);
@@ -65,23 +72,14 @@ namespace jrascraping
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
-            //馬の情報を取得
+            ///<summary>
+            /// HorseInfoのInsert
+            ///</summary>
             foreach (var horseInfo in horseCNames)
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
                 var horse = CreateHorseInfo(horseHtml);
-                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == horse.HorseName && c.Birthday == horse.Birthday);
-
-                if (horseCheck == null)
-                {
-                    Debug.WriteLine("Insert実行：" + horse.HorseName);
-                    context.HorseInfo.Add(horse);
-                }
-                else
-                {
-                    Debug.WriteLine(horse.HorseName + "：既に存在。");
-                }
-                horses.Add(horse);  //保持した馬情報と馬名を比較してInsertを行う。後で面倒になるため。
+                horses.Add(horse);
             }
             context.SaveChanges();
             return horses;
@@ -94,7 +92,6 @@ namespace jrascraping
             foreach (var raceResults in raceCName)
             {
                 var getResultsHtml = new Downloder().GetRaceResults(raceResults);
-                //var createRaceResults = CreateRaceResults(getResultsHtml, getResultsHtml);
 
                 ///<summary>
                 ///1着～最下位のHTMLを取得
@@ -189,6 +186,7 @@ namespace jrascraping
                 var matchMotherMother = regex.motherMother.Match(html);
                 var matchSex = regex.sex.Match(html);
                 var matchBirthday = regex.birthday.Match(html);
+                var birthDay = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture);
                 var matchCoatColor = regex.coatColor.Match(html);
                 var matchHorseNameMeaning = regex.horseNameMeaning.Match(html);
                 var matchHorseOwner = regex.horseOwner.Match(html);
@@ -197,23 +195,36 @@ namespace jrascraping
                 var matchProductionRanch = regex.productionRanch.Match(html);
                 var matchOrigin = regex.origin.Match(html);
 
-                var horseInfo = new HorseInfo()
+                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthDay);
+
+                if (horseCheck == null)
                 {
-                    HorseName = matchHorseName.Value,
-                    Father = matchFather.Value,
-                    Mother = matchMother.Value,
-                    MotherFather = matchMotherFather.Value,
-                    MotherMother = matchMotherMother.Value,
-                    Sex = matchSex.Value,
-                    Birthday = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture),
-                    CoatColor = matchCoatColor.Value,
-                    HorseNameMeaning = matchHorseNameMeaning.Value,
-                    HorseOwner = matchHorseOwner.Value,
-                    Trainer = matchTrainer,
-                    ProductionRanch = matchProductionRanch.Value,
-                    Origin = matchOrigin.Value
-                };
-                return horseInfo;
+                    var horseInfo = new HorseInfo()
+                    {
+                        HorseName = matchHorseName.Value,
+                        Father = matchFather.Value,
+                        Mother = matchMother.Value,
+                        MotherFather = matchMotherFather.Value,
+                        MotherMother = matchMotherMother.Value,
+                        Sex = matchSex.Value,
+                        Birthday = birthDay,
+                        CoatColor = matchCoatColor.Value,
+                        HorseNameMeaning = matchHorseNameMeaning.Value,
+                        HorseOwner = matchHorseOwner.Value,
+                        Trainer = matchTrainer,
+                        ProductionRanch = matchProductionRanch.Value,
+                        Origin = matchOrigin.Value
+                    };
+
+                    Debug.WriteLine("Insert実行：" + horseInfo.HorseName);
+                    context.Add(horseInfo);
+                    return horseInfo;
+                }
+                else
+                {
+                    Debug.WriteLine(horseCheck.HorseName + "：既に存在。");
+                    return null;
+                }
             }
             catch (Exception ex)
             {
