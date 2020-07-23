@@ -61,7 +61,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex horseWeight = new Regex(
-            "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n\\\\s+).*?(?=</span>)))",
+            "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n.{20,20}).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex trainer = new Regex(

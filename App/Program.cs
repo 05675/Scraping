@@ -30,8 +30,8 @@ namespace jrascraping
             ///<summary>
             /// 現状は月単位で取得
             /// </summary>
-            DateTime target = new DateTime(2020, 6, 21);    //From
-            while (target >= new DateTime(2020, 6, 20))     //To
+            DateTime target = new DateTime(2020, 7, 23);    //From
+            while (target >= new DateTime(2020, 7, 1))     //To
             {
                 var html = FetchRaceResultPage(target);
                 List<string> raceDays = RaceDaysCNames(html);
@@ -277,7 +277,6 @@ namespace jrascraping
                     Distance = matchDistance.Value,
                     Around = matchAround.Value,
                 };
-                //context.RaceInfo.Add(raceInfo);
                 return raceInfo;
             }
             catch (Exception ex)
@@ -385,23 +384,23 @@ namespace jrascraping
                 var regex = new RaceResultsCName();
                 var matchDate = regex.date.Match(dateHtml);
                 var matchShippingTime = regex.shippingTime.Match(dateHtml);
+                var matchHolding = regex.holding.Match(dateHtml);
 
                 ///<summary>
                 ///Dateに時刻を加え、PKが重複しないようにする
                 ///</summary>
                 var shippingTime = DateTime.Parse(matchShippingTime.Value).TimeOfDay;
-                var matchHolding = regex.holding.Match(html);
                 var matchPlace = regex.place.Match(html);
                 var matchWaku = regex.waku.Match(html);
                 var matchNum = regex.num.Match(html);
                 var matchHorse = regex.horse.Match(html);
                 var matchWeight = regex.weight.Match(html);
-                var matchJockey = regex.jockey.Match(html);
+                var matchJockey = Regex.Replace(regex.jockey.Match(html).Value, @"<.*?>", "");
                 var matchTime = regex.time.Match(html);
-                var matchArrivalDifference = regex.arrivalDifference.Match(dateHtml);
+                var matchArrivalDifference = regex.arrivalDifference.Match(html);
                 var matchCorner = regex.corner.Matches(html);
-                var matchHalongtime = regex.halongTime.Match(html);
-                var matchHorseweight = regex.horseWeight.Match(dateHtml);
+                var matchHalongTime = regex.halongTime.Match(html); 
+                var matchHorseWeight = regex.horseWeight.Match(html).Value.Replace("<span>", "");
                 var matchTrainer = regex.trainer.Match(html);
                 var matchPop = regex.pop.Match(html);
 
@@ -443,17 +442,15 @@ namespace jrascraping
                     Waku = int.Parse(matchWaku.Value),
                     Num = int.Parse(matchNum.Value),
                     Weight = matchWeight.Value,
-                    Jockey = matchJockey.Value,
+                    Jockey = matchJockey,
                     Time = matchTime.Value,
                     ArrivalDifference = matchArrivalDifference.Value,
                     Corner = corner,
-                    HalongTime = matchHalongtime.Value,
-                    HorseWeight = matchHorseweight.Value,
+                    HalongTime = matchHalongTime.Value,
+                    HorseWeight = matchHorseWeight,
                     Trainer = matchTrainer.Value,
                     Pop = pop
                 };
-
-                //context.RaceResults.Add(raceResults);
                 return raceResults;
             }
 
