@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace jrascraping
+namespace jrascraping.GetJra
 {
     public class ObjParam
     {
