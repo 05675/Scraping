@@ -1,3 +1,4 @@
+using jrascraping.GetJra;
 using jrascraping.Models;
 using jrascraping.Regexs;
 using Microsoft.AspNetCore.Hosting;
@@ -27,16 +28,14 @@ namespace jrascraping
         {
             DbContext();
 
-            ///<summary>
-            /// 現状は月単位で取得
-            /// </summary>
-            DateTime target = new DateTime(2020, 7, 23);    //From
-            while (target >= new DateTime(2020, 7, 1))     //To
+            // 期間を指定：現状は月単位で取得
+            DateTime target = new DateTime(2020, 10, 1);    //From
+            while (target >= new DateTime(2020, 10, 30))     //To
             {
-                var html = FetchRaceResultPage(target);
+                var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
                 List<string> raceDays = RaceDaysCNames(html);
 
-                //Cname：1回東京1日目などを取得
+                // Cname：1回東京1日目などを取得
                 foreach (var cname in raceDays)
                 {
                     string otherRaceHtml = new Downloder().GetRaceResults(cname);
@@ -72,9 +71,7 @@ namespace jrascraping
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
-            ///<summary>
-            /// HorseInfoのInsert
-            ///</summary>
+            // HorseInfoのInsert
             foreach (var horseInfo in horseCNames)
             {
                 var horseHtml = new Downloder().GetHorse(horseInfo);
@@ -93,9 +90,7 @@ namespace jrascraping
             {
                 var getResultsHtml = new Downloder().GetRaceResults(raceResults);
 
-                ///<summary>
-                ///1着～最下位のHTMLを取得
-                ///</summary>
+                // 1着～最下位のHTMLを取得
                 var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
                 MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
                 var result = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
@@ -103,9 +98,7 @@ namespace jrascraping
                     .Select(result => CreateRaceResults(result.Value, getResultsHtml))
                     .ToList();
 
-                ///<summary>
-                ///すでにレース結果が存在している場合は、Insertしない
-                /// </summary>
+                // すでにレース結果が存在している場合は、Insertしない
                 for (var i = 0; i < result.Count; i++)
                 {
                     var raceCheck = context.RaceResults.SingleOrDefault(c =>
@@ -243,9 +236,7 @@ namespace jrascraping
                 var matchDate = regex.date.Match(html);
                 var matchShippingTime = regex.shippingTime.Match(html);
 
-                ///<summary>
-                ///Dateに時刻を加え、PKが重複しないようにする
-                ///</summary>
+                // Dateに時刻を加え、PKが重複しないようにする
                 var shippingTime = DateTime.Parse(matchShippingTime.Value).TimeOfDay;
                 var matchWeather = regex.weather.Match(html);
                 var matchBaba = regex.baba.Match(html);
@@ -253,7 +244,7 @@ namespace jrascraping
                 var matchDistance = regex.distance.Match(html);
                 var matchAround = regex.around.Match(html);
 
-                //レースの出走条件
+                // レースの出走条件
                 var matchOldClass = regex.oldClass.Matches(html);
                 var oldClass = "";
                 foreach (Match match in matchOldClass)
@@ -376,7 +367,6 @@ namespace jrascraping
         }
         #endregion
 
-        #region レース結果を取得
         public static RaceResult CreateRaceResults(string html, string dateHtml)
         {
             try
@@ -386,9 +376,7 @@ namespace jrascraping
                 var matchShippingTime = regex.shippingTime.Match(dateHtml);
                 var matchHolding = regex.holding.Match(dateHtml);
 
-                ///<summary>
-                ///Dateに時刻を加え、PKが重複しないようにする
-                ///</summary>
+                // Dateに時刻を加え、PKが重複しないようにする
                 var shippingTime = DateTime.Parse(matchShippingTime.Value).TimeOfDay;
                 var matchPlace = regex.place.Match(html);
                 var matchWaku = regex.waku.Match(html);
@@ -417,11 +405,7 @@ namespace jrascraping
                         .Select(match => match.Groups["number"].Value));
                 }
 
-                ///<summary>
-                ///人気順位のNullチェック
-                ///競争除外はNullになるため、変数に100をセット
-                ///int.Parseの例外を回避する
-                ///</summary>
+                // 人気順位のNullチェック。競争除外はNullになるため、変数に100をセット。int.Parseの例外を回避する
                 int pop;
                 if (string.IsNullOrEmpty(matchPop.Value))
                 {
@@ -460,43 +444,6 @@ namespace jrascraping
                 throw;
             }
         }
-        #endregion
-
-        #region Cnameの算出
-        static string FetchRaceResultPage(DateTime month)
-        {
-            var cName = new AccessSCodeMonthlyConvertor().ConvertTo(month);
-            return new Downloder().GetRaceResults(cName);
-        }
+        
     }
-
-    class AccessSCodeMonthlyConvertor
-    {
-        internal string ConvertTo(DateTime month)
-        {
-            var idx1 = month.Year;
-            var idx2 = month.Month;
-            var arg = YearAndMonth(idx1, idx2);
-            var yearNow = DateTime.Now.Year;
-            var monthNow = DateTime.Now.Month;
-            var currenYear = YearAndMonth(yearNow, monthNow);
-            string param;
-            if (arg >= currenYear)
-            {
-                param = "pw01skl00" + arg.ToString() + "/";
-            }
-            else
-            {
-                param = "pw01skl10" + arg.ToString() + "/";
-            }
-            var cname = param + ObjParam.ObjParamCname(arg.ToString().Substring(2, 4));
-            return cname;
-        }
-
-        private int YearAndMonth(int year, int month)
-        {
-            return year * 100 + month;
-        }
-    }
-    #endregion
 }
