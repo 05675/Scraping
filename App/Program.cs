@@ -1,5 +1,6 @@
 using jrascraping.GetJra;
 using jrascraping.Models;
+using jrascraping.Query;
 using jrascraping.Regexs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +34,10 @@ namespace jrascraping
             while (target >= new DateTime(2020, 10, 30))     //To
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
+                var insert = new Insert();
                 List<string> raceDays = RaceDaysCNames(html);
 
-                // Cname：1回東京1日目などを取得
+                //Cname：1回東京1日目などを取得
                 foreach (var cname in raceDays)
                 {
                     string otherRaceHtml = new Downloder().GetRaceResults(cname);
@@ -50,8 +52,8 @@ namespace jrascraping
                         //  cotinue;
                         //}
                         string otherRace = new Downloder().GetRaceResults(resultCName);
-                        var horses = InsertHorseInfo(otherRace);
-                        var raceResults = InsertRaceResults(otherRace);
+                        var horses = new Insert().InsertHorseInfo(otherRace);
+                        var raceResults = insert.InsertRaceResults(otherRace);
                         var payBacks = CreatePayBack(otherRace);
                         var raceInfo = CreateRaceInfo(otherRace, horses);
 
@@ -65,64 +67,7 @@ namespace jrascraping
             }
         }
 
-        private static List<HorseInfo> InsertHorseInfo(string otherRace)
-        {
-            var horseCNames = ParseHorseCNames(otherRace);
-            //レース結果の馬情報を保持
-            var horses = new List<HorseInfo>();
-
-            // HorseInfoのInsert
-            foreach (var horseInfo in horseCNames)
-            {
-                var horseHtml = new Downloder().GetHorse(horseInfo);
-                var horse = CreateHorseInfo(horseHtml);
-                horses.Add(horse);
-            }
-            context.SaveChanges();
-            return horses;
-        }
-
-        private static List<RaceResult> InsertRaceResults(string otherRace)
-        {
-            var raceCName = ParseRaceResultCNames(otherRace).Distinct();
-            var raceResult = new List<RaceResult>();
-            foreach (var raceResults in raceCName)
-            {
-                var getResultsHtml = new Downloder().GetRaceResults(raceResults);
-
-                // 1着～最下位のHTMLを取得
-                var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
-                MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
-                var result = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
-                    .Cast<Match>()
-                    .Select(result => CreateRaceResults(result.Value, getResultsHtml))
-                    .ToList();
-
-                // すでにレース結果が存在している場合は、Insertしない
-                for (var i = 0; i < result.Count; i++)
-                {
-                    var raceCheck = context.RaceResults.SingleOrDefault(c =>
-                        c.Date == result[i].Date &&
-                        c.Waku == result[i].Waku &&
-                        c.RaceName == result[i].RaceName &&
-                        c.Place == result[i].Place
-                    );
-
-                    if (raceCheck == null)
-                    {
-                        Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
-                        context.RaceResults.Add(result[i]);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(result[i].RaceName + "：" + result[i].Horse + "：既に存在。");
-                    }
-                    raceResult.Add(result[i]);
-                }
-            }
-            context.SaveChanges();
-            return raceResult;
-        }
+        
 
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -143,7 +88,7 @@ namespace jrascraping
             return table;
         }
 
-        private static List<string> ParseRaceResultCNames(string html)
+        public static List<string> ParseRaceResultCNames(string html)
         {
             var table = new List<string>();
             var regex = new MainCName();
@@ -155,7 +100,7 @@ namespace jrascraping
             return table;
         }
 
-        private static List<string> ParseHorseCNames(string html)
+        public static List<string> ParseHorseCNames(string html)
         {
             var table = new List<string>();
             var regex = new MainCName();
@@ -166,66 +111,6 @@ namespace jrascraping
             }
             return table;
         }
-
-        public static HorseInfo CreateHorseInfo(string html)
-        {
-            try
-            {
-                var regex = new HorseInfoCname();
-                var matchHorseName = regex.horseNames.Match(html);
-                var matchFather = regex.father.Match(html);
-                var matchMother = regex.mother.Match(html);
-                var matchMotherFather = regex.motherFather.Match(html);
-                var matchMotherMother = regex.motherMother.Match(html);
-                var matchSex = regex.sex.Match(html);
-                var matchBirthday = regex.birthday.Match(html);
-                var birthDay = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture);
-                var matchCoatColor = regex.coatColor.Match(html);
-                var matchHorseNameMeaning = regex.horseNameMeaning.Match(html);
-                var matchHorseOwner = regex.horseOwner.Match(html);
-                var TrainerName = regex.trainer.Match(html);
-                var matchTrainer = Regex.Replace(TrainerName.Value, "\\<.*?\\>", string.Empty);
-                var matchProductionRanch = regex.productionRanch.Match(html);
-                var matchOrigin = regex.origin.Match(html);
-
-                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthDay);
-
-                if (horseCheck == null)
-                {
-                    var horseInfo = new HorseInfo()
-                    {
-                        HorseName = matchHorseName.Value,
-                        Father = matchFather.Value,
-                        Mother = matchMother.Value,
-                        MotherFather = matchMotherFather.Value,
-                        MotherMother = matchMotherMother.Value,
-                        Sex = matchSex.Value,
-                        Birthday = birthDay,
-                        CoatColor = matchCoatColor.Value,
-                        HorseNameMeaning = matchHorseNameMeaning.Value,
-                        HorseOwner = matchHorseOwner.Value,
-                        Trainer = matchTrainer,
-                        ProductionRanch = matchProductionRanch.Value,
-                        Origin = matchOrigin.Value
-                    };
-
-                    Debug.WriteLine("Insert実行：" + horseInfo.HorseName);
-                    context.Add(horseInfo);
-                    return horseInfo;
-                }
-                else
-                {
-                    Debug.WriteLine(horseCheck.HorseName + "：既に存在。");
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                throw;
-            }
-        }
-
         public static RaceInfo CreateRaceInfo(string html, List<HorseInfo> horses)
         {
             try
@@ -367,7 +252,7 @@ namespace jrascraping
         }
         #endregion
 
-        public static RaceResult CreateRaceResults(string html, string dateHtml)
+        public RaceResult CreateRaceResults(string html, string dateHtml)
         {
             try
             {
