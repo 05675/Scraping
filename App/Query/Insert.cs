@@ -19,9 +19,7 @@ namespace jrascraping.Query
         /// </summary>
         public List<HorseInfo> InsertHorseInfo(string otherRace)
         {
-            //var jra = new Jra();
             var horseCNames = new Jra().ParseHorseCNames(otherRace);
-            //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
             // HorseInfoのInsert
