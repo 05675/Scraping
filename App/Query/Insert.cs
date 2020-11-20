@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace jrascraping.Query
 {
@@ -20,8 +19,8 @@ namespace jrascraping.Query
         /// </summary>
         public List<HorseInfo> InsertHorseInfo(string otherRace)
         {
-            var jra = new Jra();
-            var horseCNames = jra.ParseHorseCNames(otherRace);
+            //var jra = new Jra();
+            var horseCNames = new Jra().ParseHorseCNames(otherRace);
             //レース結果の馬情報を保持
             var horses = new List<HorseInfo>();
 
@@ -128,7 +127,7 @@ namespace jrascraping.Query
                         c.Place == result[i].Place
                     );
 
-                    if (raceCheck == null)
+                    if (raceCheck != null)
                     {
                         Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
                         context.RaceResults.Add(result[i]);

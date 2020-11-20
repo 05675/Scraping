@@ -41,7 +41,7 @@ namespace jrascraping
                 foreach (var cname in raceDays)
                 {
                     string otherRaceHtml = new Downloder().GetRaceResults(cname);
-                    var raceResultCNames = ParseRaceResultCNames(otherRaceHtml);
+                    var raceResultCNames = new Jra().ParseRaceResultCNames(otherRaceHtml);
 
                     //Cname：1R～12Rまで取得
                     foreach (var resultCName in raceResultCNames)
@@ -88,7 +88,7 @@ namespace jrascraping
             return table;
         }
 
-        public static List<string> ParseRaceResultCNames(string html)
+        public List<string> ParseRaceResultCNames(string html)
         {
             var table = new List<string>();
             var regex = new MainCName();
@@ -100,7 +100,7 @@ namespace jrascraping
             return table;
         }
 
-        public static List<string> ParseHorseCNames(string html)
+        public List<string> ParseHorseCNames(string html)
         {
             var table = new List<string>();
             var regex = new MainCName();
