@@ -1,11 +1,9 @@
 using jrascraping.GetJra;
 using jrascraping.Models;
 using jrascraping.Query;
-using jrascraping.Regexs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace jrascraping
 {
@@ -29,7 +27,7 @@ namespace jrascraping
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
                 var insert = new RaceResultQuery();
-                List<string> raceDays = RaceDaysCNames(html);
+                List<string> raceDays = new RaceInfoQuery().RaceDaysCNames(html);
 
                 //Cname：1回東京1日目などを取得
                 foreach (var cname in raceDays)
@@ -59,18 +57,6 @@ namespace jrascraping
                 }
                 target = target.AddMonths(-1);
             }
-        }
-
-        private static List<string> RaceDaysCNames(string html)
-        {
-            var table = new List<string>();
-            var regex = new MainCName();
-            var matches = regex.holding.Matches(html);
-            foreach (Match match in matches)
-            {
-                table.Add(match.Groups["CountOfDayCname"].Value);
-            }
-            return table;
         }
     }
 }

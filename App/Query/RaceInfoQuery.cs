@@ -61,5 +61,16 @@ namespace jrascraping.Query
                 throw;
             }
         }
+        public List<string> RaceDaysCNames(string html)
+        {
+            var table = new List<string>();
+            var regex = new MainCName();
+            var matches = regex.holding.Matches(html);
+            foreach (Match match in matches)
+            {
+                table.Add(match.Groups["CountOfDayCname"].Value);
+            }
+            return table;
+        }
     }
 }
