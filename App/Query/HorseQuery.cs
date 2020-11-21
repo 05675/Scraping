@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace jrascraping.Query
 {
-    public class Insert
+    public class HorseQuery
     {
         private static readonly JraDbContext context;
 
@@ -19,7 +19,7 @@ namespace jrascraping.Query
         /// </summary>
         public List<HorseInfo> InsertHorseInfo(string otherRace)
         {
-            var horseCNames = new Jra().ParseHorseCNames(otherRace);
+            var horseCNames = ParseHorseCNames(otherRace);
             var horses = new List<HorseInfo>();
 
             // HorseInfoのInsert
@@ -94,51 +94,16 @@ namespace jrascraping.Query
                 throw;
             }
         }
-
-        /// <summary>
-        /// レース結果のInsert
-        /// </summary>
-        public List<RaceResult> InsertRaceResults(string otherRace)
+        public List<string> ParseHorseCNames(string html)
         {
-            var jra = new Jra();
-            var raceCName = jra.ParseRaceResultCNames(otherRace).Distinct();
-            var raceResult = new List<RaceResult>();
-            foreach (var raceResults in raceCName)
+            var table = new List<string>();
+            var regex = new MainCName();
+            var matches = regex.horseCName.Matches(html);
+            foreach (Match match in matches)
             {
-                var getResultsHtml = new Downloder().GetRaceResults(raceResults);
-
-                // 1着～最下位のHTMLを取得
-                var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);
-                MatchCollection raceResultHtml = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline);
-                var result = Regex.Matches(raceResultsHtml.Value, @"<tr>.*?</tr>", RegexOptions.Singleline)
-                    .Cast<Match>()
-                    .Select(result => jra.CreateRaceResults(result.Value, getResultsHtml))
-                    .ToList();
-
-                // すでにレース結果が存在している場合は、Insertしない
-                for (var i = 0; i < result.Count; i++)
-                {
-                    var raceCheck = context.RaceResults.SingleOrDefault(c =>
-                        c.Date == result[i].Date &&
-                        c.Waku == result[i].Waku &&
-                        c.RaceName == result[i].RaceName &&
-                        c.Place == result[i].Place
-                    );
-
-                    if (raceCheck != null)
-                    {
-                        Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
-                        context.RaceResults.Add(result[i]);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(result[i].RaceName + "：" + result[i].Horse + "：既に存在。");
-                    }
-                    raceResult.Add(result[i]);
-                }
+                table.Add(match.Groups["HorseCname"].Value);
             }
-            context.SaveChanges();
-            return raceResult;
+            return table;
         }
     }
 }

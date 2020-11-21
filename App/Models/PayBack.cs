@@ -8,7 +8,7 @@ namespace jrascraping.Models
 {
     public class PayBack
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public HorseInfo Tansho { get; set; }
         public int? TanshoNum { get; set; }
         public int? TanshoRe { get; set; }
