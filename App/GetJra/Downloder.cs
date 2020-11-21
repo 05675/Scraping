@@ -32,7 +32,7 @@ namespace jrascraping.GetJra
                             { "cname", cname },
                         });
                     //レース結果URL
-                    HttpResponseMessage response = client.PostAsync($"http://www.jra.go.jp/JRADB/{accessPageName}", content).Result;
+                    HttpResponseMessage response = client.PostAsync($"https://www.jra.go.jp/JRADB/{accessPageName}", content).Result;
                     response.EnsureSuccessStatusCode();     //上のURLを呼び出す処理
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     string responseBody = new StreamReader(response.Content.ReadAsStreamAsync().Result, Encoding.GetEncoding("shift_jis")).ReadToEnd();

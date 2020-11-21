@@ -22,8 +22,8 @@ namespace jrascraping
             DbContext();
 
             // 期間を指定：現状は月単位で取得
-            DateTime target = new DateTime(2020, 10, 1);    //From
-            while (target >= new DateTime(2020, 10, 30))     //To
+            DateTime target = new DateTime(2020, 6, 1);    //From
+            while (target <= new DateTime(2020, 6, 30))     //To
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
                 var insert = new RaceResultQuery();
