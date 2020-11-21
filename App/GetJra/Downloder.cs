@@ -8,12 +8,12 @@ namespace jrascraping.GetJra
 {
     public class Downloder
     {
-        public string GetRaceResults(string cname)
+        public string GetRaceResultsHtml(string cname)
         {
             string accessPageName = "accessS.html";
             return GetHtmlInternal(cname, accessPageName);
         }
-        public string GetHorse(string cname)
+        public string GetHorseHtml(string cname)
         {
             string accessPageName = "accessU.html";
             return GetHtmlInternal(cname, accessPageName);

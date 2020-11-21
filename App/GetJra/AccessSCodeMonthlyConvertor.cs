@@ -13,7 +13,7 @@ namespace jrascraping.GetJra
         public string FetchRaceResultPage(DateTime month)
         {
             var cName = new AccessSCodeMonthlyConvertor().ConvertTo(month);
-            return new Downloder().GetRaceResults(cName);
+            return new Downloder().GetRaceResultsHtml(cName);
         }
         internal string ConvertTo(DateTime month)
         {

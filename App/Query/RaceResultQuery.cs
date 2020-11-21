@@ -1,6 +1,7 @@
 ﻿using jrascraping.GetJra;
 using jrascraping.Models;
 using jrascraping.Regexs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,19 +13,26 @@ namespace jrascraping.Query
 {
     public class RaceResultQuery
     {
-        private static readonly JraDbContext context;
+        private static JraDbContext context;
+        public static void DbContext()
+        {
+            //初期化
+            var options = new DbContextOptionsBuilder<JraDbContext>();
+            options.UseSqlite("Data Source=Jra.db");
+            context = new JraDbContext(options.Options);
+        }
 
         /// <summary>
         /// レース結果のInsert
         /// </summary>
         public List<RaceResult> InsertRaceResults(string otherRace)
         {
-            var jra = new Jra();
+            DbContext();
             var raceCName = ParseRaceResultCNames(otherRace).Distinct();
             var raceResult = new List<RaceResult>();
             foreach (var raceResults in raceCName)
             {
-                var getResultsHtml = new Downloder().GetRaceResults(raceResults);
+                var getResultsHtml = new Downloder().GetRaceResultsHtml(raceResults);
 
                 // 1着～最下位のHTMLを取得
                 var raceResultsHtml = Regex.Match(getResultsHtml, @"<tbody>.*?</tbody>", RegexOptions.Singleline);

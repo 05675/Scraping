@@ -1,6 +1,7 @@
 ﻿using jrascraping.GetJra;
 using jrascraping.Models;
 using jrascraping.Regexs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +13,15 @@ namespace jrascraping.Query
 {
     public class HorseQuery
     {
-        private static readonly JraDbContext context;
+        private static JraDbContext context;
+
+        public static void DbContext()
+        {
+            //初期化
+            var options = new DbContextOptionsBuilder<JraDbContext>();
+            options.UseSqlite("Data Source=Jra.db");
+            context = new JraDbContext(options.Options);
+        }
 
         /// <summary>
         /// HorseInfoへInsert
@@ -25,7 +34,7 @@ namespace jrascraping.Query
             // HorseInfoのInsert
             foreach (var horseInfo in horseCNames)
             {
-                var horseHtml = new Downloder().GetHorse(horseInfo);
+                var horseHtml = new Downloder().GetHorseHtml(horseInfo);
                 var horse = CreateHorseInfo(horseHtml);
                 horses.Add(horse);
             }
@@ -38,6 +47,7 @@ namespace jrascraping.Query
         /// </summary>
         public static HorseInfo CreateHorseInfo(string html)
         {
+            DbContext();
             try
             {
                 var regex = new HorseInfoCname();

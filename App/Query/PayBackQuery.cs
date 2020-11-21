@@ -1,13 +1,22 @@
 ﻿using jrascraping.Models;
 using jrascraping.Regexs;
+using Microsoft.EntityFrameworkCore;
 
 namespace jrascraping.Query
 {
     public class PayBackQuery
     {
         private static JraDbContext context;
+        public static void DbContext()
+        {
+            //初期化
+            var options = new DbContextOptionsBuilder<JraDbContext>();
+            options.UseSqlite("Data Source=Jra.db");
+            context = new JraDbContext(options.Options);
+        }
         public PayBack CreatePayBack(string html)
         {
+            DbContext();
             var regex = new PayBackCname();
             var win = regex.win.Matches(html);
             var wideBefore = regex.wideBefore.Matches(html);
