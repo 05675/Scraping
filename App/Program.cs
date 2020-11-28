@@ -26,7 +26,6 @@ namespace jrascraping
             while (target <= new DateTime(2020, 10, 30))     //To
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
-                var insert = new RaceResultQuery();
                 List<string> venusCnames = new RaceInfoQuery().RaceDaysCNames(html);
 
                 //Cname：開催情報(1回東京1日目など)を取得
@@ -45,8 +44,8 @@ namespace jrascraping
                         //}
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
                         var horses = new HorseQuery().InsertHorseInfo(raceResultHtml);
-                        //var raceResults = insert.InsertRaceResults(raceResultHtml);
-                        //var payBacks = new PayBackQuery().InsertPayBack(raceResultHtml);
+                        var raceResults = new RaceResultQuery().InsertRaceResults(raceResultHtml);
+                        var payBacks = new PayBackQuery().InsertPayBack(raceResultHtml);
                         var raceInfo = new RaceInfoQuery().InsertRaceInfo(raceResultHtml, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す

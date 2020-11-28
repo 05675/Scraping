@@ -54,12 +54,12 @@ namespace jrascraping.Query
 
                     if (raceCheck == null)
                     {
-                        Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
+                        Debug.WriteLine($"Insert実行{result[i].RaceName}:{result[i].Date}");
                         context.RaceResults.Add(result[i]);
                     }
                     else
                     {
-                        Debug.WriteLine(result[i].RaceName + "：" + result[i].Horse + "：既に存在。");
+                        Debug.WriteLine($"既に存在：{result[i].RaceName}：{result[i].Horse}");
                     }
                     raceResult.Add(result[i]);
                 }

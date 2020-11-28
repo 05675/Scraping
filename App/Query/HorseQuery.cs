@@ -88,13 +88,13 @@ namespace jrascraping.Query
                         Origin = matchOrigin.Value
                     };
 
-                    Debug.WriteLine("Insert実行：" + horseInfo.HorseName);
+                    Debug.WriteLine($"Insert実行：{horseInfo.HorseName}");
                     context.Add(horseInfo);
                     return horseInfo;
                 }
                 else
                 {
-                    Debug.WriteLine(horseCheck.HorseName + "：既に存在。");
+                    Debug.WriteLine($"既に存在：{horseCheck.HorseName}");
                     return null;
                 }
             }
