@@ -11,7 +11,7 @@ namespace jrascraping.Query
 {
     public class RaceInfoQuery
     {
-        public RaceInfo CreateRaceInfo(string html, List<HorseInfo> horses)
+        public RaceInfo InsertRaceInfo(string html, List<HorseInfo> horses)
         {
             try
             {

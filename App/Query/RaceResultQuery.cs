@@ -14,7 +14,7 @@ namespace jrascraping.Query
     public class RaceResultQuery
     {
         private static JraDbContext context;
-        public static void DbContext()
+        private static void DbContext()
         {
             //初期化
             var options = new DbContextOptionsBuilder<JraDbContext>();
@@ -42,7 +42,7 @@ namespace jrascraping.Query
                     .Select(result => CreateRaceResults(result.Value, getResultsHtml))
                     .ToList();
 
-                // すでにレース結果が存在している場合は、Insertしない
+                // すでにレース結果が存在しているかチェック
                 for (var i = 0; i < result.Count; i++)
                 {
                     var raceCheck = context.RaceResults.SingleOrDefault(c =>
@@ -52,7 +52,7 @@ namespace jrascraping.Query
                         c.Place == result[i].Place
                     );
 
-                    if (raceCheck != null)
+                    if (raceCheck == null)
                     {
                         Debug.WriteLine("Insert実行：" + result[i].RaceName + "：" + result[i].Date);
                         context.RaceResults.Add(result[i]);
@@ -125,6 +125,7 @@ namespace jrascraping.Query
                     RaceName = matchRaceName.Value,
                     Place = matchPlace.Value,
                     Waku = int.Parse(matchWaku.Value),
+                    // Horseはシャドウプロパティ？らしい
                     Num = int.Parse(matchNum.Value),
                     Weight = matchWeight.Value,
                     Jockey = matchJockey,

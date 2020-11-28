@@ -19,7 +19,6 @@ namespace jrascraping.Models
         public HorseInfo Horse { get; set; }
         public string Weight { get; set; }
         public string Jockey { get; set; }
-        public string Margin { get; set; }
         public string Time { get; set; }
         public string ArrivalDifference { get; set; }
         public string Corner { get; set; }

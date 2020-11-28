@@ -15,7 +15,7 @@ namespace jrascraping.Query
     {
         private static JraDbContext context;
 
-        public static void DbContext()
+        private static void DbContext()
         {
             //初期化
             var options = new DbContextOptionsBuilder<JraDbContext>();

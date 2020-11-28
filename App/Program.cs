@@ -45,9 +45,9 @@ namespace jrascraping
                         //}
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
                         var horses = new HorseQuery().InsertHorseInfo(raceResultHtml);
-                        var raceResults = insert.InsertRaceResults(raceResultHtml);
-                        var payBacks = new PayBackQuery().CreatePayBack(raceResultHtml);
-                        var raceInfo = new RaceInfoQuery().CreateRaceInfo(raceResultHtml, horses);
+                        //var raceResults = insert.InsertRaceResults(raceResultHtml);
+                        //var payBacks = new PayBackQuery().InsertPayBack(raceResultHtml);
+                        var raceInfo = new RaceInfoQuery().InsertRaceInfo(raceResultHtml, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         // otherRaceからRaceInfoを作る
