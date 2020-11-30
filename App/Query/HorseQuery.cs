@@ -69,7 +69,7 @@ namespace jrascraping.Query
 
                 var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthDay);
 
-                if (horseCheck == null)
+                if (horseCheck != null) return null;
                 {
                     var horseInfo = new HorseInfo()
                     {
@@ -87,15 +87,10 @@ namespace jrascraping.Query
                         ProductionRanch = matchProductionRanch.Value,
                         Origin = matchOrigin.Value
                     };
-
+                    
                     Debug.WriteLine($"Insert実行：{horseInfo.HorseName}");
                     context.Add(horseInfo);
                     return horseInfo;
-                }
-                else
-                {
-                    Debug.WriteLine($"既に存在：{horseCheck.HorseName}");
-                    return null;
                 }
             }
             catch (Exception ex)

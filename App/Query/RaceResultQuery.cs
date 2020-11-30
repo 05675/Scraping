@@ -52,7 +52,7 @@ namespace jrascraping.Query
                         c.Place == result[i].Place
                     );
 
-                    if (raceCheck == null)
+                    if (raceCheck == null) 
                     {
                         Debug.WriteLine($"Insert実行{result[i].RaceName}:{result[i].Date}");
                         context.RaceResults.Add(result[i]);
@@ -107,15 +107,7 @@ namespace jrascraping.Query
                 }
 
                 // 人気順位のNullチェック。競争除外はNullになるため、変数に100をセット。int.Parseの例外を回避する
-                int pop;
-                if (string.IsNullOrEmpty(matchPop.Value))
-                {
-                    pop = 100;
-                }
-                else
-                {
-                    pop = int.Parse(matchPop.Value);
-                }
+                int pop = string.IsNullOrEmpty(matchPop.Value) ? 100 : int.Parse(matchPop.Value);
 
                 var raceResults = new RaceResult()
                 {

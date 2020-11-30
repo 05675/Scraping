@@ -29,6 +29,8 @@ namespace jrascraping.Query
             var payback = new PayBack();
             var headCount = win.Count + wideBefore.Count + wideAfter.Count + tripleBefor.Count + tripleCenter.Count + tripleAfter.Count;
 
+            // todo: 重複チェックを入れる。DB変更？
+
             // 馬番
             switch (headCount)
             {
@@ -149,6 +151,8 @@ namespace jrascraping.Query
                     break;
             }
             context.PayBack.Add(payback);
+            context.SaveChanges();
+
             return payback;
         }
     }
