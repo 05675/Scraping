@@ -45,6 +45,8 @@ namespace jrascraping
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
                         var horses = new HorseQuery().InsertHorseInfo(raceResultHtml);
                         var raceResults = new RaceResultQuery().InsertRaceResults(raceResultHtml);
+
+                        // todo: paybacksに重複チェックを入れる。DB変更？と、払い戻し金が入ってきてないかも
                         var payBacks = new PayBackQuery().InsertPayBack(raceResultHtml);
                         var raceInfo = new RaceInfoQuery().InsertRaceInfo(raceResultHtml, horses);
 
@@ -52,7 +54,6 @@ namespace jrascraping
                         // otherRaceからRaceInfoを作る
                         // otherRaceからRaceResultを作る(複数)
                     }
-                    context.SaveChanges();
                 }
                 target = target.AddMonths(-1);
             }
