@@ -20,7 +20,7 @@ namespace jrascraping.Query
             options.UseSqlite("Data Source=Jra.db");
             context = new JraDbContext(options.Options);
         }
-        public RaceInfo InsertRaceInfo(string html, List<HorseInfo> horses)
+        public RaceInfo AddRaceInfo(string html, List<HorseInfo> horses)
         {
             DbContext();
 

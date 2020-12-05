@@ -26,7 +26,7 @@ namespace jrascraping.Query
         /// <summary>
         /// HorseInfoへInsert
         /// </summary>
-        public List<HorseInfo> InsertHorseInfo(string otherRace)
+        public List<HorseInfo> AddHorseInfo(string otherRace)
         {
             var horseCNames = ParseHorseCNames(otherRace);
             var horses = new List<HorseInfo>();

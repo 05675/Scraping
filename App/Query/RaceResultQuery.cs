@@ -25,7 +25,7 @@ namespace jrascraping.Query
         /// <summary>
         /// レース結果のInsert
         /// </summary>
-        public List<RaceResult> InsertRaceResults(string otherRace)
+        public List<RaceResult> AddRaceResults(string otherRace)
         {
             DbContext();
             var raceCName = ParseRaceResultCNames(otherRace).Distinct();

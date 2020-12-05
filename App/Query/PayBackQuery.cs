@@ -14,7 +14,7 @@ namespace jrascraping.Query
             options.UseSqlite("Data Source=Jra.db");
             context = new JraDbContext(options.Options);
         }
-        public PayBack InsertPayBack(string html)
+        public PayBack AddPayBack(string html)
         {
             DbContext();
             var regex = new PayBackCname();

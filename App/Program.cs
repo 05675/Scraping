@@ -43,12 +43,12 @@ namespace jrascraping
                         //  cotinue;
                         //}
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
-                        var horses = new HorseQuery().InsertHorseInfo(raceResultHtml);
-                        var raceResults = new RaceResultQuery().InsertRaceResults(raceResultHtml);
+                        var horses = new HorseQuery().AddHorseInfo(raceResultHtml);
+                        var raceResults = new RaceResultQuery().AddRaceResults(raceResultHtml);
 
                         // todo: paybacksに重複チェックを入れる。DB変更？と、払い戻し金が入ってきてないかも
-                        var payBacks = new PayBackQuery().InsertPayBack(raceResultHtml);
-                        var raceInfo = new RaceInfoQuery().InsertRaceInfo(raceResultHtml, horses);
+                        var payBacks = new PayBackQuery().AddPayBack(raceResultHtml);
+                        var raceInfo = new RaceInfoQuery().AddRaceInfo(raceResultHtml, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         // otherRaceからRaceInfoを作る
