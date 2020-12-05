@@ -92,7 +92,6 @@ namespace jrascraping.Query
                 var matchHorseWeight = regex.horseWeight.Match(html).Value.Replace("<span>", "");
                 var matchTrainer = regex.trainer.Match(html);
                 var matchPop = regex.pop.Match(html);
-
                 var raceNameRegex = new RaceInfoCname();
                 var matchRaceName = raceNameRegex.raceName.Match(dateHtml);
 

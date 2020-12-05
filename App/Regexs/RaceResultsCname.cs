@@ -13,7 +13,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex shippingTime = new Regex(
-            "(?<shippingtime>((?<=発走時刻：<strong>).*?(?=</strong></div>)))",
+            "(?<shippingtime>((?<=発走時刻：<strong>).*?(?=</strong>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex holding = new Regex(
@@ -33,7 +33,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex horse = new Regex(
-            "(?<horse>((?<=\\('/JRADB/accessU.html','pw.{20,20}'\\);\\\">).*?(?=</a>)))",
+            "(?<horse>((?<=\\('/JRADB/accessU.html', 'pw.{20,20}'\\);\\\">).*?(?=</a>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex weight = new Regex(
@@ -41,7 +41,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex jockey = new Regex(
-            "(?<jockey>((?<=\\('/JRADB/accessK.html','pw.{14,14}'\\);\\\">).*?(?=</a>)))",
+            "(?<jockey>((?<=\\('/JRADB/accessK.html', 'pw.{14,14}'\\);\\\">).*?(?=</a>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex time = new Regex(
@@ -61,11 +61,12 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex horseWeight = new Regex(
-            "(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n.{20,20}).*?(?=</span>)))",
+            //"(?<horseweight>((?<=<td class=\\\"h_weight\\\">\n\n.{20,20}).*?(?=</span>)))",
+            "(?<horseweight>((?<=<td class=\\\"h_weight\\\">).*?(?=</span>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex trainer = new Regex(
-            "(?<trainer>((?<=\\('/JRADB/accessC.html','pw.{14,14}'\\);\\\">).*?(?=</a>)))",
+            "(?<trainer>((?<=\\('/JRADB/accessC.html', 'pw.{14,14}'\\);\\\">).*?(?=</a>)))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex pop = new Regex(
