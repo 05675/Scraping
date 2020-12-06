@@ -10,15 +10,17 @@ namespace jrascraping.Regexs
     public class HorseInfoCname
     {
         public Regex horseNames = new Regex(
-            "(?<horsenames>(?<=<span style=\\\"padding-left: 1px;\\\">).*?(?=</span>))",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        
+            "(?<horsenames>(?<=<span class=\\\"opt\\\">競走馬情報</span>).*?(?=<span class=\\\"name_en\\\">))",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+     
+        // todo:修正
         public Regex father = new Regex(
-            "(?<father>(?<=bgcolor=\\\"#EEEED9\\\">父<\\/td>\n<td bgcolor=\\\"#F5F5EA\\\">).*?(?=</td>))",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            //"corner_list\\\"\\>(?<corner>.*?)\\</div\\>",
+            "(?<father>(?<=<dt>父</dt>\n.{26,26}).*?(?=</dd>))",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
         
         public Regex mother = new Regex(
-            "(?<mother>(?<=<a href=\\\"#\\\" onclick=\\\"return doAction\\(\\'\\/JRADB\\/accessU.html\\',\\'pj.............../..\\'\\);\\\">).*?(?=</a>))",
+            "(?<mother>(?<=<a href=\\\"#\\\" onclick=\\\"return doAction\\(\\'\\/JRADB\\/accessU.html\\', \\'pj.{23,23}).*?(?=</a>))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex motherFather = new Regex(

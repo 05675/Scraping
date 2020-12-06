@@ -13,7 +13,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex raceName = new Regex(
-            "(?<=<span class=\\\"race_name\\\">\n.{32}).*?(?=<|\n)",
+            "(?<=<span class=\\\"race_name\\\">).*?(?=<|\n)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex date = new Regex(
