@@ -51,7 +51,6 @@ namespace jrascraping.Query
             try
             {
                 var regex = new HorseInfoCname();
-                // todo:変数がすべて空
                 var matchHorseName = regex.horseNames.Match(html);
                 var matchFather = regex.father.Match(html);
                 var matchMother = regex.mother.Match(html);
@@ -59,7 +58,7 @@ namespace jrascraping.Query
                 var matchMotherMother = regex.motherMother.Match(html);
                 var matchSex = regex.sex.Match(html);
                 var matchBirthday = regex.birthday.Match(html);
-                //var birthday = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture);
+                var birthday = DateTime.ParseExact(matchBirthday.Value, "yyyy年M月d日", CultureInfo.InvariantCulture);
                 var matchCoatColor = regex.coatColor.Match(html);
                 var matchHorseNameMeaning = regex.horseNameMeaning.Match(html);
                 var matchHorseOwner = regex.horseOwner.Match(html);
@@ -68,8 +67,7 @@ namespace jrascraping.Query
                 var matchProductionRanch = regex.productionRanch.Match(html);
                 var matchOrigin = regex.origin.Match(html);
 
-                //var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthday);
-                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value);
+                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthday);
 
                 if (horseCheck != null) return null;
                 {
@@ -81,7 +79,7 @@ namespace jrascraping.Query
                         MotherFather = matchMotherFather.Value,
                         MotherMother = matchMotherMother.Value,
                         Sex = matchSex.Value,
-                       // Birthday = birthday,
+                        Birthday = birthday,
                         CoatColor = matchCoatColor.Value,
                         HorseNameMeaning = matchHorseNameMeaning.Value,
                         HorseOwner = matchHorseOwner.Value,
@@ -89,7 +87,6 @@ namespace jrascraping.Query
                         ProductionRanch = matchProductionRanch.Value,
                         Origin = matchOrigin.Value,
                     };
-                    
                     Debug.WriteLine($"Insert実行：{horseInfo.HorseName}");
                     context.Add(horseInfo);
                     return horseInfo;

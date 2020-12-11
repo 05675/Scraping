@@ -45,7 +45,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
         public Regex distance = new Regex(
-            "(?<=<div class=\\\"cell course\\\"><span class=\\\"cap\\\">コース：</span>).*?(?=<span class=\\\"unit\\\">)",
+            "(?<=<span class=\\\"cap\\\">コース：</span>).*?(?=<span class=\\\"unit\\\">)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex around = new Regex(
