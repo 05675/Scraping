@@ -29,8 +29,6 @@ namespace jrascraping.Query
             var payback = new PayBack();
             var headCount = win.Count + wideBefore.Count + wideAfter.Count + tripleBefor.Count + tripleCenter.Count + tripleAfter.Count;
 
-            // todo: 重複チェックを入れる。DB変更？
-
             // 馬番
             switch (headCount)
             {
@@ -105,8 +103,10 @@ namespace jrascraping.Query
                     break;
             }
 
+            var refundCount = refund.Count;
+
             // 払戻金
-            switch (headCount)
+            switch (refundCount)
             {
                 case 12:
                     payback.TanshoRe = int.Parse(refund[0].Value, System.Globalization.NumberStyles.AllowThousands);
