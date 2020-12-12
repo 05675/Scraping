@@ -16,10 +16,6 @@ namespace jrascraping.Regexs
             "(?<=<div class=\\\"num\\\">).{1,2}(?=</div>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        // todo: 
-        //１．<div class="num">9</div>　を取得。1頭・2頭・3頭。既存のURLを取得でOKそう
-        //２．
-        
         public Regex wideBefore = new Regex(
             "(?<=<div class=\\\"num\\\">).{1,2}(?=-\\d{1,2}</div>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -29,7 +25,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         
         public Regex tripleBefor = new Regex(
-            "(?<=<div class=\\\"num\\\">).*?(?=-\\d{1,2}-\\d{1,2}</div>)",
+            "(?<=<div class=\\\"num\\\">).{1,2}(?=-\\d{1,2}-\\d{1,2}</div>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex tripleCenter = new Regex(
