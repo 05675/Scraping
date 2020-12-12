@@ -22,8 +22,8 @@ namespace jrascraping
             DbContext();
 
             // 期間を指定：現状は月単位で取得
-            DateTime target = new DateTime(2020, 10, 1);    //From
-            while (target <= new DateTime(2020, 10, 30))     //To
+            DateTime target = new DateTime(2020, 12, 1);    //From
+            while (target <= new DateTime(2020, 12, 31))     //To
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
                 List<string> venusCnames = new RaceInfoQuery().RaceDaysCNames(html);
@@ -43,12 +43,12 @@ namespace jrascraping
                         //  cotinue;
                         //}
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
-                        var horses = new HorseQuery().AddHorseInfo(raceResultHtml);
-                        var raceResults = new RaceResultQuery().AddRaceResults(raceResultHtml);
 
-                        // todo: paybacksに重複チェックを入れる。DB変更？と、払い戻し金が入ってきてないかも
+                        // todo: 〇地だとHorseNameに余計なHTMLが取得される
+                        var horseInfo = new HorseQuery().AddHorseInfo(raceResultHtml);
+                        var raceResults = new RaceResultQuery().AddRaceResults(raceResultHtml);
+                        var raceInfo = new RaceInfoQuery().AddRaceInfo(raceResultHtml, horseInfo);
                         var payBacks = new PayBackQuery().AddPayBack(raceResultHtml);
-                        var raceInfo = new RaceInfoQuery().AddRaceInfo(raceResultHtml, horses);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         // otherRaceからRaceInfoを作る

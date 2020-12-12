@@ -128,26 +128,26 @@ namespace jrascraping.Query
                     payback.Fuku1Re = int.Parse(refund[1].Value, System.Globalization.NumberStyles.AllowThousands);
                     payback.Fuku2Re = int.Parse(refund[2].Value, System.Globalization.NumberStyles.AllowThousands);
                     payback.Fuku3Re = int.Parse(refund[3].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide1Re = int.Parse(refund[5].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide2Re = int.Parse(refund[6].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide3Re = int.Parse(refund[7].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.UmarenRe = int.Parse(refund[8].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.UmatanRe = int.Parse(refund[9].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.SanfukuRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.SantanRe = int.Parse(refund[11].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide1Re = int.Parse(refund[4].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide2Re = int.Parse(refund[5].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide3Re = int.Parse(refund[6].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.UmarenRe = int.Parse(refund[7].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.UmatanRe = int.Parse(refund[8].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.SanfukuRe = int.Parse(refund[9].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.SantanRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands);
                     break;
 
                 case 10:
                     payback.TanshoRe = int.Parse(refund[0].Value, System.Globalization.NumberStyles.AllowThousands);
                     payback.Fuku1Re = int.Parse(refund[1].Value, System.Globalization.NumberStyles.AllowThousands);
                     payback.Fuku2Re = int.Parse(refund[2].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide1Re = int.Parse(refund[5].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide2Re = int.Parse(refund[6].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.Wide3Re = int.Parse(refund[7].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.UmarenRe = int.Parse(refund[8].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.UmatanRe = int.Parse(refund[9].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.SanfukuRe = int.Parse(refund[10].Value, System.Globalization.NumberStyles.AllowThousands);
-                    payback.SantanRe = int.Parse(refund[11].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide1Re = int.Parse(refund[3].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide2Re = int.Parse(refund[4].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.Wide3Re = int.Parse(refund[5].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.UmarenRe = int.Parse(refund[6].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.UmatanRe = int.Parse(refund[7].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.SanfukuRe = int.Parse(refund[8].Value, System.Globalization.NumberStyles.AllowThousands);
+                    payback.SantanRe = int.Parse(refund[9].Value, System.Globalization.NumberStyles.AllowThousands);
                     break;
             }
             context.PayBack.Add(payback);

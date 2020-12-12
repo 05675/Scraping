@@ -13,7 +13,7 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex raceName = new Regex(
-            "(?<=<span class=\\\"race_name\\\">).*?(?=</span>)",
+            "(?<=<span class=\\\"race_name\\\">).*?(?=<)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex date = new Regex(
@@ -29,11 +29,11 @@ namespace jrascraping.Regexs
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex baba = new Regex(
-            "(?<=<span class=\\\"detail\\\">（).*?(?=）</span></div>)",
+            "(?<=</span></span></li><li class=\\\".{4,4}\\\"><span class=\\\"inner\\\"><span class=\\\"cap\\\">).*?(?=</span><span class=\\\"txt\\\">)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex babaState = new Regex(
-            "(?<=</span><span class=\\\"txt\\\">).*?(?=</span></span></li></ul>)",
+            "(?<=<li class=\\\".{4,4}\\\"><span class=\\\"inner\\\"><span class=\\\"cap\\\">.{1,3}</span><span class=\\\"txt\\\">).*?(?=</span></span></li></ul>)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public Regex old = new Regex(
