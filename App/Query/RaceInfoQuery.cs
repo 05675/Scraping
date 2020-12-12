@@ -53,9 +53,9 @@ namespace jrascraping.Query
                         .Select(match => match.Groups["name"].Value));
                 }
 
-                var raceCheck = context.RaceInfo.SingleOrDefault(c => c.Date == date && c.ShippingTime == matchShippingTime.Value);
+                var raceDuplicateCheck = context.RaceInfo.SingleOrDefault(c => c.Date == date && c.ShippingTime == matchShippingTime.Value);
 
-                if (raceCheck != null) return null;
+                if (raceDuplicateCheck != null) return null;
                 {
                     var raceInfo = new RaceInfo()
                     {
