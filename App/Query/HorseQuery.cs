@@ -51,7 +51,7 @@ namespace jrascraping.Query
             try
             {
                 var regex = new HorseInfoCname();
-                var matchHorseName = regex.horseNames.Match(html);
+                var matchHorseName = Regex.Replace(regex.horseNames.Match(html).Value, @"<.*?>", "");
                 var matchFather = regex.father.Match(html);
                 var matchMother = regex.mother.Match(html);
                 var matchMotherFather = regex.motherFather.Match(html);
@@ -67,13 +67,13 @@ namespace jrascraping.Query
                 var matchProductionRanch = regex.productionRanch.Match(html);
                 var matchOrigin = regex.origin.Match(html);
 
-                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName.Value && c.Birthday == birthday);
+                var horseCheck = context.HorseInfo.SingleOrDefault(c => c.HorseName == matchHorseName && c.Birthday == birthday);
 
                 if (horseCheck != null) return null;
                 {
                     var horseInfo = new HorseInfo()
                     {
-                        HorseName = matchHorseName.Value,
+                        HorseName = matchHorseName,
                         Father = matchFather.Value,
                         Mother = matchMother.Value,
                         MotherFather = matchMotherFather.Value,
@@ -89,6 +89,8 @@ namespace jrascraping.Query
                     };
                     Debug.WriteLine($"Insert実行：{horseInfo.HorseName}");
                     context.Add(horseInfo);
+                    context.SaveChanges();
+
                     return horseInfo;
                 }
             }

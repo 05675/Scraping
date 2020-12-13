@@ -9,7 +9,6 @@ namespace jrascraping.Regexs
 {
     public class HorseInfoCname
     {
-        // 〇地だとHTMLが異なる
         public Regex horseNames = new Regex(
             "(?<horsenames>(?<=<span class=\\\"opt\\\">競走馬情報</span>.{0,84}).*?(?=<span class=\\\"name_en\\\">))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
