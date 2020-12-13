@@ -74,6 +74,9 @@ namespace jrascraping.Query
                     context.Add(raceInfo);
                     context.SaveChanges();
 
+                    // raceInfoが無ければ、PayBackはaddしない
+                    var payBacks = new PayBackQuery().AddPayBack(html);
+
                     return raceInfo;
                 }
             }
