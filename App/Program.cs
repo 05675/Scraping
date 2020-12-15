@@ -22,8 +22,9 @@ namespace jrascraping
             DbContext();
 
             // 期間を指定：現状は月単位で取得
+
             DateTime target = new DateTime(2020, 12, 1);    //From
-            while (target <= new DateTime(2020, 12, 31))     //To
+            while (target <= new DateTime(2020, 12, 2))     //To
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
                 List<string> venusCnames = new RaceInfoQuery().RaceDaysCNames(html);
@@ -44,18 +45,16 @@ namespace jrascraping
                         //}
                         string raceResultHtml = new Downloder().GetRaceResultsHtml(raceResultCName);
 
-                        // todo: 〇地だとHorseNameに余計なHTMLが取得される
                         var horseInfo = new HorseQuery().AddHorseInfo(raceResultHtml);
                         var raceResults = new RaceResultQuery().AddRaceResults(raceResultHtml);
                         var raceInfo = new RaceInfoQuery().AddRaceInfo(raceResultHtml, horseInfo);
-                        var payBacks = new PayBackQuery().AddPayBack(raceResultHtml);
 
                         // 2020/03/21 レース結果を完成させてからコメントアウトを外す
                         // otherRaceからRaceInfoを作る
                         // otherRaceからRaceResultを作る(複数)
                     }
                 }
-                target = target.AddMonths(-1);
+                target = target.AddDays(1);
             }
         }
     }
