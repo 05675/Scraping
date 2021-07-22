@@ -86,14 +86,48 @@ namespace jrascraping.Query
                 throw;
             }
         }
-        public List<string> RaceDaysCNames(string html)
+
+        public List<string> RaceDaysCNames(string html, DateTime inputFrom, DateTime inputTo)
         {
             var table = new List<string>();
             var regex = new MainCName();
             var matches = regex.holding.Matches(html);
+            List<string> days = Days(html, inputFrom, inputTo);
+
             foreach (Match match in matches)
             {
-                table.Add(match.Groups["CountOfDayCname"].Value);
+                foreach (var d in days)
+                {
+                    if (match.ToString().Contains(d))
+                    {
+                        table.Add(match.Groups["CountOfDayCname"].Value);
+                    }
+                }
+            }
+            return table;
+        }
+
+        /// <summary>
+        /// レース結果の年月日を取得
+        /// </summary>
+        public List<string> Days(string html, DateTime inputFrom, DateTime inputTo)
+        {
+            var from = inputFrom.ToString("yyyyMMdd");
+            var to = inputTo.ToString("yyyyMMdd");
+
+            var table = new List<string>();
+            var regex = new RaceDays();
+            var searchYear = regex.year.Match(html).ToString();
+            var searchMonth = regex.month.Match(html).Value.PadLeft(2, '0');
+            var matches =regex.day.Matches(html);
+
+            foreach (Match match in matches)
+            {
+                var day = searchYear + searchMonth + match.Groups["day"].Value.PadLeft(2, '0');
+                if (int.Parse(from) <= int.Parse(day) && int.Parse(to) >= int.Parse(day))
+                {
+                    table.Add(day + "/");
+                }
             }
             return table;
         }

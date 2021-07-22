@@ -21,17 +21,20 @@ namespace jrascraping
         {
             DbContext();
 
-            // 期間を指定：現状は月単位で取得
-
-            DateTime target = new DateTime(2021, 6, 1);    //From
-            while (target <= new DateTime(2021, 6, 30))     //To
+            // 1カ月単位で取得可能
+            DateTime inputFrom = new DateTime(2021, 4, 4);
+            DateTime inputTo = new DateTime(2021, 4, 25);
+            while (inputFrom <= inputTo)
             {
-                var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(target);
-                List<string> venusCnames = new RaceInfoQuery().RaceDaysCNames(html);
-
+                var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(inputFrom);
+                List<string> venusCnames = new RaceInfoQuery().RaceDaysCNames(html, inputFrom, inputTo);
+               
                 //Cname：開催情報(1回東京1日目など)を取得
                 foreach (var venusCname in venusCnames)
                 {
+                    //TODO: fromToの期間を設定。while内で日付を決める。
+
+
                     string sarchRaceResultHtml = new Downloder().GetRaceResultsHtml(venusCname);
                     var raceResultCNames = new RaceResultQuery().ParseRaceResultCNames(sarchRaceResultHtml);
 
@@ -54,7 +57,7 @@ namespace jrascraping
                         // otherRaceからRaceResultを作る(複数)
                     }
                 }
-                target = target.AddDays(1);
+                inputFrom = inputFrom.AddDays(1);
             }
         }
     }
