@@ -47,7 +47,7 @@ namespace jrascraping.Query
                 {
                     var raceCheck = context.RaceResults.SingleOrDefault(c =>
                         c.Date == result[i].Date &&
-                        c.Waku == result[i].Waku &&
+                        c.Num == result[i].Num &&
                         c.RaceName == result[i].RaceName &&
                         c.Place == result[i].Place
                     );
@@ -102,7 +102,8 @@ namespace jrascraping.Query
                     corner = string.Join(",",
                     Regex.Matches(ulul, "順位\\\">(?<number>.*?)\\</li\\>", RegexOptions.Singleline)
                         .Cast<Match>()
-                        .Select(match => match.Groups["number"].Value));
+                        .Select(match => match.Groups["number"].Value))
+                        .Replace("&nbsp;", "");
                 }
 
                 // 人気順位のNullチェック。競争除外はNullになるため、変数に100をセット。int.Parseの例外を回避する
