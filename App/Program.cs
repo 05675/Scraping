@@ -22,8 +22,8 @@ namespace jrascraping
             DbContext();
 
             // 1カ月単位で取得可能
-            DateTime inputFrom = new DateTime(2021, 4, 4);
-            DateTime inputTo = new DateTime(2021, 4, 25);
+            DateTime inputFrom = new DateTime(2021, 10, 9);
+            DateTime inputTo = new DateTime(2021, 10, 9);
             while (inputFrom <= inputTo)
             {
                 var html = new AccessSCodeMonthlyConvertor().FetchRaceResultPage(inputFrom);
@@ -33,8 +33,6 @@ namespace jrascraping
                 foreach (var venusCname in venusCnames)
                 {
                     //TODO: fromToの期間を設定。while内で日付を決める。
-
-
                     string sarchRaceResultHtml = new Downloder().GetRaceResultsHtml(venusCname);
                     var raceResultCNames = new RaceResultQuery().ParseRaceResultCNames(sarchRaceResultHtml);
 

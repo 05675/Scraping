@@ -5,16 +5,18 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jrascraping", "jrascraping.csproj", "{C8E06F65-B918-4830-AD96-6E0D22562690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JraTest", "..\UnitTest\JraTest\JraTest.csproj", "{FDC7470F-C7B7-4193-A919-913F96096445}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JraTest", "..\UnitTest\JraTest\JraTest.csproj", "{FDC7470F-C7B7-4193-A919-913F96096445}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C8E06F65-B918-4830-AD96-6E0D22562690} = {C8E06F65-B918-4830-AD96-6E0D22562690}
 		{E15AB7D1-DA0A-405C-9112-756D2B109A75} = {E15AB7D1-DA0A-405C-9112-756D2B109A75}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestJra", "..\XUnitTestJra\XUnitTestJra.csproj", "{E15AB7D1-DA0A-405C-9112-756D2B109A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestJra", "..\XUnitTestJra\XUnitTestJra.csproj", "{E15AB7D1-DA0A-405C-9112-756D2B109A75}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C8E06F65-B918-4830-AD96-6E0D22562690} = {C8E06F65-B918-4830-AD96-6E0D22562690}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "..\Api\Api.csproj", "{CD0658D5-84E3-43F0-BCB1-A887FB831959}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{E15AB7D1-DA0A-405C-9112-756D2B109A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E15AB7D1-DA0A-405C-9112-756D2B109A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E15AB7D1-DA0A-405C-9112-756D2B109A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0658D5-84E3-43F0-BCB1-A887FB831959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0658D5-84E3-43F0-BCB1-A887FB831959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0658D5-84E3-43F0-BCB1-A887FB831959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0658D5-84E3-43F0-BCB1-A887FB831959}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
